@@ -1,0 +1,124 @@
+@media (max-width: 1024px) {
+    .hero-title {
+        font-size: 3.5rem;
+    }
+
+    .projects-cards {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .get-started-content {
+        grid-template-columns: 1fr;
+    }
+
+    .projects-header h2::before,
+    .projects-header h2::after {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        position: fixed;
+        right: -100%; /* Changed from left to right */
+        top: 0; /* Changed from 70px to 0 */
+        height: 100vh; /* Full height */
+        gap: 0;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.8); /* Darker background */
+        -webkit-backdrop-filter: blur(30px) saturate(180%);
+        backdrop-filter: blur(30px) saturate(180%);
+        width: 70%; /* Partial width */
+        text-align: center;
+        transition: 0.3s;
+        justify-content: center; /* Center links vertically */
+    }
+
+    .nav-links.active {
+        right: 0; /* Changed from left to right */
+    }
+
+    .nav-links li {
+        padding: 1.5rem 0; /* Increased padding */
+    }
+
+    .dropdown-menu {
+        display: none; /* Hide dropdown on mobile */
+    }
+
+    .hamburger {
+        display: block;
+        z-index: 1001; /* Ensure hamburger is above the menu */
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+        background-color: var(--color-b); /* Lighter color for visibility */
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+        background-color: var(--color-b); /* Lighter color for visibility */
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+    }
+
+    .hero-stats {
+        gap: 1.5rem;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    .get-started-text h2 {
+        font-size: 2.5rem;
+    }
+
+    .projects-header h2 {
+        font-size: 2.5rem;
+    }
+
+    .hero-arrow {
+        width: 45px;
+        height: 45px;
+        font-size: 1.5rem;
+    }
+
+    .hero-arrow.left {
+        left: 1rem;
+    }
+
+    .hero-arrow.right {
+        right: 1rem;
+    }
+
+    .reviews-carousel {
+        overflow: hidden;
+        animation: none; /* Remove animation on mobile */
+    }
+
+    .review-card {
+        flex: 0 0 100%;
+        margin: 0;
+    }
+
+    .review-arrow {
+        display: flex; /* Show arrows on mobile */
+    }
+}
