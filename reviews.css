@@ -1,67 +1,88 @@
 /* Reviews Section */
 .reviews {
-    background: var(--color-d);
+    background: linear-gradient(135deg, var(--color-d) 0%, #6d7d16 100%);
     padding: 8rem 5%;
-    position: relative;
-    overflow: hidden;
+    text-align: center;
 }
 
 .reviews-header {
-    text-align: center;
-    margin-bottom: 5rem;
+    margin-bottom: 4rem;
 }
 
 .reviews-header h2 {
-    font-size: 4rem;
+    font-size: 3.5rem;
     color: var(--color-c);
-    margin-bottom: 1.5rem;
     font-weight: 800;
 }
 
-.reviews-carousel {
+/* New styles for review cards */
+.review-content {
+    flex-grow: 1;
     display: flex;
-    transition: transform 0.5s ease-in-out;
-}
-
-.review-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: none; /* Hide arrows by default */
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
-    color: var(--color-c);
-    transition: all 0.4s ease;
-    z-index: 20;
+    text-align: center;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    position: relative; /* Added for positioning the quote mark */
 }
 
-.review-arrow:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+.review-content .quote-mark {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 5rem;
+    color: var(--color-a);
+    opacity: 0.1;
+    line-height: 1;
 }
 
-.review-arrow.left {
-    left: 3rem;
+.review-content p {
+    font-family: "Lora", serif;
+    font-weight: 500;
+    font-size: 1.1rem;
+    z-index: 1; /* Ensure the text is above the quote mark */
 }
 
-.review-arrow.right {
-    right: 3rem;
+.review-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
 }
 
-.review-card {
-    background: var(--color-c);
-    border-radius: 20px;
-    padding: 2rem;
-    margin: 0 1.5rem;
-    min-width: 350px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-a);
+}
+
+.user-details {
+    text-align: left;
+}
+
+.user-name {
+    font-weight: bold;
+    font-size: 1rem;
+    color: var(--color-a);
+}
+
+.user-role {
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.review-rating {
+    font-size: 1.8rem;
+    color: var(--color-a);
+    letter-spacing: 2px;
 }

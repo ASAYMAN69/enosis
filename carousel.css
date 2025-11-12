@@ -1,0 +1,35 @@
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 320px; /* Adjusted height for bigger cards */
+    overflow: hidden;
+}
+.carousel-container.paused .carousel-item {
+    animation-play-state: paused;
+}
+.carousel-item {
+    position: absolute;
+    width: 380px; /* Increased width */
+    height: 250px; /* Increased height */
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1), height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    background: var(--color-b);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    color: var(--color-a);
+}
+/* Animation keyframes for continuous movement */
+@keyframes slideLeft {
+    0% { right: -400px; } /* Adjusted for new width + reduced gap */
+    100% { right: calc(100% + 400px); } /* Adjusted for new width + reduced gap */
+}
+.carousel-item {
+    animation-name: slideLeft;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
