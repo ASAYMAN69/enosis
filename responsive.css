@@ -3,6 +3,27 @@
         font-size: 3.5rem;
     }
 
+    .why-choose-us {
+        flex-direction: column;
+        text-align: center;
+        padding: clamp(2.5rem, 6vw, 4rem);
+    }
+
+    .why-choose-us-text {
+        padding-right: 0;
+        align-items: center;
+        text-align: center;
+        gap: 1.25rem;
+    }
+
+    .why-choose-us-text p {
+        max-width: none;
+    }
+
+    .why-choose-us-list {
+        justify-items: center;
+    }
+
     .projects-cards {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -68,6 +89,23 @@
 
     .hero-title {
         font-size: 2.5rem;
+    }
+
+    .why-choose-us {
+        padding: 2.5rem;
+        border-radius: 24px;
+    }
+
+    .why-choose-us-list {
+        gap: 0.85rem;
+    }
+
+    .why-choose-us-list li {
+        width: 100%;
+    }
+
+    .why-choose-us-image::before {
+        inset: 12%;
     }
 
     .hero-subtitle {

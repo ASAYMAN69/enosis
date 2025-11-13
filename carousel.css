@@ -33,3 +33,24 @@
     animation-timing-function: linear;
     animation-iteration-count: infinite;
 }
+
+@media (max-width: 640px) {
+    .carousel-container {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+        overflow: visible;
+    }
+
+    .carousel-item {
+        position: relative;
+        width: 100%;
+        max-width: 320px;
+        height: auto;
+        animation: none;
+        right: auto;
+        left: auto;
+    }
+}

@@ -1,9 +1,10 @@
 /* Get Started Section */
 .get-started {
-    background: var(--color-b);
+    background: linear-gradient(135deg, var(--color-d) 0%, #6d7d16 100%);
     padding: 8rem 5%;
     position: relative;
     overflow: hidden;
+    color: var(--color-c);
 }
 
 .get-started::before {
@@ -13,9 +14,10 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
-        radial-gradient(circle at 20% 50%, rgba(85, 107, 47, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 50%, rgba(143, 163, 30, 0.1) 0%, transparent 50%);
+    background:
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 55%),
+        radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.12) 0%, transparent 55%);
+    opacity: 0.9;
 }
 
 .get-started-content {
@@ -62,13 +64,18 @@
 }
 
 .get-started-text {
-    padding: 2rem;
+    padding: 2.5rem;
+    background: rgba(0, 0, 0, 0.32);
+    border-radius: 26px;
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     animation: slideInRight 1s ease;
 }
 
 .get-started-text h2 {
     font-size: 3.5rem;
-    color: var(--color-a);
+    color: var(--color-c);
     margin-bottom: 1.5rem;
     font-weight: 800;
     letter-spacing: -1px;
@@ -83,19 +90,19 @@
     left: 0;
     width: 60%;
     height: 4px;
-    background: linear-gradient(90deg, var(--color-a), var(--color-d));
+    background: linear-gradient(90deg, var(--color-c), var(--color-b));
     border-radius: 2px;
 }
 
 .get-started-text .price-line {
     font-size: 2.1rem;
-    color: #333;
+    color: rgba(255, 255, 255, 0.9);
     margin: 1rem 0;
     font-weight: 500;
 }
 
 .highlight {
-    background: linear-gradient(135deg, var(--color-a) 0%, var(--color-d) 100%);
+    background: linear-gradient(135deg, var(--color-c) 0%, var(--color-b) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -112,11 +119,20 @@
 
 .get-started-description {
     font-size: 1.1rem;
-    color: #555;
+    color: rgba(255, 255, 255, 0.86);
     margin: 2rem 0;
     line-height: 1.8;
 }
 
 .get-started-text .btn {
     margin-top: 2.5rem;
+}
+
+.get-started .btn-secondary {
+    color: var(--color-c);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.get-started .btn-secondary:hover {
+    border-color: transparent;
 }

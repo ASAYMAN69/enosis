@@ -1,11 +1,12 @@
 /* Hero Section */
 .hero {
     position: relative;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    padding-top: clamp(5.5rem, 7vw, 8rem);
 }
 
 .hero-slider {
@@ -53,6 +54,7 @@
     width: 100%;
     height: 100%;
     background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
+    pointer-events: none;
 }
 
 .hero-content {
@@ -196,31 +198,43 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
+    background: transparent;
+    border: none;
+    width: auto;
+    height: auto;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
+    font-size: clamp(3rem, 5vw, 4.5rem);
     color: var(--color-c);
     opacity: 0;
-    transition: all 0.4s ease;
+    transition: opacity 0.3s ease;
+    padding: 0 0.75rem;
+    text-shadow: 0 6px 18px rgba(0,0,0,0.6);
     z-index: 20;
+    pointer-events: none;
 }
 
-.hero:hover .hero-arrow {
+.hero-arrow:hover,
+.hero-arrow:focus-visible {
+    color: var(--color-b);
+}
+
+.hero-arrow:focus-visible {
+    outline: 2px solid var(--color-b);
+    outline-offset: 6px;
+}
+
+.hero-slider:hover ~ .hero-arrow,
+.hero-arrow:hover,
+.hero-arrow:focus-visible {
     opacity: 1;
+    pointer-events: auto;
 }
 
 .hero-arrow:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transform: translateY(-50%);
 }
 
 .hero-arrow.left {
