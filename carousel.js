@@ -1,150 +1,152 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize and setup when page loads
-    setupCarousel();
+    const track = document.getElementById('carouselTrack');
+    if (!track) return;
 
-    // Setup carousel functionality
-    function setupCarousel() {
-        const container = document.querySelector('.carousel-container');
-        
-        // Card data for mobile modal
-        const cardData = [
-            {
-                title: "John Doe",
-                subtitle: "Happy Homeowner",
-                description: "Working with Enosis was a dream come true. They were professional, transparent, and delivered our home on time. We couldn't be happier!",
-                badge: "Client Review"
-            },
-            {
-                title: "Jane Smith",
-                subtitle: "Proud Landowner",
-                description: "The team at Enosis is top-notch. They listened to our needs and built a home that exceeded our expectations. Highly recommended!",
-                badge: "Client Review"
-            },
-            {
-                title: "Mike Johnson",
-                subtitle: "Happy Investor",
-                description: "From start to finish, the process was seamless. Enosis made our dream home a reality, and we are forever grateful.",
-                badge: "Client Review"
-            },
-            {
-                title: "Emily Williams",
-                subtitle: "Happy Homeowner",
-                description: "Enosis is a name you can trust. Their commitment to quality and customer satisfaction is evident in everything they do.",
-                badge: "Client Review"
+    const isMobile = () => window.innerWidth <= 768;
+
+    // --- State variables ---
+    let currentIndex = 0;
+    let autoplayTimer = null;
+    let isDragging = false;
+    let startPos = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+    let velocity = 0;
+    let animationID = null;
+    const initialTrackHTML = track.innerHTML;
+
+    // --- Core Functions ---
+    function startAutoplay() {
+        stopAutoplay();
+        if (!isMobile()) return;
+        autoplayTimer = setInterval(() => {
+            if (!isDragging) {
+                let cardCount = track.children.length;
+                currentIndex = (currentIndex + 1) % cardCount;
+                moveToCard(currentIndex, true);
             }
-        ];
-
-        if (!container) return; // Exit if carousel container not found
-
-        container.innerHTML = ''; // Clear existing items
-
-        const animationDuration = 15;
-        const delayBetweenCards = animationDuration / cardData.length;
-
-        cardData.forEach((card, index) => {
-            const item = document.createElement('div');
-            item.className = `carousel-item item-${index + 1}`;
-            item.style.animationDuration = `${animationDuration}s`;
-            item.style.animationDelay = `-${index * delayBetweenCards}s`;
-
-            item.innerHTML = `
-                <img src="https://picsum.photos/seed/client${index + 1}/100/100" alt="${card.title}">
-                <div class="card-overlay">
-                    <div class="card-title">${card.title}</div>
-                    <div class="card-subtitle">${card.subtitle}</div>
-                    <div class="card-description">${card.description}</div>
-                </div>
-            `;
-            container.appendChild(item);
-        });
-        
-        const carouselItems = document.querySelectorAll('.carousel-item');
-
-        // Mobile touch detection
-        function isTouchDevice() {
-            return (('ontouchstart' in window) ||
-                    (navigator.maxTouchPoints > 0) ||
-                    (navigator.msMaxTouchPoints > 0));
-        }
-        
-        // Show mobile modal
-        function showMobileModal(cardIndex) {
-            const modal = document.getElementById('mobileModal');
-            const data = cardData[cardIndex];
-            
-            if (modal && data) {
-                const modalImage = document.getElementById('modalImage');
-                const modalTitle = document.getElementById('modalTitle');
-                const modalSubtitle = document.getElementById('modalSubtitle');
-                const modalDescription = document.getElementById('modalDescription');
-                const modalBadge = document.getElementById('modalBadge');
-                
-                if (modalImage) modalImage.src = 'https://i.postimg.cc/fT5DRrLB/Screenshot-2025-05-29-154245.png';
-                if (modalTitle) modalTitle.textContent = data.title;
-                if (modalSubtitle) modalSubtitle.textContent = data.subtitle;
-                if (modalDescription) modalDescription.textContent = data.description;
-                if (modalBadge) modalBadge.textContent = data.badge;
-                
-                modal.classList.add('show');
-                document.body.style.overflow = 'hidden';
-            }
-        }
-        
-        // Hide mobile modal
-        function hideMobileModal() {
-            const modal = document.getElementById('mobileModal');
-            if (modal) {
-                modal.classList.remove('show');
-                document.body.style.overflow = 'auto';
-            }
-        }
-        
-        // Add hover effects for desktop
-        if (!isTouchDevice()) {
-            carouselItems.forEach((item, index) => {
-                item.addEventListener('mouseenter', () => {
-                    // Add paused class to container when any card is hovered
-                    container.classList.add('paused');
-                });
-                
-                item.addEventListener('mouseleave', () => {
-                    // Remove paused class from container when card is no longer hovered
-                    container.classList.remove('paused');
-                });
-            });
-        }
-        
-        // Touch/click events for mobile
-        carouselItems.forEach((item, index) => {
-            item.addEventListener('click', (e) => {
-                if (isTouchDevice()) {
-                    e.preventDefault();
-                    showMobileModal(index);
-                }
-            });
-        });
-        
-        // Modal close events - with null checks
-        const modalClose = document.getElementById('modalClose');
-        const mobileModal = document.getElementById('mobileModal');
-        
-        if (modalClose) {
-            modalClose.addEventListener('click', hideMobileModal);
-        }
-        
-        if (mobileModal) {
-            mobileModal.addEventListener('click', (e) => {
-                if (e.target.id === 'mobileModal') {
-                    hideMobileModal();
-                }
-            });
-        }
-        
-        // Escape key to close modal
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                hideMobileModal();
-            }
-        });
+        }, 2500);
     }
+
+    function stopAutoplay() {
+        clearInterval(autoplayTimer);
+        autoplayTimer = null;
+    }
+
+    function moveToCard(index, smooth = false) {
+        const card = track.children[index];
+        if (!card) return;
+        const cardWidth = card.offsetWidth;
+        const gap = 20;
+        const offset = index * (cardWidth + gap);
+        
+        currentTranslate = -offset;
+        
+        if (smooth) {
+            track.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        } else {
+            track.style.transition = 'transform 0.3s ease-out';
+        }
+        
+        track.style.transform = `translateX(${currentTranslate}px)`;
+    }
+
+    // --- Event Handlers for mobile drag (from ignore.html) ---
+    function touchStart(e) {
+        if (!isMobile()) return;
+        stopAutoplay();
+        isDragging = true;
+        startPos = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+        prevTranslate = currentTranslate; // Capture position at drag start
+        track.classList.add('grabbing');
+        track.style.transition = 'none';
+        velocity = 0;
+        cancelAnimationFrame(animationID);
+    }
+
+    function touchMove(e) {
+        if (!isDragging || !isMobile()) return;
+        e.preventDefault();
+        const currentPosition = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+        const diff = currentPosition - startPos;
+        
+        // This is the original velocity calculation from ignore.html
+        velocity = diff - (currentTranslate - prevTranslate);
+        currentTranslate = prevTranslate + diff;
+        
+        track.style.transform = `translateX(${currentTranslate}px)`;
+    }
+
+    function touchEnd() {
+        if (!isDragging || !isMobile()) return;
+        isDragging = false;
+        track.classList.remove('grabbing');
+        
+        const animate = () => {
+            if (Math.abs(velocity) > 0.5 && !isDragging) {
+                currentTranslate += velocity;
+                velocity *= 0.95; // Friction
+                track.style.transform = `translateX(${currentTranslate}px)`;
+                animationID = requestAnimationFrame(animate);
+            } else if (!isDragging) {
+                snapToClosest();
+            }
+        };
+        animate();
+    }
+
+    function snapToClosest() {
+        cancelAnimationFrame(animationID);
+        const cardWidth = track.children[0].offsetWidth;
+        const gap = 20;
+        const cardSpacing = cardWidth + gap;
+        
+        const index = Math.round(-currentTranslate / cardSpacing);
+        currentIndex = Math.max(0, Math.min(index, track.children.length - 1));
+        
+        moveToCard(currentIndex, true);
+        
+        setTimeout(startAutoplay, 500);
+    }
+
+    // --- Setup and Listeners ---
+    function setupCarousel() {
+        stopAutoplay();
+        cancelAnimationFrame(animationID);
+        track.style.transition = 'none';
+        track.style.animation = '';
+
+        if (isMobile()) {
+            if (track.children.length > 4) {
+                track.innerHTML = initialTrackHTML;
+            }
+            moveToCard(currentIndex);
+            startAutoplay();
+        } else {
+            track.innerHTML = initialTrackHTML;
+            const cards = track.querySelectorAll('.testimonial-card');
+            cards.forEach(card => {
+                const clone = card.cloneNode(true);
+                track.appendChild(clone);
+            });
+            track.style.transform = 'translateX(0)';
+        }
+    }
+
+    track.addEventListener('mousedown', touchStart);
+    track.addEventListener('touchstart', touchStart, { passive: false });
+    track.addEventListener('mousemove', touchMove);
+    track.addEventListener('touchmove', touchMove, { passive: false });
+    track.addEventListener('mouseup', touchEnd);
+    track.addEventListener('touchend', touchEnd);
+    track.addEventListener('mouseleave', touchEnd);
+    track.addEventListener('contextmenu', e => e.preventDefault());
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(setupCarousel, 250);
+    });
+
+    setupCarousel();
 });
