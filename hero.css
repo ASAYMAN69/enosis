@@ -5,8 +5,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
     padding-top: clamp(5.5rem, 7vw, 8rem);
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .hero-slider {
@@ -137,6 +138,9 @@
     flex-wrap: wrap;
     opacity: 0;
     animation: fadeInUp 1s ease 1.5s both;
+    position: sticky;
+    bottom: 2rem;
+    z-index: 11;
 }
 
 .btn {
