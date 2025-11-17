@@ -54,6 +54,7 @@
         text-align: center;
         transition: 0.3s;
         justify-content: center; /* Center links vertically */
+        z-index: 1001;
     }
 
     .nav-links.active {

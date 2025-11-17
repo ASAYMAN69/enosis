@@ -32,7 +32,7 @@
         display: flex;
         gap: 30px;
         animation: scroll-left linear infinite;
-        animation-duration: 35s;
+        animation-duration: 15s;
     }
 
     .carousel-container:hover .carousel-track {
