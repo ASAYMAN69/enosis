@@ -1,0 +1,26 @@
+:root {
+    --primary-green: #2ecc71;
+    --dark-green: #27ae60;
+    --darker-green: #1e8449;
+    --light-green: #a3d9a5;
+    --white: #ffffff;
+    --light-gray: #f8f9fa;
+    --dark-gray: #34495e;
+    --text-dark: #2c3e50;
+    --shadow: 0 5px 15px rgba(0,0,0,0.08);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--light-gray);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+}

@@ -1,0 +1,156 @@
+.vision-mission {
+    padding: 6rem 5%;
+    background-color: var(--color-a); /* Changed back to dark green */
+    position: relative;
+}
+
+.vm-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.vm-content {
+    flex: 1;
+    min-width: 300px;
+}
+
+.vm-content h3 {
+    color: var(--color-c); /* Changed to white for readability on dark green background */
+    margin-bottom: 1.8rem;
+    font-size: 1.9rem;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.vm-content h3:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background-color: var(--color-d);
+    border-radius: 2px;
+}
+
+.vm-content p {
+    margin-bottom: 1.8rem;
+    color: var(--color-c); /* Changed to white for readability on dark green background */
+    font-size: 1.1rem;
+}
+
+.graph-container {
+    flex: 1;
+    min-width: 300px;
+    background-color: var(--color-c); /* Changed to white */
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.graph-container:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, var(--color-d), var(--color-a));
+}
+
+.graph {
+    width: 100%;
+    height: 350px;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px) 0 0;
+    background-size: 25px 25px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.graph-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.graph-path {
+    stroke: var(--color-d);
+    stroke-width: 4;
+    fill: none;
+    stroke-dasharray: 0;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.5s ease-in-out;
+}
+
+.graph-path.animate {
+    stroke-dashoffset: 0;
+}
+
+.graph-point {
+    fill: var(--color-d);
+    stroke: var(--color-a); /* Changed to dark green for visibility on white background */
+    stroke-width: 3;
+    r: 8;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.graph-point.animate {
+    opacity: 1;
+}
+
+.graph-label {
+    position: absolute;
+    font-size: 0.85rem;
+    color: #333; /* Changed to dark gray for readability on white background */
+    font-weight: 500;
+}
+
+.graph-label-x {
+    bottom: -25px;
+    transform: translateX(-50%);
+}
+
+.graph-label-y {
+    left: -35px;
+    transform: translateY(-50%) rotate(-90deg);
+    white-space: nowrap;
+}
+
+/* Staggered animation for vm-content and graph-container */
+.vm-animated {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+
+.vision-mission.animated .vm-animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.vision-mission.animated .vm-animated:nth-child(1) { /* For vm-content */
+    transition-delay: 0.1s;
+}
+
+.vision-mission.animated .vm-animated:nth-child(2) { /* For graph-container */
+    transition-delay: 0.3s;
+}
+
+.vision-mission .section-title {
+    color: var(--color-c); /* White text for dark green background */
+}

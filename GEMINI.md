@@ -15,3 +15,6 @@
 - **`hero.css`**: Added `overflow-x: hidden` to the `.hero` section to prevent horizontal overflow.
 - **`global.css`**: Changed `overflow-x: hidden` to `overflow-x: clip` on the `body` to prevent horizontal scrolling.
 - **`hero.css`**: Added `overflow-y: hidden` to the `.hero` section to remove the vertical scrollbar.
+- **`body.404.css`**: Updated the styles for the 404 page to make it responsive, add a background pattern, and fix the positioning of the animated graphic.
+- **`404.html`**: Replaced the animated crane graphic with a stop sign SVG.
+- **`body.404.css`**: Removed the old crane animation styles and added styles for the new stop sign SVG.

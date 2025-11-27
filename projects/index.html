@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Projects - Enosis Real Estate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="../navbar.css">
+    <link rel="stylesheet" href="../responsive.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/projects.css">
+    <link rel="stylesheet" href="css/part-of.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/buttons.css">
+</head>
+<body>
+        <!-- Navbar -->
+        <nav id="navbar">
+            <div class="nav-content">
+                            <div class="nav-brand">
+                                <img src="../enosis.png" alt="Enosis Logo" class="nav-logo">
+                                <div class="nav-name">Enosis</div>
+                            </div>
+                            <button class="hamburger">
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                            </button>
+                            <ul class="nav-links">                    <li><a href="/">Home</a></li>
+                    <li><a href="/about-us">About Us</a></li>
+                    <li><a href="/projects">Projects</a></li>
+                    <li><a href="/gallery">Gallery</a></li>
+                    <li><a href="/contact-us">Contact Us</a></li>
+                </ul>
+            </div>
+        </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Our Exclusive Projects</h1>
+            <p>Discover our portfolio of premium residential and commercial properties, each designed with excellence and attention to detail.</p>
+            <div class="hero-btns">
+                <button class="btn btn-solid btn-hero">Explore Projects</button>
+                <button class="btn btn-outline btn-hero">Schedule Visit</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects">
+        <h2 class="section-title">Our Projects</h2>
+        
+        <!-- Filter Tabs -->
+        <div class="filter-tabs">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+            <button class="filter-btn" data-filter="ongoing">Ongoing</button>
+            <button class="filter-btn" data-filter="completed">Completed</button>
+        </div>
+        
+        <!-- Projects Grid -->
+        <div class="projects-grid">
+            <!-- Project 1 -->
+            <div class="project-card" data-category="ongoing">
+                <div class="project-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                <div class="project-badge badge-ongoing">Ongoing</div>
+                <div class="project-content">
+                    <h3 class="project-name">Green Valley Residences</h3>
+                    <div class="project-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Dhaka, Bangladesh</span>
+                    </div>
+                    <p>Modern luxury apartments with eco-friendly features and premium amenities.</p>
+                    <div class="project-price">Starting from ৳ 25,00,000</div>
+                    <div class="project-meta">
+                        <span><i class="fas fa-bed"></i> 3 Bedrooms</span>
+                        <span><i class="fas fa-ruler-combined"></i> 1,800 sqft</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 2 -->
+            <div class="project-card" data-category="completed">
+                <div class="project-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                <div class="project-badge badge-completed">Completed</div>
+                <div class="project-content">
+                    <h3 class="project-name">Skyline Towers</h3>
+                    <div class="project-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Chittagong, Bangladesh</span>
+                    </div>
+                    <p>Stunning high-rise apartments with panoramic city views and premium finishes.</p>
+                    <div class="project-price">Starting from ৳ 32,00,000</div>
+                    <div class="project-meta">
+                        <span><i class="fas fa-bed"></i> 2 Bedrooms</span>
+                        <span><i class="fas fa-ruler-combined"></i> 1,400 sqft</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 3 -->
+            <div class="project-card" data-category="upcoming">
+                <div class="project-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                <div class="project-badge badge-upcoming">Upcoming</div>
+                <div class="project-content">
+                    <h3 class="project-name">Heritage Gardens</h3>
+                    <div class="project-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Sylhet, Bangladesh</span>
+                    </div>
+                    <p>Exclusive villas with traditional architecture and modern comforts in a gated community.</p>
+                    <div class="project-price">Starting from ৳ 45,00,000</div>
+                    <div class="project-meta">
+                        <span><i class="fas fa-bed"></i> 4 Bedrooms</span>
+                        <span><i class="fas fa-ruler-combined"></i> 2,500 sqft</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 4 -->
+            <div class="project-card" data-category="ongoing">
+                <div class="project-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                <div class="project-badge badge-ongoing">Ongoing</div>
+                <div class="project-content">
+                    <h3 class="project-name">Riverside Retreat</h3>
+                    <div class="project-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Rajshahi, Bangladesh</span>
+                    </div>
+                    <p>Waterfront properties with stunning river views and resort-style amenities.</p>
+                    <div class="project-price">Starting from ৳ 38,00,000</div>
+                    <div class="project-meta">
+                        <span><i class="fas fa-bed"></i> 5 Bedrooms</span>
+                        <span><i class="fas fa-ruler-combined"></i> 3,200 sqft</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 5 -->
+            <div class="project-card" data-category="completed">
+                <div class="project-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                <div class="project-badge badge-completed">Completed</div>
+                <div class="project-content">
+                    <h3 class="project-name">Urban Oasis</h3>
+                    <div class="project-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Khulna, Bangladesh</span>
+                    </div>
+                    <p>Modern residential complex with sustainable features and smart home technology.</p>
+                    <div class="project-price">Starting from ৳ 28,00,000</div>
+                    <div class="project-meta">
+                        <span><i class="fas fa-bed"></i> 3 Bedrooms</span>
+                        <span><i class="fas fa-ruler-combined"></i> 1,600 sqft</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 6 -->
+            <div class="project-card" data-category="upcoming">
+                <div class="project-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1512917774343-3f8a795b62c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                <div class="project-badge badge-upcoming">Upcoming</div>
+                <div class="project-content">
+                    <h3 class="project-name">Lakeside Manor</h3>
+                    <div class="project-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Comilla, Bangladesh</span>
+                    </div>
+                    <p>Luxury lakeside homes with private access to water activities and recreation.</p>
+                    <div class="project-price">Starting from ৳ 52,00,000</div>
+                    <div class="project-meta">
+                        <span><i class="fas fa-bed"></i> 6 Bedrooms</span>
+                        <span><i class="fas fa-ruler-combined"></i> 4,000 sqft</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Be Part of Section -->
+    <section class="part-of">
+        <h2 class="section-title">Be a Part of Our Projects</h2>
+        <div class="part-of-container">
+            <div class="part-of-content">
+                <h3>Join Our Exclusive Community</h3>
+                <p>At Enosis Real Estate, we believe in creating more than just properties - we build communities. Our projects are designed with the future in mind, incorporating sustainable practices, smart technology, and world-class amenities.</p>
+                <p>Whether you're looking for a new home, an investment opportunity, or a commercial space, we have the perfect project for you. Our team of experts will guide you through every step of the process, ensuring a seamless experience.</p>
+                <p>Join hundreds of satisfied clients who have made their dream of owning premium property a reality with us.</p>
+                <button class="btn btn-solid">Contact Us Today</button>
+            </div>
+            <div class="part-of-image">
+                <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Be Part of Our Projects">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <div class="footer-logo">
+                    <div class="footer-logo-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="footer-logo-text">ENOSIS</div>
+                </div>
+                <p>Creating exceptional real estate experiences with integrity, innovation, and client-focused service.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Services</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Agents</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Our Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Property Sales</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Property Rentals</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Property Management</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Investment Consulting</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Real Estate Development</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Property Valuation</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul class="contact-info-footer">
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>123 Real Estate Blvd, Suite 100<br>New York, NY 10001</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <span>(555) 123-4567</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <span>info@enosisrealestate.com</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-clock"></i>
+                        <span>Mon-Fri: 9AM - 6PM<br>Sat: 10AM - 4PM</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Enosis Real Estate. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Enhanced Consultation Button -->
+    <button class="consultation-btn">
+        <i class="fas fa-comments"></i> Get Free Consultation
+    </button>
+    
+    <!-- Credit -->
+    <div class="credit">
+        Designed and developed by solven.app
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>

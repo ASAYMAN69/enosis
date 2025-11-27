@@ -1,0 +1,162 @@
+.not-found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #000; /* Black background */
+    background-image:
+      linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.05) 75%, rgba(255, 255, 255, 0.05) 100%),
+      linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.05) 75%, rgba(255, 255, 255, 0.05) 100%);
+    background-size: 20px 20px; /* Adjust size for desired subtlety */
+    color: var(--color-c);
+    padding: 5rem;
+}
+
+.not-found-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.not-found-text {
+    text-align: left;
+    z-index: 1;
+}
+
+.glitch {
+    font-size: 10rem;
+    font-weight: 800;
+    line-height: 1;
+    position: relative;
+    color: var(--color-a);
+    animation: glitch-anim 2.5s infinite;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    overflow: hidden;
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--color-d);
+    animation: glitch-anim-2 2.5s infinite;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 var(--color-b), 2px 2px var(--color-d);
+    animation: glitch-anim-1 2.5s infinite;
+}
+
+.not-found-text h2 {
+    font-size: 2.5rem;
+    color: var(--color-c);
+    margin: 0.5rem 0 1.5rem;
+    font-weight: 700;
+}
+
+.not-found-text p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    max-width: 45ch;
+}
+
+.not-found-graphic {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.not-found-graphic .bi-sign-stop {
+    width: 250px;
+    height: 250px;
+    color: var(--color-a);
+}
+
+.btn {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-a) 0%, var(--color-d) 100%);
+    color: var(--color-c);
+}
+
+
+/* Animations */
+@keyframes glitch-anim {
+    0% { transform: translate(0); }
+    20% { transform: translate(-5px, 5px); }
+    40% { transform: translate(-5px, -5px); }
+    60% { transform: translate(5px, 5px); }
+    80% { transform: translate(5px, -5px); }
+    100% { transform: translate(0); }
+}
+
+@keyframes glitch-anim-1 {
+    0% { clip-path: inset(10% 0 80% 0); }
+    20% { clip-path: inset(80% 0 5% 0); }
+    40% { clip-path: inset(45% 0 45% 0); }
+    60% { clip-path: inset(15% 0 75% 0); }
+    80% { clip-path: inset(70% 0 20% 0); }
+    100% { clip-path: inset(40% 0 50% 0); }
+}
+
+@keyframes glitch-anim-2 {
+    0% { clip-path: inset(85% 0 5% 0); }
+    20% { clip-path: inset(15% 0 75% 0); }
+    40% { clip-path: inset(60% 0 30% 0); }
+    60% { clip-path: inset(30% 0 60% 0); }
+    80% { clip-path: inset(90% 0 2% 0); }
+    100% { clip-path: inset(55% 0 35% 0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .not-found-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+    .not-found-text {
+        text-align: center;
+    }
+    .not-found-graphic {
+        margin-top: 0;
+    }
+    .not-found-graphic .bi-sign-stop {
+        width: 150px;
+        height: 150px;
+    }
+    .glitch {
+        font-size: 6rem;
+    }
+    .not-found-text h2 {
+        font-size: 1.8rem;
+    }
+    .not-found-text p {
+        font-size: 1rem;
+        max-width: 100%;
+    }
+}

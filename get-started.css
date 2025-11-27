@@ -109,12 +109,14 @@
     font-family: 'Cinzel', serif;
     font-weight: 700;
     font-size: 3.5rem;
+    white-space: nowrap; /* Added to prevent breaking */
 }
 
 .month-text {
     font-family: 'Cinzel', serif;
     font-size: 1.5rem;
     font-weight: 500;
+    margin-left: 0.5rem; /* Added to push it right */
 }
 
 .get-started-description {

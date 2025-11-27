@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Interactive Card</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+        }
+
+        .property-card {
+            width: 350px;
+            height: 450px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            background-color: #fff;
+        }
+
+        .property-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 60%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .property-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .property-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .card-content {
+            padding: 20px;
+            position: relative;
+            height: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .property-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .property-address {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .property-features {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            color: #34495e;
+            font-size: 0.9rem;
+        }
+
+        .feature i {
+            margin-right: 5px;
+            color: #3498db;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #ecf0f1;
+        }
+
+        .agent-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .agent-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background-color: #3498db;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .agent-name {
+            font-size: 0.9rem;
+            color: #2c3e50;
+        }
+
+        .view-details {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+        }
+
+        .view-details:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(37, 117, 252, 0.3);
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 62, 80, 0.9);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            text-align: center;
+        }
+
+        .property-card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .overlay-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .property-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            color: #ecf0f1;
+        }
+
+        .property-stats {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #bdc3c7;
+        }
+
+        .contact-btn {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            background: white;
+            color: #2c3e50;
+        }
+
+        /* Icon styles */
+        .icon-bed:before { content: "🛏️"; }
+        .icon-bath:before { content: "🚿"; }
+        .icon-size:before { content: "📐"; }
+    </style>
+</head>
+<body>
+    <div class="property-card">
+        <div class="property-badge">FOR SALE</div>
+        <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Modern Luxury Home">
+        </div>
+        <div class="card-content">
+            <div>
+                <div class="property-price">$749,000</div>
+                <div class="property-address">123 Luxury Lane, Beverly Hills, CA</div>
+                <div class="property-features">
+                    <div class="feature">
+                        <i class="icon-bed"></i> 4 Beds
+                    </div>
+                    <div class="feature">
+                        <i class="icon-bath"></i> 3 Baths
+                    </div>
+                    <div class="feature">
+                        <i class="icon-size"></i> 3,200 sqft
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="agent-info">
+                    <div class="agent-avatar">JD</div>
+                    <div class="agent-name">John Doe</div>
+                </div>
+                <button class="view-details">View Details</button>
+            </div>
+        </div>
+        
+        <!-- Overlay that appears on hover -->
+        <div class="card-overlay">
+            <h3 class="overlay-title">Modern Luxury Estate</h3>
+            <p class="property-description">This stunning modern home features an open floor plan, high-end finishes, and panoramic city views. Perfect for entertaining with its gourmet kitchen and spacious outdoor area.</p>
+            <div class="property-stats">
+                <div class="stat">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">Bedrooms</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">3.5</div>
+                    <div class="stat-label">Bathrooms</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">2</div>
+                    <div class="stat-label">Garage</div>
+                </div>
+            </div>
+            <button class="contact-btn">Contact Agent</button>
+        </div>
+    </div>
+
+    <script>
+        // Add interactive functionality
+        document.querySelector('.view-details').addEventListener('click', function(e) {
+            e.stopPropagation();
+            alert('Property details would be shown here in a real implementation.');
+        });
+
+        document.querySelector('.contact-btn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            alert('Contact form would open here in a real implementation.');
+        });
+
+        // Add slight rotation on hover for more dynamic effect
+        const card = document.querySelector('.property-card');
+        
+        card.addEventListener('mousemove', (e) => {
+            const cardRect = card.getBoundingClientRect();
+            const cardCenterX = cardRect.left + cardRect.width / 2;
+            const cardCenterY = cardRect.top + cardRect.height / 2;
+            
+            const mouseX = e.clientX - cardCenterX;
+            const mouseY = e.clientY - cardCenterY;
+            
+            const rotateY = mouseX / 20;
+            const rotateX = -mouseY / 20;
+            
+            card.style.transform = `translateY(-15px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(-15px) rotateX(0) rotateY(0)';
+        });
+    </script>
+</body>
+</html>

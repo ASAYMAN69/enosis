@@ -120,7 +120,7 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    display: block;
+    display: inline-block;
     margin-bottom: 0.5rem;
 }
 
@@ -128,7 +128,8 @@
     font-size: 0.95rem;
     color: var(--color-b);
     font-weight: 500;
-    letter-spacing: 1px;
+    letter-spacing: 2px; /* Increased from 1px to 2px */
+    text-transform: uppercase; /* Added */
 }
 
 .hero-buttons {

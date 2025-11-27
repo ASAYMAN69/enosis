@@ -1,0 +1,151 @@
+/* Projects Section */
+.projects {
+    padding: 6rem 5%;
+    background-color: var(--white);
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--darker-green);
+    position: relative;
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+.section-title:after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 5px;
+    background: linear-gradient(to right, var(--primary-green), var(--dark-green));
+    border-radius: 3px;
+}
+
+/* Filter Tabs */
+.filter-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 0.8rem 1.8rem;
+    background-color: var(--light-gray);
+    border: 2px solid #e0e0e0;
+    border-radius: 30px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--dark-gray);
+}
+
+.filter-btn.active, 
+.filter-btn:hover {
+    background-color: var(--primary-green);
+    color: var(--white);
+    border-color: var(--primary-green);
+}
+
+/* Projects Grid */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.project-card {
+    background: linear-gradient(135deg, var(--white), #f0f9f1);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    position: relative;
+    border: 1px solid rgba(46, 204, 113, 0.1);
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.project-img {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.project-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.badge-upcoming {
+    background-color: #f39c12;
+    color: var(--white);
+}
+
+.badge-ongoing {
+    background-color: #3498db;
+    color: var(--white);
+}
+
+.badge-completed {
+    background-color: #2ecc71;
+    color: var(--white);
+}
+
+.project-content {
+    padding: 1.8rem;
+}
+
+.project-name {
+    font-size: 1.4rem;
+    color: var(--darker-green);
+    margin-bottom: 0.5rem;
+}
+
+.project-location {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--dark-gray);
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.project-price {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-green);
+    margin-top: 0.5rem;
+}
+
+.project-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.project-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--dark-gray);
+    font-size: 0.9rem;
+}

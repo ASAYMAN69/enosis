@@ -1,0 +1,55 @@
+.btn {
+    padding: 0.7rem 1.8rem;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+    font-size: 0.95rem;
+}
+
+.btn-outline {
+    border: 2px solid var(--color-d); /* Changed from var(--primary-green) */
+    color: var(--color-d); /* Changed from var(--primary-green) */
+    background: transparent;
+}
+
+.btn-outline:hover {
+    background-color: var(--color-d); /* Changed from var(--primary-green) */
+    color: var(--color-c); /* Changed from var(--white) */
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(143, 163, 30, 0.3); /* Changed from rgba(46, 204, 113, 0.3) */
+}
+
+.btn-solid {
+    background-color: var(--color-d); /* Changed from var(--primary-green) */
+    color: var(--color-c); /* Changed from var(--white) */
+    border: 2px solid var(--color-d); /* Changed from var(--primary-green) */
+}
+
+.btn-solid:hover {
+    background-color: var(--color-a); /* Changed from var(--dark-green) */
+    border-color: var(--color-a); /* Changed from var(--dark-green) */
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(143, 163, 30, 0.4); /* Changed from rgba(46, 204, 113, 0.4) */
+}
+.consultation-btn {
+    background: linear-gradient(135deg, var(--color-d), var(--color-a)); /* Changed from var(--primary-green), var(--dark-green) */
+    color: var(--color-c); /* Changed from var(--white) */
+    border: none;
+    border-radius: 50px;
+    padding: 1.2rem 2.2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(143, 163, 30, 0.4); /* Changed from rgba(46, 204, 113, 0.4) */
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.consultation-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(143, 163, 30, 0.6); /* Changed from rgba(46, 204, 113, 0.6) */
+}

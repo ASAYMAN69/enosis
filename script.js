@@ -126,3 +126,73 @@ document.addEventListener('click', (e) => {
 
 
 });
+
+// Set active navigation link based on current page
+function setActiveNavLink() {
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const currentPath = window.location.pathname;
+
+    navLinks.forEach(link => {
+        link.classList.remove('active'); // Remove active from all links first
+
+        let linkPath = link.getAttribute('href');
+
+        // Handle the "Home" link specifically
+        if (linkPath === '/') {
+            if (currentPath === '/' || currentPath === '/index.html') {
+                link.classList.add('active');
+                if (currentPath === '/' || currentPath === '/index.html') {
+                    // Prevent navigation if already on home page and clicking home
+                    link.addEventListener('click', function(e) {
+                        if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+                            e.preventDefault();
+                        }
+                    });
+                }
+            }
+        } else if (currentPath.startsWith(linkPath) && linkPath !== '/') {
+            link.classList.add('active');
+        }
+    });
+}
+
+// Call setActiveNavLink on page load
+document.addEventListener('DOMContentLoaded', setActiveNavLink);
+
+// Also call it on hashchange or popstate if needed (for SPA-like behavior)
+window.addEventListener('hashchange', setActiveNavLink);
+window.addEventListener('popstate', setActiveNavLink);
+
+// Counter animation
+const counters = document.querySelectorAll('.stat-number'); // Targeted specifically to hero section
+const speed = 50;
+
+const animateCounter = (counter) => {
+    const target = +counter.getAttribute('data-target');
+    const increment = target / speed;
+    let count = 0;
+
+    const updateCount = () => {
+        count += increment;
+        if (count < target) {
+            counter.innerText = Math.ceil(count);
+            setTimeout(updateCount, 10);
+        } else {
+            counter.innerText = target;
+        }
+    };
+    updateCount();
+};
+
+// Intersection Observer for counter animation
+const statsObserver = new IntersectionObserver((entries) => { // Renamed for clarity
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const counter = entry.target;
+            animateCounter(counter);
+            statsObserver.unobserve(counter); // Stop observing once animated
+        }
+    });
+}, { threshold: 0.5 }); // Trigger when 50% of the element is visible
+
+counters.forEach(counter => statsObserver.observe(counter));
