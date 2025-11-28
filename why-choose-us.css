@@ -137,6 +137,115 @@
     border-radius: 26px;
     object-fit: cover;
     box-shadow: 0 25px 45px rgba(0, 0, 0, 0.25);
-    border: 1px solid rgba(143, 163, 30, 0.35);
     z-index: 1;
+}
+
+/* Responsive adjustments for Why Choose Us section */
+@media (max-width: 992px) {
+    .why-choose-us {
+        flex-direction: column; /* Stack content vertically */
+        padding: clamp(3rem, 5vw, 4rem);
+        text-align: center;
+    }
+
+    .why-choose-us-text {
+        padding-right: 0;
+        margin-bottom: 2rem;
+    }
+
+    .why-choose-us-text h2 {
+        font-size: clamp(2.2rem, 3.5vw, 3rem);
+    }
+
+    .why-choose-us-text p {
+        max-width: 70ch;
+        margin: 0 auto 1.5rem auto;
+        font-size: clamp(1rem, 1.8vw, 1.1rem);
+    }
+
+    .why-choose-us-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    .why-choose-us-list li {
+        width: 100%;
+        max-width: 500px; /* Limit width for stacked list items */
+        font-size: 0.95rem;
+        padding: 0.8rem 1rem;
+    }
+
+    .why-choose-us-list li::before {
+        flex: 0 0 36px;
+        height: 36px;
+    }
+
+    .why-choose-us-list li::after {
+        left: calc(1rem + 18px);
+        width: 10px;
+        height: 18px;
+        border-right: 3px solid rgba(255, 255, 255, 0.96);
+        border-bottom: 3px solid rgba(255, 255, 255, 0.96);
+    }
+
+    .why-choose-us-image {
+        padding: 0;
+        margin-top: 2rem;
+    }
+
+    .why-choose-us-image img {
+        width: 80%; /* Adjust image size for stacked layout */
+    }
+}
+
+@media (max-width: 768px) {
+    .why-choose-us {
+        padding: clamp(2.5rem, 4vw, 3.5rem);
+    }
+
+    .why-choose-us-text h2 {
+        font-size: clamp(2rem, 3vw, 2.8rem);
+    }
+
+    .why-choose-us-text p {
+        font-size: clamp(0.95rem, 1.6vw, 1rem);
+        margin-bottom: 1rem;
+    }
+
+    .why-choose-us-list li {
+        font-size: 0.9rem;
+        padding: 0.7rem 0.8rem;
+    }
+
+    .why-choose-us-image img {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .why-choose-us-text h2 {
+        font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+    }
+
+    .why-choose-us-list li {
+        font-size: 0.85rem;
+        padding: 0.6rem 0.7rem;
+    }
+
+    .why-choose-us-list li::before {
+        flex: 0 0 30px;
+        height: 30px;
+    }
+
+    .why-choose-us-list li::after {
+        left: calc(0.7rem + 15px);
+        width: 8px;
+        height: 15px;
+    }
+
+    .why-choose-us-image img {
+        width: 100%;
+    }
 }

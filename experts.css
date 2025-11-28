@@ -53,52 +53,72 @@
     margin-bottom: 2.5rem;
 }
 
-@media (max-width: 768px) {
+/* Responsive adjustments for Experts section */
+@media (max-width: 992px) {
     .experts {
-        position: relative;
-        padding: 6rem 2rem; /* Adjusted padding */
+        padding: 6rem 3%;
     }
 
     .experts-container {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .experts-image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        border-radius: 0; /* Remove border-radius for full-bleed */
-    }
-
-    .experts-image::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7); /* Dark overlay */
-    }
-
-    .experts-text-content {
-        position: relative;
-        z-index: 1;
+        grid-template-columns: 1fr; /* Stack content vertically */
+        gap: 3rem;
         text-align: center;
     }
 
-    .experts h2 {
-        color: var(--color-c);
+    .experts-text-content {
+        order: 2; /* Put text below image on smaller screens */
     }
 
-    .experts h2 .highlight-word {
-        background-color: var(--color-a);
+    .experts-image {
+        order: 1; /* Put image above text on smaller screens */
+        height: 350px; /* Adjust height for smaller screens */
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    .experts h2 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
     }
 
     .experts p {
-        color: var(--color-b);
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .experts {
+        padding: 4rem 3%;
+    }
+
+    .experts-image {
+        height: 280px;
+    }
+
+    .experts h2 {
+        font-size: 2.5rem;
+    }
+
+    .experts p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .experts-image {
+        height: 220px;
+    }
+
+    .experts h2 {
+        font-size: 2.2rem;
+    }
+
+    .experts p {
+        font-size: 0.95rem;
+    }
+
+    .experts h2 .highlight-word {
+        padding: 0 0.3rem; /* Adjust padding for smaller text */
     }
 }

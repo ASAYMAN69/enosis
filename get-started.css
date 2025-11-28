@@ -138,3 +138,109 @@
 .get-started .btn-secondary:hover {
     border-color: transparent;
 }
+
+/* Responsive adjustments for Get Started section */
+@media (max-width: 992px) {
+    .get-started {
+        padding: 6rem 3%;
+    }
+
+    .get-started-content {
+        grid-template-columns: 1fr; /* Stack content vertically */
+        gap: 3rem;
+    }
+
+    .get-started-image {
+        height: 400px; /* Adjust height for smaller screens */
+    }
+
+    .get-started-text {
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .get-started-text h2 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .get-started-text h2::after {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40%;
+    }
+
+    .get-started-text .price-line {
+        font-size: 1.8rem;
+    }
+
+    .highlight {
+        font-size: 3rem;
+    }
+
+    .month-text {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .get-started {
+        padding: 4rem 3%;
+    }
+
+    .get-started-image {
+        height: 300px;
+    }
+
+    .get-started-text h2 {
+        font-size: 2.5rem;
+    }
+
+    .get-started-text .price-line {
+        font-size: 1.5rem;
+    }
+
+    .highlight {
+        font-size: 2.5rem;
+    }
+
+    .month-text {
+        font-size: 1.1rem;
+    }
+
+    .get-started-description {
+        font-size: 1rem;
+        margin: 1.5rem 0;
+    }
+
+    .get-started-text .btn {
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .get-started-image {
+        height: 250px;
+    }
+
+    .get-started-text h2 {
+        font-size: 2rem;
+    }
+
+    .get-started-text .price-line {
+        font-size: 1.3rem;
+    }
+
+    .highlight {
+        font-size: 2rem;
+    }
+
+    .month-text {
+        font-size: 1rem;
+    }
+
+    .get-started-description {
+        font-size: 0.9rem;
+    }
+}
+
