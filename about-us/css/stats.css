@@ -63,7 +63,7 @@
 
 .stat-icon {
     font-size: 3rem;
-    color: var(--color-d); /* Changed from --primary-green */
+    color: var(--color-c); /* Changed to white */
     margin-bottom: 1.2rem;
 }
 

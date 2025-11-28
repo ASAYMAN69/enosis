@@ -1,164 +1,67 @@
-@media (max-width: 1024px) {
-    .hero-title {
-        font-size: 3.5rem;
+@media (max-width: 992px) {
+    .hero h1 {
+        font-size: 3rem;
     }
-
-    .why-choose-us {
-        flex-direction: column;
-        text-align: center;
-        padding: clamp(2.5rem, 6vw, 4rem);
-    }
-
-    .why-choose-us-text {
-        padding-right: 0;
-        align-items: center;
-        text-align: center;
-        gap: 1.25rem;
-    }
-
-    .why-choose-us-text p {
-        max-width: none;
-    }
-
-    .why-choose-us-list {
-        justify-items: center;
-    }
-
-    .projects-cards {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .get-started-content {
-        grid-template-columns: 1fr;
-    }
-
-    .projects-header h2::before,
-    .projects-header h2::after {
-        display: none;
+    
+    .hero p {
+        font-size: 1.1rem;
     }
 }
 
 @media (max-width: 768px) {
-    .nav-links {
-        position: fixed;
-        right: -100%; /* Changed from left to right */
-        top: 0; /* Changed from 70px to 0 */
-        height: 100vh; /* Full height */
-        gap: 0;
-        flex-direction: column;
-        background: rgba(0, 0, 0, 0.8); /* Darker background */
-        -webkit-backdrop-filter: blur(30px) saturate(180%);
-        backdrop-filter: blur(30px) saturate(180%);
-        width: 70%; /* Partial width */
-        text-align: center;
-        transition: 0.3s;
-        justify-content: center; /* Center links vertically */
-        z-index: 1001;
-    }
-
-    .nav-links.active {
-        right: 0; /* Changed from left to right */
-    }
-
-    .nav-links li {
-        padding: 1.5rem 0; /* Increased padding */
-    }
-
-    .dropdown-menu {
-        display: none; /* Hide dropdown on mobile */
+    .nav-content {
+        position: relative;
     }
 
     .hamburger {
         display: block;
-        z-index: 1001; /* Ensure hamburger is above the menu */
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        z-index: 1001;
+    }
+    
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px) saturate(180%);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 1rem 0;
+    }
+    
+    .nav-links.active {
+        display: flex;
     }
 
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0;
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
     }
-
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-        background-color: var(--color-b); /* Lighter color for visibility */
-    }
-
-    .hamburger.active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-        background-color: var(--color-b); /* Lighter color for visibility */
-    }
-
-    .hero-title {
+    
+    .hero h1 {
         font-size: 2.5rem;
     }
-
-    .why-choose-us {
-        padding: 2.5rem;
-    }
-
-    .why-choose-us-list {
-        gap: 0.85rem;
-    }
-
-    .why-choose-us-list li {
-        width: 100%;
-    }
-
-    .why-choose-us-image::before {
-        inset: 12%;
-    }
-
-    .hero-subtitle {
-        font-size: 0.9rem;
-    }
-
-    .hero-description {
+    
+    .hero p {
         font-size: 1rem;
     }
-
-    .hero-stats {
-        gap: 1.5rem;
+    
+    .hero-btns {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .vm-container {
+        flex-direction: column;
     }
 
-    .stat-number {
-        font-size: 2rem;
-    }
-
-    .get-started-text h2 {
-        font-size: 2.5rem;
-    }
-
-    .projects-header h2 {
-        font-size: 2.5rem;
-    }
-
-    .hero-arrow {
-        width: 45px;
-        height: 45px;
-        font-size: 1.5rem;
-    }
-
-    .hero-arrow.left {
-        left: 1rem;
-    }
-
-    .hero-arrow.right {
-        right: 1rem;
-    }
-
-    .reviews-carousel {
-        overflow: hidden;
-        animation: none; /* Remove animation on mobile */
-    }
-
-    .review-card {
-        flex: 0 0 100%;
-        margin: 0;
-    }
-
-
-
-    .review-arrow {
-        display: flex; /* Show arrows on mobile */
+    .testimonials-grid {
+        gap: 5rem;
     }
 }

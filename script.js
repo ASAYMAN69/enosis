@@ -1,30 +1,32 @@
-let currentSlide = 0;
-let autoSlideInterval;
+const slides = document.querySelectorAll('.hero-slide');
+if (slides.length > 0) {
+    let currentSlide = 0;
+    let autoSlideInterval;
 
-function changeSlide(direction) {
-    const slides = document.querySelectorAll('.hero-slide');
-    const totalSlides = slides.length;
-    
-    slides[currentSlide].classList.remove('active');
-    
-    currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-    
-    slides[currentSlide].classList.add('active');
-    
-    resetAutoSlide();
-}
+    function changeSlide(direction) {
+        const totalSlides = slides.length;
+        
+        slides[currentSlide].classList.remove('active');
+        
+        currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+        
+        slides[currentSlide].classList.add('active');
+        
+        resetAutoSlide();
+    }
 
-function autoSlide() {
-    changeSlide(1);
-}
+    function autoSlide() {
+        changeSlide(1);
+    }
 
-function resetAutoSlide() {
-    clearInterval(autoSlideInterval);
+    function resetAutoSlide() {
+        clearInterval(autoSlideInterval);
+        autoSlideInterval = setInterval(autoSlide, 3000);
+    }
+
+    // Start auto-sliding
     autoSlideInterval = setInterval(autoSlide, 3000);
 }
-
-// Start auto-sliding
-autoSlideInterval = setInterval(autoSlide, 3000);
 
 // Navbar scroll effect
 window.addEventListener('scroll', () => {
@@ -156,9 +158,6 @@ function setActiveNavLink() {
     });
 }
 
-// Call setActiveNavLink on page load
-document.addEventListener('DOMContentLoaded', setActiveNavLink);
-
 // Also call it on hashchange or popstate if needed (for SPA-like behavior)
 window.addEventListener('hashchange', setActiveNavLink);
 window.addEventListener('popstate', setActiveNavLink);
@@ -175,10 +174,10 @@ const animateCounter = (counter) => {
     const updateCount = () => {
         count += increment;
         if (count < target) {
-            counter.innerText = Math.ceil(count);
+            counter.innerText = Math.ceil(count) + '+';
             setTimeout(updateCount, 10);
         } else {
-            counter.innerText = target;
+            counter.innerText = target + '+';
         }
     };
     updateCount();
@@ -193,6 +192,99 @@ const statsObserver = new IntersectionObserver((entries) => { // Renamed for cla
             statsObserver.unobserve(counter); // Stop observing once animated
         }
     });
-}, { threshold: 0.5 }); // Trigger when 50% of the element is visible
+}, { threshold: 0.1 }); // Trigger when 50% of the element is visible
 
 counters.forEach(counter => statsObserver.observe(counter));
+
+document.addEventListener('DOMContentLoaded', function() {
+    setActiveNavLink();
+
+    if (document.getElementById('myChart')) {
+        // Hardcoded data values
+        const initialData = [12, 19, 15, 25, 22, 30, 28, 35, 40, 38, 45, 50];
+        const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        
+        let currentData = [...initialData];
+        
+        // Chart configuration
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(0, 180, 219, 0.8)');
+        gradient.addColorStop(1, 'rgba(0, 180, 219, 0.1)');
+        
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Performance Metrics',
+                    data: currentData,
+                    backgroundColor: gradient,
+                    borderColor: '#00b4db',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#00b4db',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    fill: true,
+                    tension: 0.4,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            color: '#fff',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                        titleColor: '#00b4db',
+                        bodyColor: '#fff',
+                        borderColor: '#00b4db',
+                        borderWidth: 1,
+                        cornerRadius: 10,
+                        displayColors: false
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.8)'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.8)'
+                        },
+                        beginAtZero: true
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                animations: {
+                    tension: {
+                        duration: 1000,
+                        easing: 'linear'
+                    }
+                }
+            }
+        });
+    }
+});

@@ -37,8 +37,12 @@
 }
 
 .contact-details h4 {
-    color: var(--color-c); /* Changed from var(--darker-green) */
+    color: var(--color-a); /* Changed from white to dark green for readability */
     margin-bottom: 0.3rem;
+}
+
+.contact-details p {
+    color: var(--color-a); /* Added for readability */
 }
 .contact-form {
     background: var(--color-c); /* Changed to white */
@@ -54,14 +58,14 @@
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
-    color: var(--color-c); /* Changed from var(--dark-gray) */
+    color: var(--color-a); /* Changed from white to dark green for readability */
     font-weight: 500;
 }
 
 .form-control {
     width: 100%;
     padding: 0.9rem 1.2rem;
-    border: 1px solid rgba(255,255,255,0.2); /* Changed from #ddd */
+    border: 1px solid rgba(0,0,0,0.2); /* Changed from transparent white to transparent black for visibility */
     border-radius: 8px;
     font-family: 'Poppins', sans-serif;
     font-size: 1rem;
@@ -72,6 +76,10 @@
     outline: none;
     border-color: var(--color-d); /* Changed from var(--primary-green) */
     box-shadow: 0 0 0 3px rgba(143, 163, 30, 0.2); /* Changed from rgba(46, 204, 113, 0.2) */
+}
+
+.contact h2.section-title {
+    color: var(--color-c); /* Changed to white for visibility on dark background */
 }
 
 textarea.form-control {

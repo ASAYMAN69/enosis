@@ -120,16 +120,16 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    display: inline-block;
-    margin-bottom: 0.5rem;
+    display: block;
 }
 
 .stat-label {
     font-size: 0.95rem;
     color: var(--color-b);
     font-weight: 500;
-    letter-spacing: 2px; /* Increased from 1px to 2px */
-    text-transform: uppercase; /* Added */
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: block; /* Added to stack below the number */
 }
 
 .hero-buttons {

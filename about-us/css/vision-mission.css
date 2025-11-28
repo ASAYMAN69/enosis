@@ -45,90 +45,35 @@
 .graph-container {
     flex: 1;
     min-width: 300px;
-    background-color: var(--color-c); /* Changed to white */
-    border-radius: 12px;
-    padding: 2.5rem;
-    box-shadow: var(--shadow);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px; /* Original padding */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     position: relative;
     overflow: hidden;
 }
 
-.graph-container:before {
+.graph-container::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background: linear-gradient(to right, var(--color-d), var(--color-a));
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 180, 219, 0.1) 0%, transparent 70%);
+    animation: pulse 8s infinite linear;
 }
 
-.graph {
-    width: 100%;
-    height: 350px;
+@keyframes pulse {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+canvas {
+    max-width: 100%;
     position: relative;
-    border: 1px solid rgba(0,0,0,0.1);
-    background: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px) 0 0;
-    background-size: 25px 25px;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.graph-line {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-.graph-path {
-    stroke: var(--color-d);
-    stroke-width: 4;
-    fill: none;
-    stroke-dasharray: 0;
-    stroke-dashoffset: 0;
-    transition: stroke-dashoffset 1.5s ease-in-out;
-}
-
-.graph-path.animate {
-    stroke-dashoffset: 0;
-}
-
-.graph-point {
-    fill: var(--color-d);
-    stroke: var(--color-a); /* Changed to dark green for visibility on white background */
-    stroke-width: 3;
-    r: 8;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-
-.graph-point.animate {
-    opacity: 1;
-}
-
-.graph-label {
-    position: absolute;
-    font-size: 0.85rem;
-    color: #333; /* Changed to dark gray for readability on white background */
-    font-weight: 500;
-}
-
-.graph-label-x {
-    bottom: -25px;
-    transform: translateX(-50%);
-}
-
-.graph-label-y {
-    left: -35px;
-    transform: translateY(-50%) rotate(-90deg);
-    white-space: nowrap;
+    z-index: 1;
 }
 
 /* Staggered animation for vm-content and graph-container */

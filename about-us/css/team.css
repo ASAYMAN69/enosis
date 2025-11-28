@@ -28,9 +28,18 @@
 
 .member-img {
     height: 300px;
-    background-size: cover;
-    background-position: center;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Ensure image doesn't overflow */
+}
+
+.member-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .member-info {
@@ -41,11 +50,11 @@
 .member-name {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
-    color: var(--color-a); /* Changed from var(--darker-green) */
+    color: var(--color-c); /* Changed to white for readability */
 }
 
 .member-post {
-    color: var(--color-d); /* Changed from var(--primary-green) */
+    color: var(--color-c); /* Changed to white for readability */
     font-weight: 600;
     margin-bottom: 0.8rem;
     font-size: 1.1rem;
@@ -67,8 +76,8 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: var(--color-b); /* Changed from var(--light-green) */
-    color: var(--color-c); /* Changed from var(--white) */
+    background-color: var(--color-a); /* Changed to darker green for better contrast */
+    color: var(--color-c); /* Keep icon color white */
     display: flex;
     align-items: center;
     justify-content: center;

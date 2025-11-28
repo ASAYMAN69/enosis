@@ -9,44 +9,44 @@
 }
 
 .btn-outline {
-    border: 2px solid var(--primary-green);
-    color: var(--primary-green);
+    border: 2px solid var(--color-a);
+    color: var(--color-a);
     background: transparent;
 }
 
 .btn-outline:hover {
-    background-color: var(--primary-green);
-    color: var(--white);
+    background-color: var(--color-a);
+    color: var(--color-c);
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+    box-shadow: 0 5px 15px rgba(85, 107, 47, 0.3);
 }
 
 .btn-solid {
-    background-color: var(--primary-green);
-    color: var(--white);
-    border: 2px solid var(--primary-green);
+    background-color: var(--color-a);
+    color: var(--color-c);
+    border: 2px solid var(--color-a);
 }
 
 .btn-solid:hover {
-    background-color: var(--dark-green);
-    border-color: var(--dark-green);
+    background-color: var(--color-a);
+    border-color: var(--color-a);
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+    box-shadow: 0 5px 15px rgba(85, 107, 47, 0.4);
 }
 
 .consultation-btn {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    background: linear-gradient(135deg, var(--primary-green), var(--dark-green));
-    color: var(--white);
+    background: linear-gradient(135deg, var(--color-a), var(--color-a));
+    color: var(--color-c);
     border: none;
     border-radius: 50px;
     padding: 1.2rem 2.2rem;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 5px 20px rgba(46, 204, 113, 0.4);
+    box-shadow: 0 5px 20px rgba(85, 107, 47, 0.4);
     z-index: 1000;
     transition: var(--transition);
     display: flex;
@@ -56,5 +56,5 @@
 
 .consultation-btn:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(46, 204, 113, 0.6);
+    box-shadow: 0 8px 25px rgba(85, 107, 47, 0.6);
 }
