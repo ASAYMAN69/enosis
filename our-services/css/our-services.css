@@ -1,0 +1,135 @@
+/* service-section: General styling for all service sections */
+.service-section {
+    padding: 6rem 5%; /* Consistent padding for sections */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh; /* Ensure sections have a minimum height */
+}
+
+.service-section.contract-projects,
+.service-section.investment-opportunities {
+    background-color: var(--color-a); /* Green background */
+    color: var(--color-c); /* White text */
+}
+
+.service-section.shared-projects {
+    background-color: var(--color-c); /* White background */
+    color: var(--color-a); /* Green text */
+}
+
+.service-section h2 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.service-section p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.service-content {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+    gap: 3rem; /* Space between image and text */
+}
+
+.service-image {
+    flex: 1; /* Allow image to grow and shrink */
+    min-width: 300px; /* Minimum width for image */
+}
+
+.service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.service-text {
+    flex: 1; /* Allow text to grow and shrink */
+    min-width: 300px; /* Minimum width for text */
+}
+
+.service-text ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+    text-align: left;
+}
+
+.service-text li {
+    position: relative;
+    padding-left: 2.2rem;
+    margin-bottom: 1.2rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    border-left: 3px solid var(--color-d);
+    font-weight: 500;
+}
+
+.service-text li::before {
+    content: '✓';
+    color: var(--color-d);
+    position: absolute;
+    left: 0.5rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.service-section.shared-projects .service-text li {
+    border-left-color: var(--color-a);
+}
+
+.service-section.shared-projects .service-text li::before {
+    color: var(--color-a);
+}
+
+/* Specific layout adjustments for image/text order */
+.service-section.contract-projects .service-content,
+.service-section.investment-opportunities .service-content {
+    flex-direction: row; /* Image left, text right by default */
+}
+
+.service-section.shared-projects .service-content {
+    flex-direction: row-reverse; /* Text left, image right */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .service-section {
+        padding: 4rem 3%;
+        text-align: center;
+    }
+
+    .service-section h2 {
+        font-size: 2.2rem;
+    }
+
+    .service-content {
+        flex-direction: column; /* Stack image and text vertically */
+        gap: 2rem;
+    }
+
+    .service-image,
+    .service-text {
+        min-width: unset; /* Remove min-width on small screens */
+        width: 100%;
+    }
+
+    /* Adjust order for mobile, so text always comes after image for consistency */
+    .service-section.contract-projects .service-content,
+    .service-section.investment-opportunities .service-content,
+    .service-section.shared-projects .service-content {
+        flex-direction: column;
+    }
+
+
+}

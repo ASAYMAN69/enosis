@@ -63,40 +63,34 @@
     z-index: 10;
     text-align: center;
     color: var(--color-c);
-    max-width: 900px;
+    max-width: 800px !important; /* Shrunk subtext textbox size */
     padding: 0 2rem;
     animation: fadeInUp 1s ease 0.5s both;
 }
 
-.hero-subtitle {
-    font-size: 1.2rem;
-    font-weight: 500;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--color-b);
-    margin-bottom: 1rem;
-    opacity: 0;
-    animation: fadeInUp 1s ease 0.7s both;
-}
+/* ... other styles ... */
 
 .hero-title {
-    font-size: 5rem;
-    font-weight: 800;
-    margin-bottom: 1.5rem;
-    text-shadow: 2px 4px 20px rgba(0,0,0,0.7);
-    line-height: 1.2;
-    letter-spacing: -2px;
-    opacity: 0;
-    animation: fadeInUp 1s ease 0.9s both;
+    font-size: 3.5rem !important; /* Increased size for more impact */
+    font-weight: 900; /* Bolder */
+    margin-bottom: 3.5rem !important; /* More space below */                             
+    margin-top: 2rem; /* Move hero text down */
+    text-shadow: 4px 6px 25px rgba(0,0,0,0.8); /* Stronger shadow */
+    line-height: 1.1; /* Slightly tighter line height for larger text */
+            letter-spacing: -3px; /* Tighter letter spacing */                                   
+            text-transform: uppercase; /* All caps for strong impact */                          
+            opacity: 0;    animation: hero-appear 1.2s ease-out 0.8s both;
 }
 
 .hero-description {
-    font-size: 1.3rem;
-    margin-bottom: 2.5rem;
-    opacity: 0.95;
-    line-height: 1.6;
-    opacity: 0;
-    animation: fadeInUp 1s ease 1.1s both;
+    font-size: 1rem !important; /* Larger subtext */
+    margin-bottom: 3rem; /* More space below */
+    opacity: 0; /* Set initial opacity to 0 for animation */
+    line-height: 1.5; /* Good readability */
+    max-width: 70% !important; /* Shrink the actual text line length */
+    margin-left: auto; /* Center the text within the reduced max-width */
+    margin-right: auto; /* Center the text within the reduced max-width */
+    animation: hero-appear 1.2s ease-out 1.2s both; /* Delayed animation */
 }
 
 .hero-stats {

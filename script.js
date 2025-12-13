@@ -132,28 +132,32 @@ document.addEventListener('click', (e) => {
 // Set active navigation link based on current page
 function setActiveNavLink() {
     const navLinks = document.querySelectorAll('.nav-links a');
-    const currentPath = window.location.pathname;
+    let currentPath = window.location.pathname;
+
+    // Normalize currentPath: remove "index.html" and trailing slashes
+    currentPath = currentPath.replace(/(\/index\.html)?\/?$/, '');
+    if (currentPath === '') { // Handle root path specifically
+        currentPath = '/';
+    }
 
     navLinks.forEach(link => {
         link.classList.remove('active'); // Remove active from all links first
 
         let linkPath = link.getAttribute('href');
 
-        // Handle the "Home" link specifically
-        if (linkPath === '/') {
-            if (currentPath === '/' || currentPath === '/index.html') {
-                link.classList.add('active');
-                if (currentPath === '/' || currentPath === '/index.html') {
-                    // Prevent navigation if already on home page and clicking home
-                    link.addEventListener('click', function(e) {
-                        if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
-                            e.preventDefault();
-                        }
-                    });
-                }
-            }
-        } else if (currentPath.startsWith(linkPath) && linkPath !== '/') {
+        // Normalize linkPath: remove trailing slashes
+        linkPath = linkPath.replace(/\/$/, '');
+
+        // Check for exact match first
+        if (currentPath === linkPath) {
             link.classList.add('active');
+        } else if (currentPath.startsWith(linkPath) && linkPath !== '/') {
+            // For sub-paths, ensure it's not just a partial match of a longer path
+            // e.g., /about-us should not activate /about
+            const nextChar = currentPath.substring(linkPath.length, linkPath.length + 1);
+            if (nextChar === '' || nextChar === '/') {
+                link.classList.add('active');
+            }
         }
     });
 }

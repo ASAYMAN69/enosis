@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery - Enosis</title>
+    <title>Our Services - Enosis</title>
     <link rel="icon" href="../enosis.png" type="image/png">
     <link rel="stylesheet" href="../global.css">
     <link rel="stylesheet" href="../navbar.css">
     <link rel="stylesheet" href="../footer.css">
     <link rel="stylesheet" href="../responsive.css">
     <link rel="stylesheet" href="../hero.css">
-    <link rel="stylesheet" href="css/gallery.css">
+    <link rel="stylesheet" href="css/our-services.css">
     <link rel="stylesheet" href="css/team.css">
 </head>
 <body>
@@ -30,15 +30,15 @@
                 <li><a href="/">Home</a></li>
                 <li><a href="/about-us">About Us</a></li>
                 <li><a href="/projects">Projects</a></li>
-                <li><a href="/gallery">Gallery</a></li>
+                <li><a href="/our-services">Our Services</a></li>
                 <li><a href="/contact-us">Contact Us</a></li>
             </ul>
         </div>
     </nav>
 
     <!-- Gallery Section -->
-    <section class="gallery-hero">
-        <div class="hero-slideshow">
+    <section class="hero">
+        <div class="hero-slider">
             <div class="hero-slide">
                 <img src="https://picsum.photos/seed/slide1/1920/1080" alt="Slideshow Image 1">
             </div>
@@ -51,150 +51,70 @@
         </div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1>Our Gallery</h1>
-            <p>A glimpse into our finished projects and happy moments.</p>
+            <h1 style="font-size: 3rem;">Building Your Vision, Together</h1>
+            <p>From custom constructions to strategic partnerships, discover our comprehensive real estate services designed to bring your dreams to life.</p>
         </div>
     </section>
 
-    <main class="gallery-container">
-        <div class="gallery-filters">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="exteriors">Exteriors</button>
-            <button class="filter-btn" data-filter="living-rooms">Living Rooms</button>
-            <button class="filter-btn" data-filter="kitchens">Kitchens</button>
-            <button class="filter-btn" data-filter="amenities">Amenities</button>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item" data-category="exteriors">
-                <img src="https://picsum.photos/seed/gallery1/800/600" alt="Gallery Image 1">
-                <div class="gallery-item-overlay">
-                    <h3>Project Alpha</h3>
-                    <p>Modern apartment complex with a stunning view.</p>
-                </div>
+    <!-- Contract Projects Section -->
+    <section class="service-section contract-projects animate-on-scroll">
+        <div class="service-content">
+            <div class="service-image">
+                <img src="https://picsum.photos/seed/contract/600/400" alt="Contract Projects">
             </div>
-            <div class="gallery-item" data-category="living-rooms">
-                <img src="https://picsum.photos/seed/gallery2/800/600" alt="Gallery Image 2">
-                <div class="gallery-item-overlay">
-                    <h3>Project Beta</h3>
-                    <p>Cozy suburban homes with a touch of nature.</p>
-                </div>
-            </div>
-            <div class="gallery-item" data-category="kitchens">
-                <img src="https://picsum.photos/seed/gallery3/800/600" alt="Gallery Image 3">
-                <div class="gallery-item-overlay">
-                    <h3>Project Gamma</h3>
-                    <p>Luxurious villas with private pools.</p>
-                </div>
-            </div>
-            <div class="gallery-item" data-category="amenities">
-                <img src="https://picsum.photos/seed/gallery4/800/600" alt="Gallery Image 4">
-                <div class="gallery-item-overlay">
-                    <h3>Project Delta</h3>
-                    <p>High-rise building with a panoramic city view.</p>
-                </div>
-            </div>
-            <div class="gallery-item" data-category="exteriors">
-                <img src="https://picsum.photos/seed/gallery5/800/600" alt="Gallery Image 5">
-                <div class="gallery-item-overlay">
-                    <h3>Project Epsilon</h3>
-                    <p>Family-friendly homes with spacious gardens.</p>
-                </div>
-            </div>
-            <div class="gallery-item" data-category="living-rooms">
-                <img src="https://picsum.photos/seed/gallery6/800/600" alt="Gallery Image 6">
-                <div class="gallery-item-overlay">
-                    <h3>Project Zeta</h3>
-                    <p>A blend of classic architecture and modern design.</p>
-                </div>
-            </div>
-            <div class="gallery-item" data-category="kitchens">
-                <img src="https://picsum.photos/seed/gallery7/800/600" alt="Gallery Image 7">
-                <div class="gallery-item-overlay">
-                    <h3>Project Eta</h3>
-                    <p>A blend of classic architecture and modern design.</p>
-                </div>
-            </div>
-            <div class="gallery-item" data-category="amenities">
-                <img src="https://picsum.photos/seed/gallery8/800/600" alt="Gallery Image 8">
-                <div class="gallery-item-overlay">
-                    <h3>Project Theta</h3>
-                    <p>A blend of classic architecture and modern design.</p>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Before & After Section -->
-    <section class="before-after-section">
-        <h2 class="section-title">From Vision to Reality</h2>
-        <div class="ba-sliders-wrapper">
-            <div class="ba-slider-item">
-                <h3>Urban Oasis Project</h3>
-                <p>Witness the stunning transformation of a city rooftop into a serene green space.</p>
-                <div class="ba-slider">
-                    <img src="https://picsum.photos/seed/before1/800/600" alt="Before Urban Oasis">
-                    <div class="resize-img">
-                        <img src="https://picsum.photos/seed/after1/800/600" alt="After Urban Oasis">
-                    </div>
-                    <div class="handle"><i class="fas fa-arrows-alt-h"></i></div>
-                </div>
-            </div>
-
-            <div class="ba-slider-item">
-                <h3>Riverside Residence Renovation</h3>
-                <p>See how a dated riverside property was revitalized into a modern, luxurious home.</p>
-                <div class="ba-slider">
-                    <img src="https://picsum.photos/seed/before2/800/600" alt="Before Riverside">
-                    <div class="resize-img">
-                        <img src="https://picsum.photos/seed/after2/800/600" alt="After Riverside">
-                    </div>
-                    <div class="handle"><i class="fas fa-arrows-alt-h"></i></div>
-                </div>
-            </div>
-
-            <div class="ba-slider-item">
-                <h3>Modern Kitchen Makeover</h3>
-                <p>Explore the dramatic change from an old-fashioned kitchen to a sleek, functional culinary space.</p>
-                <div class="ba-slider">
-                    <img src="https://picsum.photos/seed/before3/800/600" alt="Before Kitchen">
-                    <div class="resize-img">
-                        <img src="https://picsum.photos/seed/after3/800/600" alt="After Kitchen">
-                    </div>
-                    <div class="handle"><i class="fas fa-arrows-alt-h"></i></div>
-                </div>
+            <div class="service-text">
+                <h2>Contract Projects: Tailored to Your Vision</h2>
+                <p>Enosis excels in executing bespoke contract projects, transforming architectural visions into reality. We manage every phase from concept to handover, ensuring cost-effective solutions and uncompromised quality.</p>
+                <ul>
+                    <li>Residential, commercial, and mixed-use properties</li>
+                    <li>Full-cycle management: concept, design, construction, handover</li>
+                    <li>Cost-effective solutions and timely delivery</li>
+                    <li>Strict adherence to specifications and regulatory standards</li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <!-- Our Team Section -->
-    <section class="team-section">
-        <h2 class="section-title">Our Team</h2>
-        <div class="team-grid">
-            <div class="team-member">
-                <div class="team-member-img">
-                    <img src="https://picsum.photos/seed/imran/200/200" alt="MD IMRAN HOSSAIN">
-                </div>
-                <h3 class="team-member-name">MD IMRAN HOSSAIN</h3>
-                <p class="team-member-title">CEO & Founder</p>
-                <p class="team-member-bio">With a vision to redefine the real estate landscape, Imran leads Enosis with a passion for innovation, quality, and customer satisfaction.</p>
+
+    <!-- Shared Projects Section -->
+    <section class="service-section shared-projects animate-on-scroll">
+        <div class="service-content">
+            <div class="service-text">
+                <h2>Shared Projects: Collaborative Development</h2>
+                <p>Embrace the power of collaboration with Enosis's shared projects. We offer landowners and investors the opportunity to co-develop properties, leveraging our expertise to minimize risk and maximize returns.</p>
+                <ul>
+                    <li>Opportunity for landowners and investors to co-develop</li>
+                    <li>Expertise in construction, marketing, and sales</li>
+                    <li>Minimized individual risk, maximized potential returns</li>
+                    <li>Transparent project management for all stakeholders</li>
+                </ul>
             </div>
-            <div class="team-member">
-                <div class="team-member-img">
-                    <img src="https://picsum.photos/seed/manager/200/200" alt="MD. Mock Name">
-                </div>
-                <h3 class="team-member-name">MD. Mock Name</h3>
-                <p class="team-member-title">Manager</p>
-                <p class="team-member-bio">A dedicated and experienced professional, our manager ensures that every project is executed flawlessly and delivered on time.</p>
+            <div class="service-image">
+                <img src="https://picsum.photos/seed/shared/600/400" alt="Shared Projects">
             </div>
         </div>
     </section>
 
-    <!-- Modal -->
-    <div id="imageModal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="modalImage">
-        <div id="caption"></div>
-    </div>
+    <!-- Footer Section -->
+
+    <!-- Investment Opportunities Section -->
+    <section class="service-section investment-opportunities animate-on-scroll">
+        <div class="service-content">
+            <div class="service-text">
+                <h2>Investment Opportunities: Grow with Enosis</h2>
+                <p>Unlock lucrative potential with Enosis's diverse investment opportunities in the thriving real estate market. Our transparent model provides detailed projections and regular reports, ensuring clarity and confidence.</p>
+                <ul>
+                    <li>Diverse opportunities: land acquisition, development, management</li>
+                    <li>Carefully vetted projects with attractive returns</li>
+                    <li>Transparent model with detailed projections and risk assessments</li>
+                    <li>Tailored solutions for individual and institutional investors</li>
+                </ul>
+            </div>
+            <div class="service-image">
+                <img src="https://picsum.photos/seed/investment/600/400" alt="Investment Opportunities">
+            </div>
+        </div>
+    </section>
 
     <!-- Footer Section -->
         <footer class="footer">
@@ -208,7 +128,7 @@
                     <ul>
                         <li><a href="/about-us">About Us</a></li>
                         <li><a href="/projects">Projects</a></li>
-                        <li><a href="/gallery">Gallery</a></li>
+                        <li><a href="/our-services">Our Services</a></li>
                         <li><a href="/contact-us">Contact Us</a></li>
                     </ul>
                 </div>
@@ -248,6 +168,6 @@
     </footer>
 
     <script src="../script.js"></script>
-    <script src="js/gallery.js"></script>
+    <script src="js/our-services.js"></script>
 </body>
 </html>
