@@ -1,0 +1,80 @@
+/* Interiors Section */
+.interiors {
+    padding: 6rem 5%;
+    background-color: #ffffff;
+}
+
+.interiors .section-title {
+    color: var(--color-a);
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.interiors-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.interiors-content h3 {
+    font-size: 2rem;
+    color: var(--color-a);
+    margin-bottom: 1.5rem;
+}
+
+.interiors-content p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #555;
+    margin-bottom: 2rem;
+}
+
+.interiors-content ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.interiors-content ul li {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.interiors-content ul li i {
+    color: var(--color-b);
+    margin-right: 1rem;
+}
+
+.interiors-slideshow {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.interiors-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.interiors-slide.active {
+    opacity: 1;
+}
+
+.interiors-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

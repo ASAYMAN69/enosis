@@ -209,8 +209,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Chart configuration
         const ctx = document.getElementById('myChart').getContext('2d');
         const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-        gradient.addColorStop(0, 'rgba(0, 180, 219, 0.8)');
-        gradient.addColorStop(1, 'rgba(0, 180, 219, 0.1)');
+        gradient.addColorStop(0, 'rgba(167, 204, 79, 0.8)');
+        gradient.addColorStop(1, 'rgba(167, 204, 79, 0.1)');
         
         const chart = new Chart(ctx, {
             type: 'line',
@@ -220,9 +220,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     label: 'Performance Metrics',
                     data: currentData,
                     backgroundColor: gradient,
-                    borderColor: '#00b4db',
+                    borderColor: '#A7CC4F',
                     borderWidth: 3,
-                    pointBackgroundColor: '#00b4db',
+                    pointBackgroundColor: '#A7CC4F',
                     pointBorderColor: '#ffffff',
                     pointBorderWidth: 2,
                     pointRadius: 6,
@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         display: true,
@@ -247,9 +247,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     },
                     tooltip: {
                         backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                        titleColor: '#00b4db',
+                        titleColor: '#A7CC4F',
                         bodyColor: '#fff',
-                        borderColor: '#00b4db',
+                        borderColor: '#A7CC4F',
                         borderWidth: 1,
                         cornerRadius: 10,
                         displayColors: false

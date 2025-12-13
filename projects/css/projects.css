@@ -25,6 +25,14 @@
     border-radius: 3px;
 }
 
+.subsection-title {
+    text-align: center;
+    margin: 4rem 0 2rem;
+    color: var(--color-b);
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
 /* Filter Tabs */
 .filter-tabs {
     display: flex;

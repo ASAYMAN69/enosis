@@ -6,14 +6,14 @@
     <title>Our Projects - Enosis Real Estate</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="../global.css">
     <link rel="stylesheet" href="../navbar.css">
     <link rel="stylesheet" href="../responsive.css">
     <link rel="stylesheet" href="css/hero.css">
     <link rel="stylesheet" href="css/projects.css">
     <link rel="stylesheet" href="css/part-of.css">
-    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="../footer.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/buttons.css">
@@ -55,36 +55,30 @@
     <!-- Projects Section -->
     <section class="projects animate-on-scroll">
         <h2 class="section-title">Our Projects</h2>
-        
-        <!-- Filter Tabs -->
-        <div class="filter-tabs animate-on-scroll">
-            <button class="filter-btn active" data-filter="all">All Projects</button>
-            <button class="filter-btn" data-filter="upcoming">Upcoming</button>
-            <button class="filter-btn" data-filter="ongoing">Ongoing</button>
-            <button class="filter-btn" data-filter="completed">Completed</button>
-        </div>
-        
-        <!-- Projects Grid -->
+
+        <!-- Upcoming Projects Section -->
+        <h3 class="subsection-title">Upcoming Projects</h3>
         <div class="projects-grid animate-on-scroll">
-            <!-- Project 1 -->
-            <div class="property-card" data-category="ongoing">
-                <div class="property-badge badge-ongoing">Ongoing</div>
+            <!-- Mock Project 1 -->
+            <div class="property-card" data-category="upcoming">
+                <div class="property-badge badge-upcoming">Upcoming</div>
                 <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Green Valley Residences">
+                    <img src="https://picsum.photos/seed/upcoming1/800/600" alt="Upcoming Project 1">
                 </div>
                 <div class="card-content">
                     <div>
-                        <div class="property-price">৳ 25,00,000</div>
-                        <div class="property-address">Green Valley Residences, Dhaka, Bangladesh</div>
+                        <h3>Luxury Apartment Complex</h3>
+                        <div class="property-price">Price on Request</div>
+                        <div class="property-address">Dhaka, Bangladesh</div>
                         <div class="property-features">
                             <div class="feature">
                                 <i class="fas fa-bed"></i> 3 Beds
                             </div>
                             <div class="feature">
-                                <i class="fas fa-bath"></i> 2 Baths
+                                <i class="fas fa-bath"></i> 3 Baths
                             </div>
                             <div class="feature">
-                                <i class="fas fa-ruler-combined"></i> 1,800 sqft
+                                <i class="fas fa-ruler-combined"></i> 1900 sqft
                             </div>
                         </div>
                     </div>
@@ -98,15 +92,15 @@
                 </div>
                 <!-- Overlay that appears on hover -->
                 <div class="card-overlay">
-                    <h3 class="overlay-title">Green Valley Residences</h3>
-                    <p class="property-description">Modern luxury apartments with eco-friendly features and premium amenities.</p>
+                    <h3 class="overlay-title">Luxury Apartment Complex</h3>
+                    <p class="property-description">Discover modern living with our upcoming luxury apartment complex, featuring state-of-the-art amenities and prime location.</p>
                     <div class="property-stats">
                         <div class="stat">
                             <div class="stat-value">3</div>
                             <div class="stat-label">Bedrooms</div>
                         </div>
                         <div class="stat">
-                            <div class="stat-value">2</div>
+                            <div class="stat-value">3</div>
                             <div class="stat-label">Bathrooms</div>
                         </div>
                         <div class="stat">
@@ -117,17 +111,69 @@
                     <button class="contact-btn">Contact Agent</button>
                 </div>
             </div>
-            
-            <!-- Project 2 -->
-            <div class="property-card" data-category="completed">
-                <div class="property-badge badge-completed">Completed</div>
+            <!-- Mock Project 2 -->
+            <div class="property-card" data-category="upcoming">
+                <div class="property-badge badge-upcoming">Upcoming</div>
                 <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Skyline Towers">
+                    <img src="https://picsum.photos/seed/upcoming2/800/600" alt="Upcoming Project 2">
                 </div>
                 <div class="card-content">
                     <div>
-                        <div class="property-price">৳ 32,00,000</div>
-                        <div class="property-address">Skyline Towers, Chittagong, Bangladesh</div>
+                        <h3>Seaside Condos</h3>
+                        <div class="property-price">Price on Request</div>
+                        <div class="property-address">Chittagong, Bangladesh</div>
+                        <div class="property-features">
+                            <div class="feature">
+                                <i class="fas fa-bed"></i> 4 Beds
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bath"></i> 4 Baths
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-ruler-combined"></i> 2500 sqft
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="agent-info">
+                            <div class="agent-avatar">ED</div>
+                            <div class="agent-name">Enosis Dev.</div>
+                        </div>
+                        <button class="view-details">View Details</button>
+                    </div>
+                </div>
+                <!-- Overlay that appears on hover -->
+                <div class="card-overlay">
+                    <h3 class="overlay-title">Seaside Condos</h3>
+                    <p class="property-description">Experience luxurious coastal living with our upcoming seaside condominiums, offering breathtaking views and exclusive amenities.</p>
+                    <div class="property-stats">
+                        <div class="stat">
+                            <div class="stat-value">4</div>
+                            <div class="stat-label">Bedrooms</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">4</div>
+                            <div class="stat-label">Bathrooms</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Parking</div>
+                        </div>
+                    </div>
+                    <button class="contact-btn">Contact Agent</button>
+                </div>
+            </div>
+            <!-- Mock Project 3 -->
+            <div class="property-card" data-category="upcoming">
+                <div class="property-badge badge-upcoming">Upcoming</div>
+                <div class="card-image">
+                    <img src="https://picsum.photos/seed/upcoming3/800/600" alt="Upcoming Project 3">
+                </div>
+                <div class="card-content">
+                    <div>
+                        <h3>Eco-Friendly Villas</h3>
+                        <div class="property-price">Price on Request</div>
+                        <div class="property-address">Sylhet, Bangladesh</div>
                         <div class="property-features">
                             <div class="feature">
                                 <i class="fas fa-bed"></i> 2 Beds
@@ -136,7 +182,7 @@
                                 <i class="fas fa-bath"></i> 2 Baths
                             </div>
                             <div class="feature">
-                                <i class="fas fa-ruler-combined"></i> 1,400 sqft
+                                <i class="fas fa-ruler-combined"></i> 1500 sqft
                             </div>
                         </div>
                     </div>
@@ -150,8 +196,8 @@
                 </div>
                 <!-- Overlay that appears on hover -->
                 <div class="card-overlay">
-                    <h3 class="overlay-title">Skyline Towers</h3>
-                    <p class="property-description">Stunning high-rise apartments with panoramic city views and premium finishes.</p>
+                    <h3 class="overlay-title">Eco-Friendly Villas</h3>
+                    <p class="property-description">Discover sustainable living in our upcoming eco-friendly villas, designed with nature in mind and modern comforts.</p>
                     <div class="property-stats">
                         <div class="stat">
                             <div class="stat-value">2</div>
@@ -169,41 +215,96 @@
                     <button class="contact-btn">Contact Agent</button>
                 </div>
             </div>
-            
-            <!-- Project 3 -->
-            <div class="property-card" data-category="upcoming">
-                <div class="property-badge badge-upcoming">Upcoming</div>
+        </div>
+
+        <!-- Ongoing Projects Section -->
+        <h3 class="subsection-title">Ongoing Projects</h3>
+        <div class="projects-grid animate-on-scroll">
+            <div class="property-card" data-category="ongoing">
+                <div class="property-badge badge-ongoing">Ongoing</div>
                 <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Heritage Gardens">
+                    <img src="https://picsum.photos/seed/arpina/800/600" alt="Enosis Arpina">
                 </div>
                 <div class="card-content">
                     <div>
-                        <div class="property-price">৳ 45,00,000</div>
-                        <div class="property-address">Heritage Gardens, Sylhet, Bangladesh</div>
+                        <h3>Enosis Arpina</h3>
+                        <div class="property-price">Price on Request</div>
+                        <div class="property-address">Hatirjheel, Mohanagar, Wapda Road</div>
                         <div class="property-features">
                             <div class="feature">
-                                <i class="fas fa-bed"></i> 4 Beds
+                                <i class="fas fa-building"></i> Residential
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bed"></i> 3 Beds
                             </div>
                             <div class="feature">
                                 <i class="fas fa-bath"></i> 3 Baths
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-ruler-combined"></i> 2,500 sqft
                             </div>
                         </div>
                     </div>
                     <div class="card-footer">
                         <div class="agent-info">
-                            <div class="agent-avatar">ED</div>
-                            <div class="agent-name">Enosis Dev.</div>
+                            <div class="agent-avatar">EA</div>
+                            <div class="agent-name">Enosis Arpina</div>
                         </div>
                         <button class="view-details">View Details</button>
                     </div>
                 </div>
                 <!-- Overlay that appears on hover -->
                 <div class="card-overlay">
-                    <h3 class="overlay-title">Heritage Gardens</h3>
-                    <p class="property-description">Exclusive villas with traditional architecture and modern comforts in a gated community.</p>
+                    <h3 class="overlay-title">Enosis Arpina</h3>
+                    <p class="property-description">A prestigious residential project located in the heart of Hatirjheel, offering modern apartments and luxurious amenities.</p>
+                    <div class="property-stats">
+                        <div class="stat">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Bedrooms</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Bathrooms</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">1</div>
+                            <div class="stat-label">Parking</div>
+                        </div>
+                    </div>
+                    <button class="contact-btn">Contact Agent</button>
+                </div>
+            </div>
+            <div class="property-card" data-category="ongoing">
+                <div class="property-badge badge-ongoing">Ongoing</div>
+                <div class="card-image">
+                    <img src="https://picsum.photos/seed/swapno/800/600" alt="Enosis Shwapno Neer">
+                </div>
+                <div class="card-content">
+                    <div>
+                        <h3>Enosis Shwapno Neer</h3>
+                        <div class="property-price">Price on Request</div>
+                        <div class="property-address">Jolshiri Abashon</div>
+                        <div class="property-features">
+                            <div class="feature">
+                                <i class="fas fa-building"></i> Residential
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bed"></i> 4 Beds
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bath"></i> 3 Baths
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="agent-info">
+                            <div class="agent-avatar">ESN</div>
+                            <div class="agent-name">Enosis Shwapno Neer</div>
+                        </div>
+                        <button class="view-details">View Details</button>
+                    </div>
+                </div>
+                <!-- Overlay that appears on hover -->
+                <div class="card-overlay">
+                    <h3 class="overlay-title">Enosis Shwapno Neer</h3>
+                    <p class="property-description">A dream home in Jolshiri Abashon, blending modern design with serene surroundings.</p>
                     <div class="property-stats">
                         <div class="stat">
                             <div class="stat-value">4</div>
@@ -221,41 +322,91 @@
                     <button class="contact-btn">Contact Agent</button>
                 </div>
             </div>
-            
-            <!-- Project 4 -->
             <div class="property-card" data-category="ongoing">
                 <div class="property-badge badge-ongoing">Ongoing</div>
                 <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Riverside Retreat">
+                    <img src="https://picsum.photos/seed/shorno/800/600" alt="Enosis Shorno Kanon">
                 </div>
                 <div class="card-content">
                     <div>
-                        <div class="property-price">৳ 38,00,000</div>
-                        <div class="property-address">Riverside Retreat, Rajshahi, Bangladesh</div>
+                        <h3>Enosis Shorno Kanon</h3>
+                        <div class="property-price">Price on Request</div>
+                        <div class="property-address">Jolshiri Abashon</div>
                         <div class="property-features">
                             <div class="feature">
-                                <i class="fas fa-bed"></i> 5 Beds
+                                <i class="fas fa-building"></i> Residential
                             </div>
                             <div class="feature">
-                                <i class="fas fa-bath"></i> 4 Baths
+                                <i class="fas fa-bed"></i> 3 Beds
                             </div>
                             <div class="feature">
-                                <i class="fas fa-ruler-combined"></i> 3,200 sqft
+                                <i class="fas fa-bath"></i> 2 Baths
                             </div>
                         </div>
                     </div>
                     <div class="card-footer">
                         <div class="agent-info">
-                            <div class="agent-avatar">ED</div>
-                            <div class="agent-name">Enosis Dev.</div>
+                            <div class="agent-avatar">ESK</div>
+                            <div class="agent-name">Enosis Shorno Kanon</div>
                         </div>
                         <button class="view-details">View Details</button>
                     </div>
                 </div>
                 <!-- Overlay that appears on hover -->
                 <div class="card-overlay">
-                    <h3 class="overlay-title">Riverside Retreat</h3>
-                    <p class="property-description">Waterfront properties with stunning river views and resort-style amenities.</p>
+                    <h3 class="overlay-title">Enosis Shorno Kanon</h3>
+                    <p class="property-description">A golden opportunity for serene living in Jolshiri Abashon, offering spacious residential units.</p>
+                    <div class="property-stats">
+                        <div class="stat">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Bedrooms</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Bathrooms</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">1</div>
+                            <div class="stat-label">Parking</div>
+                        </div>
+                    </div>
+                    <button class="contact-btn">Contact Agent</button>
+                </div>
+            </div>
+            <div class="property-card" data-category="ongoing">
+                <div class="property-badge badge-ongoing">Ongoing</div>
+                <div class="card-image">
+                    <img src="https://picsum.photos/seed/windy/800/600" alt="Enosis Windy Ridge">
+                </div>
+                <div class="card-content">
+                    <div>
+                        <h3>Enosis Windy Ridge</h3>
+                        <div class="property-price">Price on Request</div>
+                        <div class="property-address">Jolshiri Abashon</div>
+                        <div class="property-features">
+                            <div class="feature">
+                                <i class="fas fa-building"></i> Residential
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bed"></i> 5 Beds
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bath"></i> 4 Baths
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="agent-info">
+                            <div class="agent-avatar">EWR</div>
+                            <div class="agent-name">Enosis Windy Ridge</div>
+                        </div>
+                        <button class="view-details">View Details</button>
+                    </div>
+                </div>
+                <!-- Overlay that appears on hover -->
+                <div class="card-overlay">
+                    <h3 class="overlay-title">Enosis Windy Ridge</h3>
+                    <p class="property-description">Luxurious residential complex with refreshing breezes and modern amenities in Jolshiri Abashon.</p>
                     <div class="property-stats">
                         <div class="stat">
                             <div class="stat-value">5</div>
@@ -273,41 +424,45 @@
                     <button class="contact-btn">Contact Agent</button>
                 </div>
             </div>
-            
-            <!-- Project 5 -->
+        </div>
+
+        <!-- Completed Projects Section -->
+        <h3 class="subsection-title">Completed Projects</h3>
+        <div class="projects-grid animate-on-scroll">
             <div class="property-card" data-category="completed">
                 <div class="property-badge badge-completed">Completed</div>
                 <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Urban Oasis">
+                    <img src="https://picsum.photos/seed/taposhi/800/600" alt="Enosis Taposhi">
                 </div>
                 <div class="card-content">
                     <div>
-                        <div class="property-price">৳ 28,00,000</div>
-                        <div class="property-address">Urban Oasis, Khulna, Bangladesh</div>
+                        <h3>Enosis Taposhi</h3>
+                        <div class="property-price">Not Available</div>
+                        <div class="property-address">Kadamtala, Bashabo</div>
                         <div class="property-features">
+                            <div class="feature">
+                                <i class="fas fa-building"></i> Residential
+                            </div>
                             <div class="feature">
                                 <i class="fas fa-bed"></i> 3 Beds
                             </div>
                             <div class="feature">
                                 <i class="fas fa-bath"></i> 2 Baths
                             </div>
-                            <div class="feature">
-                                <i class="fas fa-ruler-combined"></i> 1,600 sqft
-                            </div>
                         </div>
                     </div>
                     <div class="card-footer">
                         <div class="agent-info">
-                            <div class="agent-avatar">ED</div>
-                            <div class="agent-name">Enosis Dev.</div>
+                            <div class="agent-avatar">ET</div>
+                            <div class="agent-name">Enosis Taposhi</div>
                         </div>
                         <button class="view-details">View Details</button>
                     </div>
                 </div>
                 <!-- Overlay that appears on hover -->
                 <div class="card-overlay">
-                    <h3 class="overlay-title">Urban Oasis</h3>
-                    <p class="property-description">Modern residential complex with sustainable features and smart home technology.</p>
+                    <h3 class="overlay-title">Enosis Taposhi</h3>
+                    <p class="property-description">A beautifully completed residential complex in Kadamtala, Bashabo, known for its elegant design and comfortable living spaces.</p>
                     <div class="property-stats">
                         <div class="stat">
                             <div class="stat-value">3</div>
@@ -322,47 +477,97 @@
                             <div class="stat-label">Parking</div>
                         </div>
                     </div>
-                    <button class="contact-btn">Contact Agent</button>
+                    <button class="view-details">View Details</button>
                 </div>
             </div>
-            
-            <!-- Project 6 -->
-            <div class="property-card" data-category="upcoming">
-                <div class="property-badge badge-upcoming">Upcoming</div>
+            <div class="property-card" data-category="completed">
+                <div class="property-badge badge-completed">Completed</div>
                 <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1512917774343-3f8a795b62c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Lakeside Manor">
+                    <img src="https://picsum.photos/seed/rubina/800/600" alt="Enosis Rubina">
                 </div>
                 <div class="card-content">
                     <div>
-                        <div class="property-price">৳ 52,00,000</div>
-                        <div class="property-address">Lakeside Manor, Comilla, Bangladesh</div>
+                        <h3>Enosis Rubina</h3>
+                        <div class="property-price">Not Available</div>
+                        <div class="property-address">Golam Bazar, Keraniganj</div>
                         <div class="property-features">
                             <div class="feature">
-                                <i class="fas fa-bed"></i> 6 Beds
+                                <i class="fas fa-building"></i> Residential
                             </div>
                             <div class="feature">
-                                <i class="fas fa-bath"></i> 4 Baths
+                                <i class="fas fa-bed"></i> 4 Beds
                             </div>
                             <div class="feature">
-                                <i class="fas fa-ruler-combined"></i> 4,000 sqft
+                                <i class="fas fa-bath"></i> 3 Baths
                             </div>
                         </div>
                     </div>
                     <div class="card-footer">
                         <div class="agent-info">
-                            <div class="agent-avatar">ED</div>
-                            <div class="agent-name">Enosis Dev.</div>
+                            <div class="agent-avatar">ER</div>
+                            <div class="agent-name">Enosis Rubina</div>
                         </div>
                         <button class="view-details">View Details</button>
                     </div>
                 </div>
                 <!-- Overlay that appears on hover -->
                 <div class="card-overlay">
-                    <h3 class="overlay-title">Lakeside Manor</h3>
-                    <p class="property-description">Luxury lakeside homes with private access to water activities and recreation.</p>
+                    <h3 class="overlay-title">Enosis Rubina</h3>
+                    <p class="property-description">A successful residential project in Golam Bazar, Keraniganj, known for its comfortable family homes and community atmosphere.</p>
                     <div class="property-stats">
                         <div class="stat">
-                            <div class="stat-value">6</div>
+                            <div class="stat-value">4</div>
+                            <div class="stat-label">Bedrooms</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Bathrooms</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Parking</div>
+                        </div>
+                    </div>
+                    <button class="contact-btn">View Details</button>
+                </div>
+            </div>
+            <div class="property-card" data-category="completed">
+                <div class="property-badge badge-completed">Completed</div>
+                <div class="card-image">
+                    <img src="https://picsum.photos/seed/mojibor/800/600" alt="Enosis Mojibor Villa">
+                </div>
+                <div class="card-content">
+                    <div>
+                        <h3>Enosis Mojibor Villa</h3>
+                        <div class="property-price">Not Available</div>
+                        <div class="property-address">Cumilla</div>
+                        <div class="property-features">
+                            <div class="feature">
+                                <i class="fas fa-file-contract"></i> Contract
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bed"></i> 5 Beds
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bath"></i> 4 Baths
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="agent-info">
+                            <div class="agent-avatar">EMV</div>
+                            <div class="agent-name">Enosis Mojibor Villa</div>
+                        </div>
+                        <button class="view-details">View Details</button>
+                    </div>
+                </div>
+                <!-- Overlay that appears on hover -->
+                <div class="card-overlay">
+                    <h3 class="overlay-title">Enosis Mojibor Villa</h3>
+                    <p class="property-description">A custom-built villa in Cumilla, completed as a successful contract project, showcasing bespoke design and quality construction.</p>
+                    <div class="property-stats">
+                        <div class="stat">
+                            <div class="stat-value">5</div>
                             <div class="stat-label">Bedrooms</div>
                         </div>
                         <div class="stat">
@@ -370,11 +575,62 @@
                             <div class="stat-label">Bathrooms</div>
                         </div>
                         <div class="stat">
-                            <div class="stat-value">3</div>
+                            <div class="stat-value">2</div>
                             <div class="stat-label">Parking</div>
                         </div>
                     </div>
-                    <button class="contact-btn">Contact Agent</button>
+                    <button class="contact-btn">View Details</button>
+                </div>
+            </div>
+            <div class="property-card" data-category="completed">
+                <div class="property-badge badge-completed">Completed</div>
+                <div class="card-image">
+                    <img src="https://picsum.photos/seed/peace/800/600" alt="Peace Point">
+                </div>
+                <div class="card-content">
+                    <div>
+                        <h3>Peace Point</h3>
+                        <div class="property-price">Not Available</div>
+                        <div class="property-address">Kadamtala, Bashabo</div>
+                        <div class="property-features">
+                            <div class="feature">
+                                <i class="fas fa-building"></i> Residential
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bed"></i> 3 Beds
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bath"></i> 2 Baths
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="agent-info">
+                            <div class="agent-avatar">PP</div>
+                            <div class="agent-name">Peace Point</div>
+                        </div>
+                        <button class="view-details">View Details</button>
+                    </div>
+                </div>
+                <!-- Overlay that appears on hover -->
+                <div class="card-overlay">
+                    <h3 class="overlay-title">Peace Point</h3>
+                    <p class="property-description">A tranquil residential complex in Kadamtala, Bashabo, offering a peaceful living environment and modern amenities.</p>
+                    <div class="property-stats">
+                        <div class="stat">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Bedrooms</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Bathrooms</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">1</div>
+                            <div class="stat-label">Parking</div>
+                        </div>
+                    </div>
+                    <button class="contact-btn">View Details</button>
                 </div>
             </div>
         </div>
@@ -403,33 +659,46 @@
     </section>
 
     <!-- Footer Section -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section footer-logo-section animate-on-scroll">
-                <img src="../enosis.png" alt="Enosis Logo" class="nav-logo">
-                <div class="nav-name">Enosis</div>
-            </div>
-            <div class="footer-section animate-on-scroll">
-                <h4>Useful Links</h4>
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/about-us">About Us</a></li>
-                    <li><a href="/projects">Projects</a></li>
-                    <li><a href="/gallery">Gallery</a></li>
-                    <li><a href="/contact-us">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="footer-section animate-on-scroll">
-                <h4>Contact Info</h4>
-                <p>Novel House, Level 10, 137 Shantinagar, Dhaka 1217, Bangladesh</p>
-                <p>Phone: +880 222 223 305</p>
-                <p>Email: info@enosisltd.com</p>
-            </div>
-            <div class="footer-section">
-            <h4>Follow Us</h4>
-            <div class="footer-socials">
-                <a href="https://www.facebook.com/enosisdevelopment"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.142v3.24h-1.918c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg></a>
-                <a href="https://www.linkedin.com/company/enosis-development-ltd/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section footer-logo-section animate-on-scroll">
+                    <img src="../enosis.png" alt="Enosis Logo" class="nav-logo">
+                    <div class="nav-name">Enosis</div>
+                </div>
+                <div class="footer-section animate-on-scroll">
+                    <h4>Useful Links</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about-us">About Us</a></li>
+                        <li><a href="/gallery">Gallery</a></li>
+                        <li><a href="/contact-us">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section animate-on-scroll footer-contact-details-section">
+                    <h4>Reach Us</h4>
+                    <div class="contact-item-wrapper">
+                        <p><strong>Main Office:</strong> Novel House, Level 10, 137 Shantinagar, Dhaka 1217, Bangladesh</p>
+                    </div>
+                    <div class="contact-item-wrapper">
+                        <p><strong>Corporate:</strong> Flat C2, House 5, Road 21, Gulshan 1 Dhaka 1212, Bangladesh <a href="https://maps.app.goo.gl/WTtt6buMQRHpJFSF9" target="_blank" aria-label="View Corporate Office on Map" class="footer-map-redirect-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+                              <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+                            </svg>
+                        </a></p>
+                    </div>
+                    <div class="contact-item-wrapper">
+                        <p><strong>Call Us:</strong> <a href="tel:+880222223305"> +880 222 223 305</a></p>
+                    </div>
+                    <div class="contact-item-wrapper">
+                        <p><strong>Email Us:</strong> <a href="mailto:info@enosisltd.com">info@enosisltd.com</a></p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="footer-socials">
+                    <a href="https://www.facebook.com/enosisdevelopment"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.142v3.24h-1.918c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg></a>
+                    <a href="https://www.linkedin.com/company/enosis-development-ltd/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
                     <a href="https://www.youtube.com/channel/UC0r-kfon02yLeaofismRHkw"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.791 4.649-.69.188-1.42.23-2.16.084.616 1.923 2.394 3.316 4.504 3.355-1.624 1.276-3.672 2.03-5.896 2.03-.38 0-.755-.022-1.124-.067 2.099 1.354 4.601 2.145 7.23 2.145 8.67 0 13.41-7.178 13.41-13.41 0-.204-.005-.407-.013-.61a9.618 9.618 0 0 0 2.323-2.403z"/></svg></a>
                 </div>
             </div>

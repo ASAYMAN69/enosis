@@ -22,18 +22,16 @@
     font-size: 2rem;
 }
 
-.footer-section h4 {
-    font-size: 1.2rem;
-    color: var(--color-b);
+.footer-section {
+    color: var(--color-c); /* Changed to color-c for better readability */
     margin-bottom: 1.5rem;
 }
 
-.footer-section p {
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-    color: var(--color-c);
+.footer-section h4 {
+    font-size: 1.2rem; /* Setting specific font-size for headings */
+    color: var(--color-b);
+    margin-bottom: 1.5rem;
 }
-
 
 .footer-section ul {
     list-style: none;
@@ -47,8 +45,72 @@
     text-decoration: none;
     color: var(--color-c);
     transition: color 0.3s;
-    font-size: 1.0rem; /* Reduced font size for list items */
+    font-size: 1rem; /* Set to 1rem as per user request */
 }
+
+.footer-contact-details-section {
+    position: relative; /* For absolute positioning of map icon if needed */
+}
+
+.contact-item-wrapper {
+    display: flex; /* For horizontal alignment of content within wrapper */
+    align-items: center; /* Vertically align content and icon */
+    margin-bottom: 0.5rem; /* Gap between items */
+    font-size: 1rem; /* Consistent smaller font - changed from 0.9rem to 1rem */
+    color: var(--color-c); /* White text */
+}
+
+.contact-item-wrapper p {
+    margin-bottom: 0; /* Remove default paragraph margin */
+}
+
+.contact-item-wrapper a {
+    color: var(--color-c); /* White color for links */
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.contact-item-wrapper a:hover {
+    color: var(--color-b); /* Hover color */
+}
+
+.contact-item-wrapper a.footer-map-redirect-icon {
+    display: inline-flex; /* Use flex for icon content */
+    align-items: center; /* Vertically align SVG within link */
+    justify-content: center;
+    color: var(--color-c); /* White color */
+    width: 16px; /* Icon size */
+    height: 16px;
+    margin-left: 8px; /* Space from text */
+    transition: transform 0.3s ease;
+}
+
+.contact-item-wrapper a.footer-map-redirect-icon:hover {
+    transform: scale(1.2);
+    color: var(--color-b); /* Hover color for icon */
+}
+
+.contact-item-wrapper a.footer-map-redirect-icon svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    stroke-width: 2;
+}
+
+/* Reverted link styling within footer sections */
+.footer-section p a {
+    color: var(--color-c); /* Original color (white) */
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.footer-section p a:hover {
+    color: var(--color-b); /* Default hover color */
+    text-decoration: underline; /* Default underline on hover */
+}
+
 
 .footer-section ul li a:hover {
     color: var(--color-b);
@@ -85,23 +147,10 @@
 }
 
 .footer-bottom p {
-    font-size: 0.9rem;
+    font-size: 0.9rem; /* General paragraph font size in footer bottom */
 }
 
 .footer-bottom p a {
     color: var(--color-b);
     text-decoration: none;
-}
-
-.corporate-address {
-    display: inline-block;
-    max-width: 80%;
-    vertical-align: middle;
-}
-
-.inline-footer-map-redirect-svg {
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 8px;
-    color: var(--color-b);
 }

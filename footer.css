@@ -54,7 +54,6 @@
 
 .contact-item-wrapper {
     display: flex; /* For horizontal alignment of content within wrapper */
-    justify-content: space-between; /* Space out content and icon */
     align-items: center; /* Vertically align content and icon */
     margin-bottom: 0.5rem; /* Gap between items */
     font-size: 1rem; /* Consistent smaller font - changed from 0.9rem to 1rem */
@@ -63,7 +62,6 @@
 
 .contact-item-wrapper p {
     margin-bottom: 0; /* Remove default paragraph margin */
-    flex-grow: 1; /* Allow text to grow */
 }
 
 .contact-item-wrapper a {
