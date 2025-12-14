@@ -124,12 +124,26 @@
         width: 100%;
     }
 
-    /* Adjust order for mobile, so text always comes after image for consistency */
-    .service-section.contract-projects .service-content,
-    .service-section.investment-opportunities .service-content,
-    .service-section.shared-projects .service-content {
-        flex-direction: column;
+        /* Adjust order for mobile, so text always comes after image for consistency */
+
+        .service-section.contract-projects .service-content,
+
+        .service-section.investment-opportunities .service-content,
+
+        .service-section.shared-projects .service-content {
+
+            flex-direction: column;
+
+        }
+
     }
 
+    
 
-}
+    /* Custom styles for hero section in our-services */
+
+    .hero-content h1 {
+
+        margin-bottom: 1.5rem; /* Add gap below the main hero title */
+
+    }
