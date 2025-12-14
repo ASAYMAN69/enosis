@@ -276,3 +276,140 @@
     background: var(--color-c);
     color: var(--color-a);
 }
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: var(--color-c);
+    padding: 2rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh; /* Limit height to enable scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--color-a);
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.3s ease;
+}
+
+.modal-close-btn:hover {
+    color: var(--color-d);
+}
+
+.modal-image {
+    width: 100%;
+    height: 250px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.modal-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal-details h3 {
+    font-size: 2rem;
+    color: var(--color-a);
+    margin-bottom: 0.5rem;
+}
+
+.modal-address {
+    color: #7f8c8d;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.modal-description {
+    color: var(--color-a);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.modal-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.modal-feature-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--color-a);
+}
+
+.modal-feature-item i {
+    margin-right: 8px;
+    color: var(--color-d);
+    font-size: 1.2rem;
+}
+
+.modal-contact {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.modal-contact .btn {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+}
+
+/* Responsive adjustments for modal */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        padding: 1.5rem;
+    }
+
+    .modal-details h3 {
+        font-size: 1.5rem;
+    }
+
+    .modal-image {
+        height: 200px;
+    }
+}

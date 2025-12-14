@@ -17,6 +17,13 @@
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/buttons.css">
+    <style>
+        /* Temporary override for troubleshooting "black page" issue */
+        .animate-on-scroll {
+            opacity: 1 !important;
+            transform: translateY(0px) !important;
+        }
+    </style>
 </head>
 <body>
         <!-- Navbar -->
@@ -60,7 +67,7 @@
         <h3 class="subsection-title">Upcoming Projects</h3>
         <div class="projects-grid animate-on-scroll">
             <!-- Mock Project 1 -->
-            <div class="property-card" data-category="upcoming">
+            <div class="property-card" data-category="upcoming" data-project-id="project-1">
                 <div class="property-badge badge-upcoming">Upcoming</div>
                 <div class="card-image">
                     <img src="https://picsum.photos/seed/upcoming1/800/600" alt="Upcoming Project 1">
@@ -108,11 +115,11 @@
                             <div class="stat-label">Parking</div>
                         </div>
                     </div>
-                    <button class="contact-btn">View Details</button>
+                    <button class="contact-btn" data-project-id="project-1">View Details</button>
                 </div>
             </div>
             <!-- Mock Project 2 -->
-            <div class="property-card" data-category="upcoming">
+            <div class="property-card" data-category="upcoming" data-project-id="project-2">
                 <div class="property-badge badge-upcoming">Upcoming</div>
                 <div class="card-image">
                     <img src="https://picsum.photos/seed/upcoming2/800/600" alt="Upcoming Project 2">
@@ -160,11 +167,11 @@
                             <div class="stat-label">Parking</div>
                         </div>
                     </div>
-                    <button class="contact-btn">View Details</button>
+                    <button class="contact-btn" data-project-id="project-2">View Details</button>
                 </div>
             </div>
             <!-- Mock Project 3 -->
-            <div class="property-card" data-category="upcoming">
+            <div class="property-card" data-category="upcoming" data-project-id="project-3">
                 <div class="property-badge badge-upcoming">Upcoming</div>
                 <div class="card-image">
                     <img src="https://picsum.photos/seed/upcoming3/800/600" alt="Upcoming Project 3">
@@ -212,7 +219,7 @@
                             <div class="stat-label">Parking</div>
                         </div>
                     </div>
-                    <button class="contact-btn">View Details</button>
+                    <button class="contact-btn" data-project-id="project-3">View Details</button>
                 </div>
             </div>
         </div>
@@ -220,7 +227,7 @@
         <!-- Ongoing Projects Section -->
         <h3 class="subsection-title">Ongoing Projects</h3>
         <div class="projects-grid animate-on-scroll">
-            <div class="property-card" data-category="ongoing">
+            <div class="property-card" data-category="ongoing" data-project-id="project-4">
                 <div class="property-badge badge-ongoing">Ongoing</div>
                 <div class="card-image">
                     <img src="https://picsum.photos/seed/arpina/800/600" alt="Enosis Arpina">
@@ -268,10 +275,10 @@
                             <div class="stat-label">Parking</div>
                         </div>
                     </div>
-                    <button class="contact-btn">View Details</button>
+                    <button class="contact-btn" data-project-id="project-4">View Details</button>
                 </div>
             </div>
-            <div class="property-card" data-category="ongoing">
+            <div class="property-card" data-category="ongoing" data-project-id="project-5">
                 <div class="property-badge badge-ongoing">Ongoing</div>
                 <div class="card-image">
                     <img src="https://picsum.photos/seed/swapno/800/600" alt="Enosis Shwapno Neer">
@@ -319,10 +326,10 @@
                             <div class="stat-label">Parking</div>
                         </div>
                     </div>
-                    <button class="contact-btn">View Details</button>
+                    <button class="contact-btn" data-project-id="project-5">View Details</button>
                 </div>
             </div>
-            <div class="property-card" data-category="ongoing">
+            <div class="property-card" data-category="ongoing" data-project-id="project-6">
                 <div class="property-badge badge-ongoing">Ongoing</div>
                 <div class="card-image">
                     <img src="https://picsum.photos/seed/shorno/800/600" alt="Enosis Shorno Kanon">
@@ -370,10 +377,10 @@
                             <div class="stat-label">Parking</div>
                         </div>
                     </div>
-                    <button class="contact-btn">View Details</button>
+                    <button class="contact-btn" data-project-id="project-6">View Details</button>
                 </div>
             </div>
-            <div class="property-card" data-category="ongoing">
+            <div class="property-card" data-category="ongoing" data-project-id="project-7">
                 <div class="property-badge badge-ongoing">Ongoing</div>
                 <div class="card-image">
                     <img src="https://picsum.photos/seed/windy/800/600" alt="Enosis Windy Ridge">
@@ -421,7 +428,7 @@
                             <div class="stat-label">Parking</div>
                         </div>
                     </div>
-                    <button class="contact-btn">View Details</button>
+                    <button class="contact-btn" data-project-id="project-7">View Details</button>
                 </div>
             </div>
         </div>
@@ -429,7 +436,7 @@
         <!-- Completed Projects Section -->
         <h3 class="subsection-title">Completed Projects</h3>
         <div class="projects-grid animate-on-scroll">
-            <div class="property-card" data-category="completed">
+            <div class="property-card" data-category="completed" data-project-id="project-8">
                 <div class="property-badge badge-completed">Completed</div>
                 <div class="card-image">
                     <img src="https://picsum.photos/seed/taposhi/800/600" alt="Enosis Taposhi">
@@ -480,7 +487,7 @@
                     <button class="view-details">View Details</button>
                 </div>
             </div>
-            <div class="property-card" data-category="completed">
+            <div class="property-card" data-category="completed" data-project-id="project-9">
                 <div class="property-badge badge-completed">Completed</div>
                 <div class="card-image">
                     <img src="https://picsum.photos/seed/rubina/800/600" alt="Enosis Rubina">
@@ -528,10 +535,10 @@
                             <div class="stat-label">Parking</div>
                         </div>
                     </div>
-                    <button class="contact-btn">View Details</button>
+                    <button class="contact-btn" data-project-id="project-9">View Details</button>
                 </div>
             </div>
-            <div class="property-card" data-category="completed">
+            <div class="property-card" data-category="completed" data-project-id="project-10">
                 <div class="property-badge badge-completed">Completed</div>
                 <div class="card-image">
                     <img src="https://picsum.photos/seed/mojibor/800/600" alt="Enosis Mojibor Villa">
@@ -579,10 +586,10 @@
                             <div class="stat-label">Parking</div>
                         </div>
                     </div>
-                    <button class="contact-btn">View Details</button>
+                    <button class="contact-btn" data-project-id="project-10">View Details</button>
                 </div>
             </div>
-            <div class="property-card" data-category="completed">
+            <div class="property-card" data-category="completed" data-project-id="project-11">
                 <div class="property-badge badge-completed">Completed</div>
                 <div class="card-image">
                     <img src="https://picsum.photos/seed/peace/800/600" alt="Peace Point">
@@ -630,7 +637,7 @@
                             <div class="stat-label">Parking</div>
                         </div>
                     </div>
-                    <button class="contact-btn">View Details</button>
+                    <button class="contact-btn" data-project-id="project-11">View Details</button>
                 </div>
             </div>
         </div>
@@ -708,6 +715,26 @@
             <p>Designed & Developed by <a href="http://solven.app" target="_blank">Solven.app</a></p>
         </div>
     </footer>
+
+    <div id="projectModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn">&times;</button>
+            <div class="modal-image">
+                <img src="" alt="Project Image" id="modalProjectImage">
+            </div>
+            <div class="modal-details">
+                <h3 id="modalProjectTitle"></h3>
+                <p class="modal-address" id="modalProjectAddress"></p>
+                <p class="modal-description" id="modalProjectDescription"></p>
+                <div class="modal-features" id="modalProjectFeatures">
+                    <!-- Features will be dynamically added here -->
+                </div>
+                <div class="modal-contact">
+                    <button class="btn btn-solid">Contact Us for Details</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="../script.js"></script>
 </body>
