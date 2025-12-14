@@ -93,13 +93,16 @@
 }
 
 /* Specific layout adjustments for image/text order */
-.service-section.contract-projects .service-content,
+.service-section.contract-projects .service-content {
+    flex-direction: row-reverse; /* Image right, text left */
+}
+
 .service-section.investment-opportunities .service-content {
     flex-direction: row; /* Image left, text right by default */
 }
 
 .service-section.shared-projects .service-content {
-    flex-direction: row-reverse; /* Text left, image right */
+    flex-direction: row; /* Image left, text right */
 }
 
 /* Responsive adjustments */
