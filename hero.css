@@ -63,7 +63,7 @@
     z-index: 10;
     text-align: center;
     color: var(--color-c);
-    max-width: 800px !important; /* Shrunk subtext textbox size */
+    max-width: 800px !important;
     padding: 0 2rem;
     animation: fadeInUp 1s ease 0.5s both;
 }
@@ -71,26 +71,27 @@
 /* ... other styles ... */
 
 .hero-title {
-    font-size: 3.5rem !important; /* Increased size for more impact */
-    font-weight: 900; /* Bolder */
-    margin-bottom: 3.5rem !important; /* More space below */                             
-    margin-top: 2rem; /* Move hero text down */
-    text-shadow: 4px 6px 25px rgba(0,0,0,0.8); /* Stronger shadow */
-    line-height: 1.1; /* Slightly tighter line height for larger text */
-            letter-spacing: -3px; /* Tighter letter spacing */                                   
-            text-transform: uppercase; /* All caps for strong impact */                          
-            opacity: 0;    animation: hero-appear 1.2s ease-out 0.8s both;
+    font-size: 3.5rem !important;
+    font-weight: 900;
+    margin-bottom: 3.5rem !important;
+    margin-top: 2rem;
+    text-shadow: 4px 6px 25px rgba(0,0,0,0.8);
+    line-height: 1.1;
+    letter-spacing: -3px;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: hero-appear 1.2s ease-out 0.8s both;
 }
 
 .hero-description {
-    font-size: 1rem !important; /* Larger subtext */
-    margin-bottom: 3rem; /* More space below */
-    opacity: 0; /* Set initial opacity to 0 for animation */
-    line-height: 1.5; /* Good readability */
-    max-width: 70% !important; /* Shrink the actual text line length */
-    margin-left: auto; /* Center the text within the reduced max-width */
-    margin-right: auto; /* Center the text within the reduced max-width */
-    animation: hero-appear 1.2s ease-out 1.2s both; /* Delayed animation */
+    font-size: 1rem !important;
+    margin-bottom: 3rem;
+    opacity: 0;
+    line-height: 1.5;
+    max-width: 70% !important;
+    margin-left: auto;
+    margin-right: auto;
+    animation: hero-appear 1.2s ease-out 1.2s both;
 }
 
 .hero-stats {
@@ -123,7 +124,7 @@
     font-weight: 500;
     letter-spacing: 2px;
     text-transform: uppercase;
-    display: block; /* Added to stack below the number */
+    display: block;
 }
 
 .hero-buttons {
