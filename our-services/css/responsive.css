@@ -82,3 +82,47 @@
         transform: translateY(-8px) rotate(-45deg);
     }
 }
+
+@media (max-width: 480px) {
+    /* General adjustments for very small screens */
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    /* Hero section adjustments */
+    .hero {
+        min-height: 100vh; /* Set to 100vh as requested */
+        margin-top: 90px; /* Account for fixed navbar height */
+        padding-top: 0; /* Remove previous padding */
+        padding-bottom: 0; /* Remove previous padding */
+    }
+    .hero-content h1 {
+        font-size: 2.5rem !important; /* Adjusted font size for very small screens */
+        margin-bottom: 1rem !important;
+    }
+    .hero-content p {
+        font-size: 1rem !important; /* Adjusted font size for very small screens */
+        margin-bottom: 1.5rem !important;
+    }
+
+    /* Service section adjustments (flex-direction: column is likely needed if not already present) */
+    .service-content {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    /* Footer adjustments (same as other pages) */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .footer-section h4 {
+        margin-bottom: 0.8rem;
+    }
+    .footer-bottom {
+        padding-top: 1.5rem;
+    }
+    .footer-bottom .btn {
+        margin-bottom: 1.5rem;
+    }
+}

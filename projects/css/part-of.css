@@ -1,6 +1,6 @@
 .part-of {
     padding: 8rem 5%;
-    background: #f8f9fa;
+    background: var(--color-b); /* Light green background */
     position: relative;
     overflow: hidden;
 }
@@ -27,21 +27,33 @@
     animation: pulse 10s infinite linear reverse;
 }
 
+.part-of-main-title {
+    color: var(--color-a); /* Dark green color */
+    font-size: 3rem;
+    text-align: center;
+    grid-area: title; /* Assign to title area */
+    margin-bottom: 2rem; /* Space below title */
+}
+
 .part-of-container {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: 1fr 1fr; /* Two columns for content and image */
+    grid-template-rows: auto 1fr; /* Auto height for title, then 1fr for main content */
+    grid-template-areas:
+        "title title"
+        "content image";
     gap: 4rem;
     align-items: center;
     position: relative;
     z-index: 1;
 }
 
-.part-of-content h2.section-title {
-    font-size: 3rem;
-    text-align: left;
-    margin-bottom: 2rem;
+
+
+.part-of-content {
+    grid-area: content; /* Assign to content area */
 }
 
 .part-of-content h3 {
@@ -79,6 +91,7 @@
 }
 
 .part-of-image {
+    grid-area: image; /* Assign to image area */
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 20px 50px rgba(0,0,0,0.2);

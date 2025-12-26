@@ -82,3 +82,96 @@
         transform: translateY(-8px) rotate(-45deg);
     }
 }
+
+@media (max-width: 480px) {
+    /* General adjustments for very small screens */
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    /* Hero section adjustments */
+    .hero h1 {
+        font-size: 3rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+    .hero p {
+        font-size: 1rem !important;
+    }
+    .hero-text-bottom-left {
+        font-size: 2rem !important;
+        bottom: 80px !important; /* Increased from 50px to 80px */
+        left: 20px !important;
+    }
+    .scroll-animation-green {
+        font-size: 3rem !important;
+    }
+
+    /* Grid layouts to single column */
+    .stats-grid,
+    .team-grid,
+    .testimonials-grid,
+    .contact-container,
+    .footer-content,
+    .interiors-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem; /* Reduced gap */
+    }
+
+    /* Further reduce gap for testimonials grid due to its specific issue with cards */
+    .testimonials-grid {
+        gap: 2rem;
+    }
+
+    /* Vision Mission container adjustments */
+    .vm-container {
+        gap: 1.5rem; /* Reduced gap */
+    }
+    .vision-mission .content,
+    .vision-mission .vision-visual {
+        min-width: unset; /* Remove min-width constraint */
+    }
+
+    /* Project title font size */
+    .project-title {
+        font-size: 1.5rem;
+    }
+    .project-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    /* Contact form adjustments */
+    .contact-info, .contact-form {
+        padding: 1.5rem;
+    }
+    .contact-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    .contact-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    .contact-details h4 {
+        font-size: 1rem;
+    }
+    .contact-details p {
+        font-size: 0.9rem;
+    }
+
+    /* Footer adjustments */
+    .footer-content {
+        gap: 2rem;
+    }
+    .footer-section h4 {
+        margin-bottom: 0.8rem;
+    }
+    .footer-bottom {
+        padding-top: 1.5rem;
+    }
+    .footer-bottom .btn {
+        margin-bottom: 1.5rem;
+    }
+}

@@ -82,3 +82,95 @@
         transform: translateY(-8px) rotate(-45deg);
     }
 }
+
+@media (max-width: 480px) {
+    /* General adjustments for very small screens */
+    .section-title, .subsection-title {
+        font-size: 1.8rem;
+    }
+
+    /* Hero section adjustments */
+    .hero {
+        min-height: 100vh; /* Set to 100vh as requested */
+        padding-top: 5rem; /* Revert previous padding */
+        padding-bottom: 5rem; /* Revert previous padding */
+    }
+    .hero h1 {
+        font-size: 2.5rem !important; /* Adjusted font size for very small screens */
+        margin-bottom: 1rem !important;
+    }
+    .hero p {
+        font-size: 1rem !important; /* Adjusted font size for very small screens */
+        margin-bottom: 1.5rem !important;
+    }
+    .hero-btns {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    .btn-hero {
+        width: 80%; /* Make buttons take more width */
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    /* Projects grid adjustments */
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem; /* Reduced gap */
+    }
+    .property-card {
+        max-width: 100%;
+    }
+
+    /* Part-of section adjustments */
+    .part-of-container {
+        grid-template-columns: 1fr; /* Single column layout for mobile */
+        grid-template-rows: auto auto auto; /* Header, content, then image placeholder if needed */
+        grid-template-areas:
+            "title"
+            "content"
+            "image"; /* Ensure image is at the bottom, or hidden */
+        gap: 2rem; /* Reduced gap */
+    }
+    .part-of-main-title {
+        background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center / cover;
+        color: var(--color-c); /* White text for readability over image */
+        padding: 2rem 1rem; /* Padding for the header block */
+        border-radius: 10px; /* Match other rounded elements */
+        font-size: 2rem; /* Adjusted font size for mobile */
+        margin-bottom: 1rem; /* Reduce margin */
+        order: -1; /* Place at the top of the flex container implicitly */
+    }
+    .part-of-image {
+        display: none; /* Hide the image element on mobile as it's now a background */
+    }
+    .part-of-content {
+        padding: 1rem; /* Adjust padding for content block */
+        color: #555; /* Ensure text color is consistent for this section */
+    }
+    .part-of-content h3 {
+        font-size: 1.5rem;
+    }
+    .part-of-content p {
+        font-size: 1rem;
+    }
+    .part-of-features li {
+        font-size: 1rem;
+        color: #333;
+    }
+
+    /* Footer adjustments (same as about-us page) */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .footer-section h4 {
+        margin-bottom: 0.8rem;
+    }
+    .footer-bottom {
+        padding-top: 1.5rem;
+    }
+    .footer-bottom .btn {
+        margin-bottom: 1.5rem;
+    }
+}

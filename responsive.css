@@ -82,3 +82,131 @@
         transform: translateY(-8px) rotate(-45deg);
     }
 }
+
+@media (max-width: 480px) {
+    /* General adjustments for very small screens */
+    .section-title, .subsection-title {
+        font-size: 1.8rem;
+    }
+
+    /* Hero section adjustments */
+    .hero {
+        min-height: 100vh; /* Set to 100vh as requested */
+        margin-top: 90px; /* Account for fixed navbar height */
+        padding-top: 0; /* Remove previous padding */
+        padding-bottom: 0; /* Remove previous padding */
+    }
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+    .hero-title {
+        font-size: 2.2rem !important; /* Adjusted font size for very small screens */
+        margin-bottom: 0.8rem !important;
+    }
+    .hero-description {
+        font-size: 0.9rem !important; /* Adjusted font size for very small screens */
+        margin-bottom: 1rem !important;
+    }
+    .hero-stats {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    .hero-buttons {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    .hero-buttons .btn {
+        width: 80%; /* Make buttons take more width */
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    /* Get Started section adjustments */
+    .get-started-content {
+        flex-direction: column;
+    }
+    .get-started-image, .get-started-text {
+        width: 100%;
+    }
+    .get-started-text {
+        text-align: center;
+    }
+    .get-started-text .btn {
+        width: 80%;
+        margin: 0 auto;
+    }
+    .price-line .stat-number {
+        font-size: 3rem;
+    }
+
+    /* Why Choose Us section adjustments */
+    .why-choose-us {
+        flex-direction: column;
+    }
+    .why-choose-us-text, .why-choose-us-image {
+        width: 100%;
+    }
+    .why-choose-us-list {
+        padding-left: 1.5rem;
+    }
+
+    /* Projects section adjustments */
+    .projects-cards {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    .project-card {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    /* Experts section adjustments */
+    .experts-container {
+        flex-direction: column;
+    }
+    .experts-text-content, .experts-image {
+        width: 100%;
+    }
+    .experts-text-content {
+        text-align: center;
+    }
+    .experts-text-content .btn {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    /* Reviews section adjustments */
+    .carousel-container {
+        padding: 0 1rem;
+    }
+    .testimonial-card {
+        min-width: 90%; /* Adjust card width */
+        margin: 0 0.5rem;
+    }
+
+    /* Subscribe section adjustments */
+    .subscribe-form {
+        flex-direction: column;
+        gap: 1rem;
+        max-width: 90%;
+        margin: 0 auto;
+    }
+    .subscribe-form input, .subscribe-form button {
+        width: 100%;
+    }
+
+    /* Footer adjustments */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .footer-section h4 {
+        margin-bottom: 0.8rem;
+    }
+    .footer-bottom {
+        padding-top: 1.5rem;
+    }
+    .footer-bottom .btn {
+        margin-bottom: 1.5rem;
+    }
+}
