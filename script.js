@@ -132,52 +132,27 @@ document.addEventListener('click', (e) => {
 // Set active navigation link based on current page
 function setActiveNavLink() {
     const navLinks = document.querySelectorAll('.nav-links a');
-    let currentPath = window.location.pathname;
+    const currentPath = window.location.pathname.replace(/\/index\.html$/, '').replace(/\/$/, '') || '/';
 
-    console.log('--- setActiveNavLink Debugging ---');
-    console.log('Raw window.location.pathname:', window.location.pathname);
-
-    // Normalize currentPath: remove "index.html" and trailing slashes
-    currentPath = currentPath.replace(/(\/index\.html)?\/?$/, '');
-    if (currentPath === '') { // Handle root path specifically
-        currentPath = '/';
-    }
-    console.log('Normalized currentPath:', currentPath);
+    let bestMatch = null;
+    let longestMatch = -1;
 
     navLinks.forEach(link => {
-        link.classList.remove('active'); // Remove active from all links first
+        const linkPath = link.getAttribute('href').replace(/\/$/, '') || '/';
 
-        let linkPath = link.getAttribute('href');
-
-        // Normalize linkPath: remove trailing slashes
-        linkPath = linkPath.replace(/\/$/, '');
-
-        console.log(`  Processing link: ${link.textContent} (Raw href: ${link.getAttribute('href')}, Normalized linkPath: ${linkPath})`);
-
-        // Check for exact match first
-        if (currentPath === linkPath) {
-            link.classList.add('active');
-            console.log(`    MATCH: Exact match. Adding 'active' to ${link.textContent}`);
-        } else if (currentPath.startsWith(linkPath) && linkPath !== '/') {
-            // For sub-paths, ensure it's not just a partial match of a longer path
-            // e.g., /about-us should not activate /about
-            const nextChar = currentPath.substring(linkPath.length, linkPath.length + 1);
-            if (nextChar === '' || nextChar === '/') {
-                link.classList.add('active');
-                console.log(`    MATCH: Starts with and is a full segment. Adding 'active' to ${link.textContent}`);
-            } else {
-                console.log(`    NO MATCH: Starts with but not a full segment for ${link.textContent}`);
+        if (currentPath.startsWith(linkPath)) {
+            if (linkPath.length > longestMatch) {
+                longestMatch = linkPath.length;
+                bestMatch = link;
             }
-        } else {
-            console.log(`    NO MATCH: No conditions met for ${link.textContent}`);
         }
     });
-    console.log('--- End setActiveNavLink Debugging ---');
-}
 
-// Also call it on hashchange or popstate if needed (for SPA-like behavior)
-window.addEventListener('hashchange', setActiveNavLink);
-window.addEventListener('popstate', setActiveNavLink);
+    navLinks.forEach(link => link.classList.remove('active'));
+    if (bestMatch) {
+        bestMatch.classList.add('active');
+    }
+}
 
 // Counter animation
 const counters = document.querySelectorAll('.stat-number'); // Targeted specifically to hero section

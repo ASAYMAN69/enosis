@@ -3,405 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hero Testimonial Section</title>
+    <title>Enosis | Building Your Vision</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --primary-green: #a3cf33;
+            --text-light: #ffffff;
+            --text-dim: #cccccc;
+            --overlay: rgba(0, 0, 0, 0.45);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            background-color: #111;
+            color: var(--text-light);
             overflow-x: hidden;
         }
 
-        .hero-section {
-            width: 100%;
-            padding: 60px 20px;
-        }
-
-        .hero-title {
-            text-align: center;
-            color: white;
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            font-weight: 700;
-        }
-
-        .carousel-container {
+        .hero {
             position: relative;
+            height: 100vh;
             width: 100%;
-            overflow: hidden;
-        }
-
-        .carousel-track {
-            display: flex;
-            gap: 30px;
-            transition: transform 0.3s ease-out;
-        }
-
-        .testimonial-card {
-            min-width: 350px;
-            width: 350px;
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            /* Replace the URL below with your local image file path */
+            background: linear-gradient(var(--overlay), var(--overlay)), 
+                        url('https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?auto=format&fit=crop&q=80&w=2000') no-repeat center center/cover;
+            padding: 0 10%;
         }
 
-        .card-header {
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 0;
+            z-index: 10;
+        }
+
+        .logo {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .profile-pic {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .user-info h3 {
-            font-size: 1.2rem;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .user-info p {
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        .rating {
+        .nav-links {
             display: flex;
-            gap: 5px;
+            list-style: none;
+            gap: 30px;
         }
 
-        .star {
-            color: #ffc107;
-            font-size: 1.2rem;
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 400;
+            transition: color 0.3s ease;
+            position: relative;
         }
 
-        .review-text {
-            color: #555;
-            line-height: 1.6;
-            font-size: 1rem;
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-green);
+            transition: width 0.3s ease;
         }
 
-        /* Desktop styles */
-        @media (min-width: 769px) {
-            .carousel-track {
-                display: flex;
-                gap: 30px;
-                animation: scroll-left linear infinite;
-                animation-duration: 35s;
-            }
-
-            .carousel-container:hover .carousel-track {
-                animation-play-state: paused;
-            }
-
-            @keyframes scroll-left {
-                from {
-                    transform: translateX(0);
-                }
-                to {
-                    transform: translateX(-50%);
-                }
-            }
-            
-            .testimonial-card {
-                flex: 0 0 auto;
-            }
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
         }
 
-        /* Mobile styles */
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-green);
+        }
+
+        /* Content Area */
+        .content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 800px;
+            z-index: 5;
+        }
+
+        .content h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 25px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .content h1 span {
+            color: var(--primary-green);
+        }
+
+        .content p {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+            margin-bottom: 40px;
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out 0.2s;
+        }
+
+        /* Buttons */
+        .cta-group {
+            display: flex;
+            gap: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out 0.4s;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-green);
+            color: #000;
+            border: 2px solid var(--primary-green);
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--primary-green);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            border-color: #fff;
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Animation Trigger Class */
+        .reveal {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2rem;
-                margin-bottom: 30px;
-            }
-
-            .carousel-container {
-                touch-action: pan-y;
-            }
-
-            .carousel-track {
-                gap: 20px;
-                padding: 0 calc(50% - 175px);
-                cursor: grab;
-            }
-
-            .carousel-track.grabbing {
-                cursor: grabbing;
-            }
-
-            .testimonial-card {
-                min-width: 320px;
-                width: 320px;
-                flex-shrink: 0;
-            }
+            .nav-links { display: none; } /* Hide menu on mobile for simplicity */
+            .content h1 { font-size: 2.5rem; }
+            .cta-group { flex-direction: column; }
+            .btn { text-align: center; }
         }
     </style>
 </head>
 <body>
-    <div class="hero-section">
-        <h1 class="hero-title">What Our Clients Say</h1>
-        <div class="carousel-container">
-            <div class="carousel-track" id="carouselTrack">
-                <div class="testimonial-card">
-                    <div class="card-header">
-                        <img src="https://i.pravatar.cc/150?img=1" alt="Profile" class="profile-pic">
-                        <div class="user-info">
-                            <h3>Sarah Johnson</h3>
-                            <p>CEO, TechStart</p>
-                        </div>
-                    </div>
-                    <div class="rating">
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                    </div>
-                    <p class="review-text">Absolutely fantastic service! The team went above and beyond to deliver exactly what we needed. Highly recommend to anyone looking for quality work.</p>
-                </div>
 
-                <div class="testimonial-card">
-                    <div class="card-header">
-                        <img src="https://i.pravatar.cc/150?img=12" alt="Profile" class="profile-pic">
-                        <div class="user-info">
-                            <h3>Michael Chen</h3>
-                            <p>Designer, Creative Co</p>
-                        </div>
-                    </div>
-                    <div class="rating">
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                    </div>
-                    <p class="review-text">Working with this team has been a game-changer for our business. Professional, responsive, and incredibly talented.</p>
-                </div>
+    <header class="hero">
+        <nav>
+            <div class="logo">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--primary-green)"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Enosis
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Projects</a></li>
+                <li><a href="#" class="active">Our Services</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </nav>
 
-                <div class="testimonial-card">
-                    <div class="card-header">
-                        <img src="https://i.pravatar.cc/150?img=5" alt="Profile" class="profile-pic">
-                        <div class="user-info">
-                            <h3>Emily Rodriguez</h3>
-                            <p>Marketing Director</p>
-                        </div>
-                    </div>
-                    <div class="rating">
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                    </div>
-                    <p class="review-text">Exceptional quality and attention to detail. They understood our vision perfectly and brought it to life beautifully.</p>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="card-header">
-                        <img src="https://i.pravatar.cc/150?img=33" alt="Profile" class="profile-pic">
-                        <div class="user-info">
-                            <h3>David Park</h3>
-                            <p>Founder, StartupHub</p>
-                        </div>
-                    </div>
-                    <div class="rating">
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                    </div>
-                    <p class="review-text">I've worked with many teams, but this one stands out. Their expertise and dedication are unmatched.</p>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="card-header">
-                        <img src="https://i.pravatar.cc/150?img=9" alt="Profile" class="profile-pic">
-                        <div class="user-info">
-                            <h3>Lisa Thompson</h3>
-                            <p>Product Manager</p>
-                        </div>
-                    </div>
-                    <div class="rating">
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                    </div>
-                    <p class="review-text">Outstanding results from start to finish. They made the entire process smooth and enjoyable.</p>
-                </div>
+        <div class="content">
+            <h1 id="hero-title">Building Your <span>Vision</span>, Together</h1>
+            <p id="hero-desc">From custom constructions to strategic partnerships, discover our comprehensive real estate services designed to bring your dreams to life.</p>
+            <div class="cta-group" id="hero-btns">
+                <a href="#" class="btn btn-primary">Our Services</a>
+                <a href="#" class="btn btn-secondary">Contact Us</a>
             </div>
         </div>
-    </div>
+    </header>
 
     <script>
-        const track = document.getElementById('carouselTrack');
-        const isMobile = () => window.innerWidth <= 768;
-        
-        let currentIndex = 0;
-        let autoplayTimer = null;
-        let isDragging = false;
-        let startPos = 0;
-        let currentTranslate = 0;
-        let prevTranslate = 0;
-        let velocity = 0;
-        let animationID = null;
+        // Trigger animations once the page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            const title = document.getElementById('hero-title');
+            const desc = document.getElementById('hero-desc');
+            const btns = document.getElementById('hero-btns');
 
-        // Auto-carousel for mobile
-        function startAutoplay() {
-            if (!isMobile()) return;
-            
-            autoplayTimer = setInterval(() => {
-                if (!isDragging) {
-                    currentIndex = (currentIndex + 1) % track.children.length;
-                    moveToCard(currentIndex, true);
-                }
-            }, 2500);
-        }
-
-        function stopAutoplay() {
-            if (autoplayTimer) {
-                clearInterval(autoplayTimer);
-                autoplayTimer = null;
-            }
-        }
-
-        function moveToCard(index, smooth = false) {
-            const card = track.children[index];
-            const cardWidth = card.offsetWidth;
-            const gap = 20;
-            const offset = index * (cardWidth + gap);
-            
-            currentTranslate = -offset;
-            prevTranslate = currentTranslate;
-            
-            if (smooth) {
-                track.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            } else {
-                track.style.transition = 'transform 0.3s ease-out';
-            }
-            
-            track.style.transform = `translateX(${currentTranslate}px)`;
-        }
-
-        // Touch/Mouse events for mobile
-        function touchStart(e) {
-            if (!isMobile()) return;
-            
-            stopAutoplay();
-            isDragging = true;
-            startPos = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
-            track.classList.add('grabbing');
-            track.style.transition = 'none';
-            
-            velocity = 0;
-            cancelAnimationFrame(animationID);
-        }
-
-        function touchMove(e) {
-            if (!isDragging || !isMobile()) return;
-            
-            const currentPosition = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
-            const diff = currentPosition - startPos;
-            
-            velocity = diff - (currentTranslate - prevTranslate);
-            currentTranslate = prevTranslate + diff;
-            
-            track.style.transform = `translateX(${currentTranslate}px)`;
-        }
-
-        function touchEnd() {
-            if (!isDragging || !isMobile()) return;
-            
-            isDragging = false;
-            track.classList.remove('grabbing');
-            
-            // Apply momentum physics
-            const animate = () => {
-                if (Math.abs(velocity) > 0.5) {
-                    currentTranslate += velocity;
-                    velocity *= 0.95; // Friction
-                    track.style.transform = `translateX(${currentTranslate}px)`;
-                    animationID = requestAnimationFrame(animate);
-                } else {
-                    snapToClosest();
-                }
-            };
-            
-            animate();
-        }
-
-        function snapToClosest() {
-            const cardWidth = track.children[0].offsetWidth;
-            const gap = 20;
-            const cardSpacing = cardWidth + gap;
-            
-            const index = Math.round(-currentTranslate / cardSpacing);
-            currentIndex = Math.max(0, Math.min(index, track.children.length - 1));
-            
-            moveToCard(currentIndex);
-            
+            // Small delay to ensure smooth rendering
             setTimeout(() => {
-                startAutoplay();
-            }, 500);
-        }
-
-        // Event listeners
-        track.addEventListener('mousedown', touchStart);
-        track.addEventListener('touchstart', touchStart);
-        track.addEventListener('mousemove', touchMove);
-        track.addEventListener('touchmove', touchMove);
-        track.addEventListener('mouseup', touchEnd);
-        track.addEventListener('touchend', touchEnd);
-        track.addEventListener('mouseleave', touchEnd);
-
-        // Prevent context menu
-        track.addEventListener('contextmenu', e => e.preventDefault());
-
-        // Handle resize
-        let resizeTimer;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => {
-                stopAutoplay();
-                if (isMobile()) {
-                    moveToCard(currentIndex);
-                    startAutoplay();
-                } else {
-                    track.style.transform = 'translateX(0)';
-                    track.style.transition = 'none';
-                }
-            }, 250);
+                title.classList.add('reveal');
+                desc.classList.add('reveal');
+                btns.classList.add('reveal');
+            }, 100);
         });
-
-        // Initialize
-        if (isMobile()) {
-            moveToCard(0);
-            startAutoplay();
-        }
     </script>
 </body>
 </html>

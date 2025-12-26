@@ -155,23 +155,33 @@
 /* Left-aligned hero content for our-services page */
 .our-services-hero-content {
     text-align: left;
-    max-width: 900px;
+    max-width: 800px; /* from ignore.html */
     margin-left: 5%;
     margin-right: auto;
+    z-index: 5;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.our-services-hero-content .hero-title {
-    color: var(--color-c); /* Ensure title color is correct */
+.our-services-hero-content h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1.1;
+    margin-bottom: 25px;
+    color: var(--color-c); 
 }
 
-.our-services-hero-content .hero-description {
-    max-width: 70% !important;
+.our-services-hero-content h1 span {
+    color: var(--color-b);
+}
+
+.our-services-hero-content p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    margin-bottom: 40px;
+    max-width: 600px;
     margin-left: 0;
     margin-right: auto;
-    color: var(--color-c); /* Ensure description color is correct */
-}
-
-.our-services-hero-content .hero-stats,
-.our-services-hero-content .hero-buttons {
-    justify-content: flex-start;
 }
