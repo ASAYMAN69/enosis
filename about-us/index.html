@@ -107,11 +107,84 @@
     <section class="vision-mission animate-on-scroll">
         <h2 class="section-title">Our Vision</h2>
         <div class="vm-container">
-            <div class="vm-content vm-animated">
-                <p>Our vision is to be a leading real estate company, transforming communities with sustainable and innovative living spaces. We are committed to delivering exceptional solutions through integrity and client-focused service, building lasting relationships by exceeding expectations. Our success is driven by our core values: Integrity, Excellence, Innovation, Sustainability, and Client Satisfaction.</p>
+            <div class="content">
+                <h1 id="vision-title" class="animate-on-scroll">Our <span>Vision</span> for the <span>Future</span></h1>
+                <p id="vision-desc" class="animate-on-scroll">To be a leading real estate company, transforming communities with sustainable and innovative living spaces. We are committed to delivering exceptional solutions through integrity and client-focused service, building lasting relationships by exceeding expectations.</p>
+                <div class="values-grid animate-on-scroll">
+                    <span class="value-tag">Integrity</span>
+                    <span class="value-tag">Excellence</span>
+                    <span class="value-tag">Innovation</span>
+                    <span class="value-tag">Sustainability</span>
+                    <span class="value-tag">Client Satisfaction</span>
+                </div>
+
             </div>
-            <div class="graph-container vm-animated">
-                <canvas id="myChart"></canvas>
+            <div class="vision-visual animate-on-scroll">
+                <div class="chart-header">
+                    <div class="chart-title">
+                        <span class="dot"></span>
+                        Performance Metrics
+                    </div>
+                    <div style="font-size: 0.8rem; opacity: 0.6;">Annual Growth</div>
+                </div>
+                
+                                <svg class="chart-svg" viewBox="0 0 400 200">
+                
+                                    <defs>
+                
+                                        <filter id="glow">
+                
+                                            <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur" />
+                
+                                            <feFlood flood-color="var(--color-d)" result="flood" />
+                
+                                            <feComposite in="flood" in2="blur" operator="in" result="coloredBlur" />
+                
+                                            <feMerge>
+                
+                                                <feMergeNode in="coloredBlur" />
+                
+                                                <feMergeNode in="SourceGraphic" />
+                
+                                            </feMerge>
+                
+                                        </filter>
+                
+                                    </defs>
+                
+                                    <line x1="0" y1="180" x2="400" y2="180" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                
+                                    <line x1="0" y1="120" x2="400" y2="120" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                
+                                    <line x1="0" y1="60" x2="400" y2="60" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                
+                                    
+                
+                                    <path class="path-line" d="M0 150 Q 50 100, 100 130 T 200 80 T 300 110 T 400 40" 
+                
+                                          fill="none" stroke="var(--color-d)" stroke-width="3" filter="url(#glow)" />
+                
+                                    
+                
+                                                        <circle cx="100" cy="130" r="4" fill="var(--color-b)" filter="url(#glow)" />
+                
+                                    
+                
+                                                        <circle cx="200" cy="80" r="4" fill="var(--color-b)" filter="url(#glow)" />
+                
+                                    
+                
+                                                        <circle cx="300" cy="110" r="4" fill="var(--color-b)" filter="url(#glow)" />
+                
+                                    
+                
+                                                        <circle cx="400" cy="40" r="4" fill="var(--color-b)" filter="url(#glow)" />
+                
+                                </svg>
+                
+                <div style="display: flex; justify-content: space-between; margin-top: 15px; font-size: 0.7rem; opacity: 0.5;">
+                    <span>Q1</span><span>Q2</span><span>Q3</span><span>Q4</span>
+                </div>
             </div>
         </div>
     </section>
