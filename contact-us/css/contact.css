@@ -129,10 +129,18 @@
     font-size: 0.95rem; /* Slightly smaller paragraph */
     line-height: 1.4;
     color: rgba(255, 255, 255, 0.8);
+    word-wrap: break-word; /* Ensure long words break and wrap */
+    overflow-wrap: break-word; /* Modern version of word-wrap */
+    max-width: 100%; /* Ensure text does not overflow parent */
     /* For Corporate Office to align text and SVG */
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.contact-details p .inline-map-redirect-svg {
+    flex-shrink: 0; /* Prevent the SVG from shrinking */
+    margin-left: 0.5rem; /* Add some space between text and SVG */
 }
 
 .contact-links {

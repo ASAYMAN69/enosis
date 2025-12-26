@@ -100,32 +100,68 @@
         font-size: 1rem; /* Adjusted font size for very small screens */
     }
 
-    /* Grid layouts to single column */
-    .contact-container,
-    .footer-content {
-        grid-template-columns: 1fr;
-        gap: 1.5rem; /* Reduced gap */
+    /* Aggressive width constraint for contact section and its children */
+    .contact-section {
+        padding: 3rem 1rem; /* Reduce horizontal padding significantly */
+        overflow-x: hidden;
     }
 
-    /* Contact form adjustments */
-    .contact-info, .contact-form {
-        padding: 1.5rem;
+    .contact-container {
+        width: 100%;
+        min-width: 0; /* Allow grid items to shrink as much as possible */
     }
+
+    .contact-info, .contact-form {
+        padding: 1rem; /* Further reduce padding inside the cards */
+        min-width: 0; /* Allow flex/grid items to shrink */
+    }
+
+    /* Ensure children within contact items don't overflow */
     .contact-item {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.5rem;
+        min-width: 0; /* Allow flex item to shrink */
     }
-    .contact-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
+
+    .contact-details {
+        min-width: 0; /* Allow flex item to shrink */
+        width: 100%; /* Ensure it takes full available width */
+        display: flex; /* Use flexbox for robust centering */
+        flex-direction: column; /* Stack children vertically */
+        align-items: center; /* Center items horizontally within the flex container */
+        text-align: center; /* Fallback for older browsers or if flex fails */
     }
+
+    /* General constraint for all elements within contact-info and contact-form */
+    .contact-info *, .contact-form * {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
     .contact-details h4 {
         font-size: 1rem;
+        /* text-align: center; Removed as flexbox on parent handles this */
     }
     .contact-details p {
         font-size: 0.9rem;
+        display: block; /* Change from flex to block to allow natural wrapping */
+        /* text-align: center !important; Removed as flexbox on parent handles this */
+    }
+
+    .contact-details p .inline-map-redirect-svg {
+        margin-left: 0; /* Remove left margin if it's on a new line */
+        display: inline-block; /* Keep it inline-block but let it flow with text */
+        vertical-align: middle; /* Align with text */
+    }
+    .contact-details p .contact-link { /* Ensure each contact link is on its own line */
+        display: block;
+    }
+
+    /* Form control adjustments to prevent overflow */
+    .form-control {
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     /* Footer adjustments (same as about-us page) */
