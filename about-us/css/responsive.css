@@ -9,20 +9,34 @@
     }
 }
 
-@media (max-width: 768px) {                                                              
-    .hero-title {                                                                        
-        font-size: clamp(2rem, 8vw, 3.5rem) !important;                                  
-        margin-bottom: 2rem !important;
-        margin-top: 1rem !important; /* Adjust margin-top for mobile */
+@media (max-width: 768px) {
+    .hero {
+        height: 100vh !important;
+        min-height: unset !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .hero-text-bottom-left {
+        font-size: 1.8rem !important;
+        bottom: 60px !important;
+        left: 15px !important;
+    }
+    .scroll-animation-green {
+        font-size: 2.5rem !important;
+    }
+    .hero-title {
+        font-size: clamp(2rem, 8vw, 3.5rem); /* Removed !important */
+        margin-bottom: 2rem; /* Removed !important */
+        margin-top: 1rem; /* Removed !important */
     }
     
     .hero-description {
-        font-size: clamp(0.8rem, 3vw, 1rem) !important;
+        font-size: clamp(0.8rem, 3vw, 1rem); /* Removed !important */
     }
     
     .hero-content {
-        max-width: 90% !important;
-        padding: 0 1rem !important;
+        max-width: 90%; /* Removed !important */
+        padding: 0 1rem; /* Removed !important */
     }
     
     .hero-btns {
@@ -81,6 +95,14 @@
     .hamburger.active .bar:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
     }
+    
+    .vm-container {
+        flex-direction: column;
+    }
+
+    .testimonials-grid {
+        gap: 5rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -90,6 +112,12 @@
     }
 
     /* Hero section adjustments */
+    .hero {
+        height: 100vh !important;
+        min-height: unset !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
     .hero h1 {
         font-size: 3rem !important;
         margin-bottom: 1.5rem !important;
