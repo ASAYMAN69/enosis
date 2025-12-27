@@ -109,7 +109,8 @@
     font-family: 'Cinzel', serif;
     font-weight: 700;
     font-size: 3.5rem;
-    white-space: nowrap; /* Added to prevent breaking */
+    display: inline-flex; /* Use flexbox for alignment */
+    align-items: baseline; /* Align baselines of number and text */
 }
 
 .month-text {

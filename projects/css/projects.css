@@ -454,3 +454,33 @@
     color: var(--color-a);
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
+@media (max-width: 768px) {
+    .property-card {
+        height: auto;
+    }
+
+    .card-overlay {
+        opacity: 1 !important;
+        position: absolute;
+        background: transparent; /* Make overlay transparent */
+        justify-content: flex-end; /* Push content to the bottom */
+        padding: 15px;
+    }
+
+    .card-overlay .property-description,
+    .card-overlay .property-stats,
+    .card-overlay .overlay-title {
+        display: none !important; /* Hide everything except the button */
+    }
+
+    .card-overlay .contact-btn,
+    .card-overlay .view-details {
+        display: block !important;
+        opacity: 1 !important; /* Ensure button is visible */
+        width: 100%;
+        margin-top: 0;
+        background: var(--color-d); /* Give button a solid background */
+        color: var(--color-c);
+    }
+}
+
