@@ -30,6 +30,7 @@
     }
     .hero-title {
         font-size: 1.8rem; /* smaller title */
+        letter-spacing: 0.05em; /* Added letter spacing */
     }
     .hero-subtitle {
         font-size: 1rem; /* smaller subtitle */
@@ -40,14 +41,25 @@
     }
     /* Hero stats: stack vertically */
     .hero-stats {
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
         gap: 0.5rem;
-        margin-top: 1rem;
+        margin-top: 2rem; /* Increased margin-top */
+    }
+    .stat-item:nth-child(1) {
+        justify-self: end;
+    }
+    .stat-item:nth-child(2) {
+        justify-self: center;
+    }
+    .stat-item:nth-child(3) {
+        justify-self: start;
     }
     .hero-buttons {
         flex-direction: column;
         gap: 0.5rem;
-        margin-top: 1rem;
+        margin-top: 2rem; /* Increased margin-top */
         align-items: center; /* Centering the buttons */
     }
     /* Adjust arrow buttons */
@@ -114,6 +126,11 @@
     .testimonials-grid {
         gap: 5rem;
     }
+    .stat-item .stat-label {
+        max-width: 100px; /* Set max-width to force line break for wider mobile screens */
+        text-align: center; /* Center the text within its max-width */
+        margin: 0 auto; /* Center the block itself if it's smaller than its parent */
+    }
 }
 
 @media (max-width: 480px) {
@@ -131,39 +148,55 @@
         padding: 0 0.5rem; /* Reduced padding for very small screens */
     }
     .hero-title {
-        font-size: 1.2rem !important; /* Even more drastically reduced hero title */
-        margin-bottom: 0.2rem !important; /* Reduced margin */
+        font-size: 1.6rem !important; /* Slightly increased hero title size */
+        margin-bottom: 0.5rem !important; /* Increased margin */
+        letter-spacing: 0.05em !important;
     }
     .hero-subtitle {
-        font-size: 0.6rem !important; /* Even more drastically reduced for very small screens */
+        font-size: 0.7rem !important; /* Slightly increased subtitle size for better readability */
     }
     .hero-description {
-        font-size: 0.7rem; /* Drastically reduced description */
-        line-height: 1.2rem; /* Adjusted line height */
-        margin-bottom: 0.5rem; /* Reduced margin */
+        font-size: 0.6rem !important; /* Reduced subtext font size */
+        line-height: 1rem; /* Adjusted line height */
+        margin-bottom: 0.4rem !important; /* Keeping margin, or adjust as needed */
+        max-width: 90% !important; /* Setting a specific width to promote 2 lines */
     }
     .hero-stats {
-        flex-direction: column;
-        gap: 0.5rem; /* Reduced gap between stats */
-        margin-top: 0.5rem; /* Reduced margin */
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+    .stat-item:nth-child(1) {
+        justify-self: end;
+    }
+    .stat-item:nth-child(2) {
+        justify-self: center;
+    }
+    .stat-item:nth-child(3) {
+        justify-self: start;
     }
     .stat-item .stat-number {
-        font-size: 1.5rem; /* Reduced stat number size */
+        font-size: 1.2rem; /* Reduced stat number size */
     }
     .stat-item .stat-label {
-        font-size: 0.6rem; /* Reduced stat label size */
+        font-size: 0.5rem; /* Reduced stat label size */
+        max-width: 80px; /* Set max-width to force line break */
+        text-align: center; /* Center the text within its max-width */
+        margin: 0 auto; /* Center the block itself if it's smaller than its parent */
     }
     .hero-buttons {
         flex-direction: column;
-        gap: 0.4rem; /* Reduced gap between buttons */
-        margin-top: 0.5rem; /* Reduced margin */
-        align-items: center; /* Centering the buttons */
+        gap: 0.5rem; /* Slightly increased gap between buttons */
+        margin-top: 1.5rem; /* Adjusted margin */
+        align-items: center;
     }
     .hero-buttons .btn {
-        width: 80%; /* Adjusted width */
-        max-width: 180px; /* Added max-width */
-        padding: 0.5rem 0.8rem; /* Smaller padding */
-        font-size: 0.7rem; /* Smaller font size */
+        width: 85%; /* Increased width */
+        max-width: 220px; /* Increased max-width */
+        padding: 0.7rem 1.2rem; /* Increased padding */
+        font-size: 0.8rem; /* Increased font size */
     }
     .hero-arrow {
         top: 90%;
