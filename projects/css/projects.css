@@ -413,3 +413,44 @@
         height: 200px;
     }
 }
+
+.projects-grid-container {
+    position: relative;
+    padding-bottom: 5rem; /* Space for the button */
+}
+
+.projects-grid .property-card.hidden {
+    display: none;
+}
+
+.see-all-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 2rem 0;
+    display: none; /* Hidden by default */
+}
+
+.see-all-container.visible {
+    display: block;
+}
+
+.see-all-gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10rem;
+    background: linear-gradient(to top, var(--color-a) 20%, transparent);
+    z-index: 1;
+}
+
+.see-all-btn {
+    position: relative;
+    z-index: 2;
+    background-color: var(--color-c);
+    color: var(--color-a);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
