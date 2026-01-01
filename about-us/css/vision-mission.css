@@ -141,6 +141,9 @@
         text-align: center; /* Center align text for small screens */
     }
     .vision-mission .content h1 { font-size: 2.5rem; }
+    .vision-mission .content p {
+        text-align: left; /* Left align description text for small screens */
+    }
     .vision-mission .values-grid {
         justify-content: center; /* Center align items on small screens */
     }

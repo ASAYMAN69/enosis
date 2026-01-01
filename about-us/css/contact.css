@@ -51,6 +51,12 @@
     box-shadow: var(--shadow);
 }
 
+.contact-form h3 {
+    color: var(--color-a); /* Green color */
+    text-align: center; /* Center align */
+    padding-bottom: 1.5rem; /* Add padding below */
+}
+
 .form-group {
     margin-bottom: 1.8rem;
 }
