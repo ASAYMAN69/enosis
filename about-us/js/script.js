@@ -406,4 +406,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     console.warn('Modal elements not found. Modal functionality will not be initialized.');
                     console.warn('projectModal:', projectModal, 'modalCloseBtn:', modalCloseBtn, 'contactBtns.length:', contactBtns.length);
-                }    });
+                }
+
+    // Set hero height on mobile
+    function setHeroHeight() {
+        const hero = document.querySelector('.hero');
+        if (hero && window.innerWidth <= 768) {
+            hero.style.height = `${window.innerHeight}px`;
+        } else if (hero) {
+            hero.style.height = '100vh'; // Reset to default on desktop
+        }
+    }
+
+    setHeroHeight();
+    window.addEventListener('resize', setHeroHeight);
+});
