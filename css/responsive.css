@@ -31,35 +31,21 @@
     .hero-title {
         font-size: 1.8rem; /* smaller title */
         letter-spacing: 0.05em; /* Added letter spacing */
-    }
-    .hero-subtitle {
-        font-size: 1rem; /* smaller subtitle */
+        margin-bottom: 1rem; /* Adjusted margin */
     }
     .hero-description {
         font-size: 0.9rem; /* smaller description */
         line-height: 1.3rem;
+        margin-bottom: 1rem; /* Adjusted margin */
     }
-    /* Hero stats: stack vertically */
+    /* Hero stats: hide on mobile */
     .hero-stats {
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        align-items: center;
-        gap: 0.5rem;
-        margin-top: 2rem; /* Increased margin-top */
-    }
-    .stat-item:nth-child(1) {
-        justify-self: end;
-    }
-    .stat-item:nth-child(2) {
-        justify-self: center;
-    }
-    .stat-item:nth-child(3) {
-        justify-self: start;
+        display: none;
     }
     .hero-buttons {
         flex-direction: column;
         gap: 0.5rem;
-        margin-top: 2rem; /* Increased margin-top */
+        margin-top: 1rem; /* Adjusted margin */
         align-items: center; /* Centering the buttons */
     }
     /* Adjust arrow buttons */
@@ -149,7 +135,7 @@
     }
     .hero-title {
         font-size: 1.6rem !important; /* Slightly increased hero title size */
-        margin-bottom: 0.5rem !important; /* Increased margin */
+        margin-bottom: 1rem !important; /* Adjusted margin */
         letter-spacing: 0.05em !important;
     }
     .hero-subtitle {
@@ -158,24 +144,11 @@
     .hero-description {
         font-size: 0.6rem !important; /* Reduced subtext font size */
         line-height: 1rem; /* Adjusted line height */
-        margin-bottom: 0.4rem !important; /* Keeping margin, or adjust as needed */
+        margin-bottom: 1rem !important; /* Adjusted margin */
         max-width: 90% !important; /* Setting a specific width to promote 2 lines */
     }
     .hero-stats {
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        align-items: center;
-        gap: 0.5rem;
-        margin-top: 1rem;
-    }
-    .stat-item:nth-child(1) {
-        justify-self: end;
-    }
-    .stat-item:nth-child(2) {
-        justify-self: center;
-    }
-    .stat-item:nth-child(3) {
-        justify-self: start;
+        display: none;
     }
     .stat-item .stat-number {
         font-size: 1.2rem; /* Reduced stat number size */
