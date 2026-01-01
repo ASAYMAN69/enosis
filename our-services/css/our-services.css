@@ -9,13 +9,13 @@
 
 .service-section.contract-projects,
 .service-section.investment-opportunities {
-    background-color: var(--color-a); /* Green background */
-    color: var(--color-c); /* White text */
+    background-color: var(--color-c); /* White background */
+    color: var(--color-a); /* Green text */
 }
 
 .service-section.shared-projects {
-    background-color: var(--color-c); /* White background */
-    color: var(--color-a); /* Green text */
+    background-color: var(--color-a); /* Green background */
+    color: var(--color-c); /* White text */
 }
 
 .service-section h2 {
@@ -85,11 +85,11 @@
 }
 
 .service-section.shared-projects .service-text li {
-    border-left-color: var(--color-a);
+    border-left-color: var(--color-c);
 }
 
 .service-section.shared-projects .service-text li::before {
-    color: var(--color-a);
+    color: var(--color-c);
 }
 
 /* Specific layout adjustments for image/text order */
