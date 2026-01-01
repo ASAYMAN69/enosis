@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
 
                     if (hiddenCards.length <= 3) {
-                        seeAllBtn.textContent = 'Hide All';
+                        seeAllBtn.textContent = 'Show Less';
                     }
                 } else {
                     cards.forEach((card, index) => {

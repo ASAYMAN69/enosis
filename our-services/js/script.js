@@ -1,5 +1,8 @@
 const slides = document.querySelectorAll('.hero-slide');
 if (slides.length > 0) {
+    setTimeout(() => {
+        slides[0].classList.add('active');
+    }, 50); // Small delay to allow CSS transition to apply
     let currentSlide = 0;
     let autoSlideInterval;
 
