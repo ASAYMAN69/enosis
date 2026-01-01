@@ -134,6 +134,12 @@ function setActiveNavLink() {
     const navLinks = document.querySelectorAll('.nav-links a');
     const currentPath = window.location.pathname.replace(/\/index\.html$/, '').replace(/\/$/, '') || '/';
 
+    // If on a 404 page, do not set any link as active
+    if (currentPath.includes('404')) {
+        navLinks.forEach(link => link.classList.remove('active'));
+        return;
+    }
+
     let bestMatch = null;
     let longestMatch = -1;
 
