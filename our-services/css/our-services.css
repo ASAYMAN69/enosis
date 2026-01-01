@@ -19,7 +19,7 @@
 }
 
 .service-section h2 {
-    font-size: 3rem;
+    font-size: 2.8rem;
     margin-bottom: 1.5rem;
     font-weight: 700;
 }
@@ -113,7 +113,12 @@
     }
 
     .service-section h2 {
-        font-size: 2.2rem;
+        font-size: 1.8rem;
+        text-align: left;
+    }
+
+    .service-section p {
+        text-align: center;
     }
 
     .service-content {
