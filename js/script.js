@@ -441,17 +441,29 @@ document.addEventListener('DOMContentLoaded', function() {
             
                 if (projectModal && modalCloseBtn && contactBtns.length > 0) {
                     console.log('Modal elements found. Initializing event listeners.');
+                    // Function to open the modal
                     function openModal() {
-                        projectModal.classList.add('active');
-                        document.body.style.overflow = 'hidden'; // Prevent scrolling background
+                        projectModal.style.display = 'flex'; // Make it flex before animating
+                        requestAnimationFrame(() => {
+                            projectModal.classList.add('active');
+                            document.body.style.overflow = 'hidden'; // Prevent scrolling background
+                        });
                         console.log('Modal opened.');
                     }
             
+                    // Function to close the modal
                     function closeModal() {
                         projectModal.classList.remove('active');
                         document.body.style.overflow = ''; // Restore scrolling
                         console.log('Modal closed.');
                     }
+
+                    // Event listener for transition end to set display: none;
+                    projectModal.addEventListener('transitionend', () => {
+                        if (!projectModal.classList.contains('active')) {
+                            projectModal.style.display = 'none';
+                        }
+                    });
             
                     // Event listeners for opening modal
                     contactBtns.forEach(btn => {

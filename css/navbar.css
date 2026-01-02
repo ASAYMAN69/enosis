@@ -29,7 +29,6 @@ nav.scrolled {
     display: flex;
     align-items: center;
     gap: 1rem;
-    animation: slideInLeft 0.8s ease;
 }
 
 .nav-logo {
@@ -57,7 +56,6 @@ nav.scrolled {
     display: flex;
     gap: 2.5rem;
     list-style: none;
-    animation: slideInRight 0.8s ease;
 }
 
 .nav-links a {

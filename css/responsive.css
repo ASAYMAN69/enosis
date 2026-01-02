@@ -64,20 +64,28 @@
     /* Navbar Responsive Styles */
     .nav-links {
         position: fixed;
-        top: 0;
-        left: 100%; /* Start off-screen to the right */
+        top: -100%; /* Start off-screen to the top */
+        left: 0;
         width: 100%;
         height: 100%;
         background: rgba(10, 10, 10, 0.95); /* Dark overlay */
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        transition: left 0.3s ease-in-out;
-        z-index: 1001; /* Ensure it's above other content */
+        z-index: 1001;
+
+        opacity: 0;
+        visibility: hidden;
+        /* Default transition for when it becomes inactive (closing) */
+        transition: top 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0s 0.3s; /* visibility hides after 0.3s */
     }
 
     .nav-links.active {
-        left: 0; /* Slide in from the right */
+        top: 0; /* Slide in from the top */
+        opacity: 1; /* Becomes fully visible */
+        visibility: visible; /* Becomes visible to screen readers/interaction */
+        /* No delay when opening */
+        transition: top 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0s 0s;
     }
 
     .nav-links li {
