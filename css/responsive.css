@@ -64,36 +64,46 @@
     /* Navbar Responsive Styles */
     .nav-links {
         position: fixed;
-        top: -100%; /* Start off-screen to the top */
+        top: var(--navbar-height); /* Positioned below the main navbar */
         left: 0;
         width: 100%;
-        height: 100%;
+        max-height: 0; /* Initially hidden */
         background: rgba(10, 10, 10, 0.95); /* Dark overlay */
         flex-direction: column;
         justify-content: center;
         align-items: center;
         z-index: 1001;
+        overflow: hidden; /* Hide overflow content */
 
-        opacity: 0;
-        visibility: hidden;
+        opacity: 0; /* Still use for fading */
+        visibility: hidden; /* Still use for screen readers */
         /* Default transition for when it becomes inactive (closing) */
-        transition: top 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0s 0.3s; /* visibility hides after 0.3s */
+        transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0s 0.3s; /* visibility hides after 0.3s */
     }
 
     .nav-links.active {
-        top: 0; /* Slide in from the top */
+        top: var(--navbar-height); /* Remains positioned below the main navbar */
+        max-height: calc(50vh - var(--navbar-height)); /* Expands to 50vh minus navbar height */
         opacity: 1; /* Becomes fully visible */
         visibility: visible; /* Becomes visible to screen readers/interaction */
         /* No delay when opening */
-        transition: top 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0s 0s;
+        transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0s 0s;
     }
 
     .nav-links li {
-        margin: 1rem 0;
+        margin: 0.5rem 0; /* Decreased gap between links */
+    }
+
+    .nav-links li:first-child {
+        margin-top: 1.2rem; /* Added padding above Home */
+    }
+
+    .nav-links li:last-child {
+        margin-bottom: 2.1rem; /* Added padding below Contact Us */
     }
 
     .nav-links a {
-        font-size: 1.5rem;
+        font-size: 1rem; /* Reduced font size */
     }
 
     .hamburger {

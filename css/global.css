@@ -17,6 +17,7 @@ body {
     --color-b: #D4E38A;
     --color-c: #FFFFFF;
     --color-d: #8FA31E;
+    --navbar-height: 80px; /* Define navbar height for positioning */
 }
 
 @keyframes fadeInUp {

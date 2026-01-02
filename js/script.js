@@ -85,48 +85,21 @@ const hamburger = document.querySelector('.hamburger');
 
 const navLinks = document.querySelector('.nav-links');
 
-
+const navbar = document.getElementById('navbar'); // Get reference to the navbar
 
 hamburger.addEventListener('click', () => {
-
-
-
     hamburger.classList.toggle('active');
-
-
-
     navLinks.classList.toggle('active');
-
-
-
+    navbar.classList.toggle('active'); // Toggle active class on navbar
 });
 
 
-
-
-
-
-
 document.addEventListener('click', (e) => {
-
-
-
     if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-
-
-
         hamburger.classList.remove('active');
-
-
-
         navLinks.classList.remove('active');
-
-
-
+        navbar.classList.remove('active'); // Remove active class from navbar
     }
-
-
-
 });
 
 // Set active navigation link based on current page
