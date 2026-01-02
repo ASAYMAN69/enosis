@@ -1,9 +1,4 @@
 :root {
-    /* Colors from global.css */
-    --color-a: #556B2F;
-    --color-b: #D4E38A;
-    --color-c: #FFFFFF;
-    --color-d: #8FA31E;
     --navbar-height: 80px; /* Define navbar height for positioning */
 }
 
@@ -18,7 +13,7 @@
     }
 }
 
-/* Navbar (from css/navbar.css and css/navbar-styles.css) */
+/* Navbar */
 nav {
     position: fixed;
     top: 0;
@@ -134,7 +129,7 @@ nav.scrolled {
 }
 
 @media (max-width: 768px) {
-    /* Navbar Responsive Styles (from css/responsive.css and css/navbar-styles.css) */
+    /* Navbar Responsive Styles */
     .nav-links {
         position: fixed;
         top: var(--navbar-height); /* Positioned below the main navbar */
@@ -164,7 +159,7 @@ nav.scrolled {
     }
 
     .nav-links li {
-        margin: 0.3rem 0; /* Reduced gap between links */
+        margin: 0.5rem 0; /* Decreased gap between links */
     }
 
     .nav-links li:first-child {
@@ -176,7 +171,7 @@ nav.scrolled {
     }
 
     .nav-links a {
-        font-size: 1rem; /* Adjusted font size for mobile */
+        font-size: 1rem; /* Reduced font size */
     }
 
     .hamburger {
