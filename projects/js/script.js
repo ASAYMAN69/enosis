@@ -270,6 +270,35 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
+        // Add event listeners to "View Details" buttons to open the modal
+        const viewDetailsButtons = document.querySelectorAll('.contact-btn');
+        viewDetailsButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.stopPropagation(); // Prevents the card's click event from firing
+                const projectId = button.dataset.projectId || button.closest('.property-card').dataset.projectId;
+                const project = projectsData[projectId];
+
+                if (project) {
+                    modalProjectImage.src = project.image;
+                    modalProjectImage.alt = project.title;
+                    modalProjectTitle.textContent = project.title;
+                    modalProjectAddress.textContent = project.address;
+                    modalProjectDescription.textContent = project.description;
+
+                    modalProjectFeatures.innerHTML = '';
+                    project.features.forEach(feature => {
+                        const featureItem = document.createElement('div');
+                        featureItem.classList.add('modal-feature-item');
+                        featureItem.innerHTML = `<i class="${feature.icon}"></i> ${feature.text}`;
+                        modalProjectFeatures.appendChild(featureItem);
+                    });
+                    openModal();
+                } else {
+                    console.error('Project data not found for ID:', projectId);
+                }
+            });
+        });
+
         // Add event listeners to property-cards to open modal on click (mobile-specific)
         const propertyCards = document.querySelectorAll('.property-card');
         propertyCards.forEach(card => {
