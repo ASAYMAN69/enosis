@@ -84,3 +84,12 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
 });
+
+function scrollToProjects() {
+    const ourProjectsSection = document.getElementById('our-projects-section');
+    if (ourProjectsSection) {
+        ourProjectsSection.scrollIntoView({
+            behavior: 'smooth'
+        });
+    }
+}
