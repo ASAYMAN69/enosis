@@ -70,22 +70,22 @@
     display: flex;
     justify-content: center;
     gap: 1rem;
+    padding-bottom: 1.5rem; /* Added padding to the bottom */
 }
 
 .social-icon {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: var(--color-a); /* Changed to darker green for better contrast */
-    color: var(--color-c); /* Keep icon color white */
     display: flex;
     align-items: center;
     justify-content: center;
     transition: var(--transition);
+    color: var(--color-c); /* White color for the SVG stroke */
 }
 
 .social-icon:hover {
-    background-color: var(--color-d); /* Changed from var(--primary-green) */
+    color: var(--color-a); /* Dark green color for the SVG stroke on hover */
     transform: translateY(-3px);
 }
 
