@@ -1,138 +1,47 @@
-const slides = document.querySelectorAll('.hero-slide');
-if (slides.length > 0) {
-    let currentSlide = 0;
-    let autoSlideInterval;
+// Navbar Logic
 
-    function changeSlide(direction) {
-        const totalSlides = slides.length;
-        
-        slides[currentSlide].classList.remove('active');
-        
-        currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-        
-        slides[currentSlide].classList.add('active');
-        
-        resetAutoSlide();
-    }
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+const navbar = document.getElementById('navbar');
 
-    function autoSlide() {
-        changeSlide(1);
-    }
+// Hamburger Menu
+if (hamburger && navLinks && navbar) {
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        navbar.classList.toggle('active'); // Toggle active class on navbar
+    });
 
-    function resetAutoSlide() {
-        clearInterval(autoSlideInterval);
-        autoSlideInterval = setInterval(autoSlide, 3000);
-    }
-
-    // Start auto-sliding
-    autoSlideInterval = setInterval(autoSlide, 3000);
+    document.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+            navbar.classList.remove('active'); // Remove active class from navbar
+        }
+    });
 }
+
 
 // Navbar scroll effect
 window.addEventListener('scroll', () => {
     const navbar = document.getElementById('navbar');
-    if (window.scrollY > 100) {
+    if (navbar && window.scrollY > 100) {
         navbar.classList.add('scrolled');
-    } else {
+    } else if (navbar) {
         navbar.classList.remove('scrolled');
     }
-});
-
-// Intersection Observer for scroll animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('animated');
-        }
-    });
-}, observerOptions);
-
-document.querySelectorAll('.animate-on-scroll').forEach(el => {
-    observer.observe(el);
-});
-
-// Add parallax effect to hero
-// window.addEventListener('scroll', () => {
-//     const scrolled = window.pageYOffset;
-//     const hero = document.querySelector('.hero');
-//     if (hero && scrolled < hero.offsetHeight) {
-//         hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-//     }
-// });
-
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-// Hamburger Menu
-
-const hamburger = document.querySelector('.hamburger');
-
-const navLinks = document.querySelector('.nav-links');
-
-
-
-hamburger.addEventListener('click', () => {
-
-
-
-    hamburger.classList.toggle('active');
-
-
-
-    navLinks.classList.toggle('active');
-
-
-
-});
-
-
-
-
-
-
-
-document.addEventListener('click', (e) => {
-
-
-
-    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-
-
-
-        hamburger.classList.remove('active');
-
-
-
-        navLinks.classList.remove('active');
-
-
-
-    }
-
-
-
 });
 
 // Set active navigation link based on current page
 function setActiveNavLink() {
     const navLinks = document.querySelectorAll('.nav-links a');
     const currentPath = window.location.pathname.replace(/\/index\.html$/, '').replace(/\/$/, '') || '/';
+
+    // If on a 404 page, do not set any link as active
+    if (currentPath.includes('404')) {
+        navLinks.forEach(link => link.classList.remove('active'));
+        return;
+    }
 
     let bestMatch = null;
     let longestMatch = -1;
@@ -154,53 +63,31 @@ function setActiveNavLink() {
     }
 }
 
-// Counter animation
-const counters = document.querySelectorAll('.stat-number'); // Targeted specifically to hero section
-const speed = 50;
-
-const animateCounter = (counter) => {
-    const target = +counter.getAttribute('data-target');
-    const increment = target / speed;
-    let count = 0;
-
-    const updateCount = () => {
-        count += increment;
-        if (count < target) {
-            counter.innerText = Math.ceil(count) + '+';
-            setTimeout(updateCount, 10);
-        } else {
-            counter.innerText = target + '+';
-        }
-    };
-    updateCount();
-};
-
-// Intersection Observer for counter animation
-const statsObserver = new IntersectionObserver((entries) => { // Renamed for clarity
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const counter = entry.target;
-            animateCounter(counter);
-            statsObserver.unobserve(counter); // Stop observing once animated
-        }
-    });
-}, { threshold: 0.1 }); // Trigger when 50% of the element is visible
-
-counters.forEach(counter => statsObserver.observe(counter));
-
 document.addEventListener('DOMContentLoaded', function() {
     setActiveNavLink();
 
-    // Chart.js logic (if it exists on the page)
-    if (document.getElementById('myChart')) {
-        // ... (Chart.js code from original file - keeping it for safety)
-    }
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
 
-    // Modal and Card Logic
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animated');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Project Modal Logic (extracted from root js/script.js)
     const projectModal = document.getElementById('projectModal');
-    const modalCloseBtn = projectModal ? projectModal.querySelector('.modal-close-btn') : null;
-    const propertyCards = document.querySelectorAll('.property-card');
-    
+    const modalCloseBtn = document.querySelector('.modal-close-btn');
+
     // Modal content elements
     const modalProjectImage = document.getElementById('modalProjectImage');
     const modalProjectTitle = document.getElementById('modalProjectTitle');
@@ -344,73 +231,78 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    function openModalWithProject(projectId) {
-        const project = projectsData[projectId];
-        if (project && projectModal) {
-            if (modalProjectImage) modalProjectImage.src = project.image;
-            if (modalProjectImage) modalProjectImage.alt = project.title;
-            if (modalProjectTitle) modalProjectTitle.textContent = project.title;
-            if (modalProjectAddress) modalProjectAddress.textContent = project.address;
-            if (modalProjectDescription) modalProjectDescription.textContent = project.description;
-            
-            if (modalProjectFeatures) {
-                modalProjectFeatures.innerHTML = '';
-                project.features.forEach(feature => {
-                    const featureItem = document.createElement('div');
-                    featureItem.classList.add('modal-feature-item');
-                    featureItem.innerHTML = `<i class="${feature.icon}"></i> ${feature.text}`;
-                    modalProjectFeatures.appendChild(featureItem);
-                });
-            }
-            
-            projectModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+    if (projectModal && modalCloseBtn) {
+        console.log('Modal elements found. Initializing event listeners.');
+        // Function to open the modal
+        function openModal() {
+            projectModal.style.display = 'flex'; // Make it flex before animating
+            requestAnimationFrame(() => {
+                projectModal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling background
+            });
+            console.log('Modal opened.');
         }
-    }
 
-    function closeModal() {
-        if (projectModal) {
+        // Function to close the modal
+        function closeModal() {
             projectModal.classList.remove('active');
-            document.body.style.overflow = '';
+            document.body.style.overflow = ''; // Restore scrolling
+            console.log('Modal closed.');
         }
-    }
 
-    // Mobile Card Click to Open Modal
-    propertyCards.forEach(card => {
-        card.addEventListener('click', function() {
-            if (window.innerWidth <= 768) {
-                const projectId = this.dataset.projectId;
-                openModalWithProject(projectId);
+        // Event listener for transition end to set display: none;
+        projectModal.addEventListener('transitionend', () => {
+            if (!projectModal.classList.contains('active')) {
+                projectModal.style.display = 'none';
             }
         });
-    });
 
-    // Desktop "View Details" button click to open modal
-    const contactBtns = document.querySelectorAll('.card-overlay .contact-btn');
-    contactBtns.forEach(btn => {
-        btn.addEventListener('click', (event) => {
-            if (window.innerWidth > 768) {
-                event.stopPropagation(); // Stop the card click from firing
-                const projectId = btn.dataset.projectId;
-                openModalWithProject(projectId);
-            }
-        });
-    });
-
-    // Modal Closing Events
-    if (modalCloseBtn) {
+        // Event listeners for closing modal
         modalCloseBtn.addEventListener('click', closeModal);
-    }
-    if (projectModal) {
         projectModal.addEventListener('click', (event) => {
             if (event.target === projectModal) {
                 closeModal();
             }
         });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && projectModal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Add event listeners to property-cards to open modal on click (mobile-specific)
+        const propertyCards = document.querySelectorAll('.property-card');
+        propertyCards.forEach(card => {
+            card.addEventListener('click', (event) => {
+                // Check if it's a mobile view (e.g., screen width less than 768px)
+                if (window.innerWidth <= 768) {
+                    const projectId = card.dataset.projectId;
+                    const project = projectsData[projectId];
+
+                    if (project) {
+                        modalProjectImage.src = project.image;
+                        modalProjectImage.alt = project.title;
+                        modalProjectTitle.textContent = project.title;
+                        modalProjectAddress.textContent = project.address;
+                        modalProjectDescription.textContent = project.description;
+
+                        modalProjectFeatures.innerHTML = '';
+                        project.features.forEach(feature => {
+                            const featureItem = document.createElement('div');
+                            featureItem.classList.add('modal-feature-item');
+                            featureItem.innerHTML = `<i class="${feature.icon}"></i> ${feature.text}`;
+                            modalProjectFeatures.appendChild(featureItem);
+                        });
+                        openModal();
+                    } else {
+                        console.error('Project data not found for ID:', projectId);
+                    }
+                }
+            });
+        });
+
+    } else {
+        console.warn('Modal elements not found. Modal functionality will not be initialized.');
+        console.warn('projectModal:', projectModal, 'modalCloseBtn:', modalCloseBtn);
     }
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && projectModal && projectModal.classList.contains('active')) {
-            closeModal();
-        }
-    });
 });

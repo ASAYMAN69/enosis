@@ -8,6 +8,9 @@
     padding-top: clamp(5.5rem, 7vw, 8rem);
     overflow-x: hidden;
     overflow-y: hidden;
+    background-image: url('https://picsum.photos/seed/slide1/1920/1080'); /* Added background image */
+    background-size: cover; /* Ensure image covers the entire hero section */
+    background-position: center; /* Center the background image */
 }
 
 .hero-slider {

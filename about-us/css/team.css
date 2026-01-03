@@ -16,7 +16,7 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: var(--shadow);
-    transition: var(--transition);
+    transition: all 0.3s ease, transform 0.3s ease, opacity 0.5s ease-out, max-height 0.5s ease-out; /* Add transition for opacity and max-height */
     position: relative;
     border: 1px solid rgba(85, 107, 47, 0.1); /* Changed from rgba(46, 204, 113, 0.1) using --color-a rgb */
 }
@@ -119,4 +119,54 @@
 
 .team.animated .team-member-animated:nth-child(4) {
     transition-delay: 0.4s;
+}
+
+/* Styles for Show All/Show Less functionality */
+.hidden {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.5s ease-out, max-height 0.5s ease-out; /* Adjust transition time as needed */
+    margin-bottom: 0; /* Ensures no extra space is taken */
+    padding-bottom: 0; /* Ensures no extra space is taken */
+    pointer-events: none; /* Ensure hidden elements are not clickable or interactive */
+    transform: translateY(10px); /* Optional: add a slight transform for more dynamic animation */
+}
+
+/* Styles for when an element is visible again after being hidden */
+.team-member:not(.hidden) {
+    opacity: 1;
+    max-height: 500px; /* Or a value comfortably larger than any team member card height */
+    transition: opacity 0.5s ease-out, max-height 0.5s ease-out;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.see-all-container {
+    text-align: center;
+    margin-top: 2rem;
+    position: relative; /* Needed for absolute positioning of gradient */
+    z-index: 1; /* Ensure button is above other content */
+}
+
+/* Optional: if you want a gradient overlay on the cards */
+.see-all-gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px; /* Adjust as needed */
+    background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* Changed to white-based gradient */
+    pointer-events: none; /* Allows clicks to pass through */
+    display: none; /* Initially hidden, show when there are hidden cards */
+}
+
+.see-all-container.visible .see-all-gradient {
+    display: block;
+}
+
+.see-all-btn {
+    margin-top: 1rem;
+    -webkit-tap-highlight-color: transparent; /* Remove blue highlight on tap */
+    /* Basic button styles are already in css/buttons.css */
 }
