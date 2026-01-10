@@ -3,17 +3,17 @@ const API_URL = 'https://getall.asayman669.workers.dev/';
 const createPropertyCard = (project) => {
     const card = document.createElement('div');
     card.className = 'property-card';
-    card.dataset.category = project.type.toLowerCase();
+    card.dataset.category = project.status.toLowerCase();
     card.dataset.projectId = project.id;
 
-    const badgeClass = `badge-${project.type.toLowerCase()}`;
+    const badgeClass = `badge-${project.status.toLowerCase()}`;
     const bedrooms = project.bedrooms ? project.bedrooms : 'N/A';
     const bathrooms = project.bathrooms ? project.bathrooms : 'N/A';
     const parking = project.parking ? project.parking : 'N/A';
     const sqft = project.sqft ? project.sqft : 'N/A';
 
     card.innerHTML = `
-        <div class="property-badge ${badgeClass}">${project.type}</div>
+        <div class="property-badge ${badgeClass}">${project.status}</div>
         <div class="card-image">
             <img src="${project.photo.length > 0 ? project.photo[0] : 'https://picsum.photos/seed/default/800/600'}" alt="${project.projectName}">
         </div>
@@ -122,7 +122,7 @@ const setupModalEventListeners = (projectsData) => {
                     modalProjectFeatures.innerHTML = '';
                     const featureItem = document.createElement('div');
                     featureItem.classList.add('modal-feature-item');
-                    featureItem.innerHTML = `<i class="fas fa-info-circle"></i> ${project.type}`;
+                    featureItem.innerHTML = `<i class="fas fa-info-circle"></i> ${project.status}`;
                     modalProjectFeatures.appendChild(featureItem);
                     openModal();
                 }
@@ -146,7 +146,7 @@ const setupModalEventListeners = (projectsData) => {
                         modalProjectFeatures.innerHTML = '';
                         const featureItem = document.createElement('div');
                         featureItem.classList.add('modal-feature-item');
-                        featureItem.innerHTML = `<i class="fas fa-info-circle"></i> ${project.type}`;
+                        featureItem.innerHTML = `<i class="fas fa-info-circle"></i> ${project.status}`;
                         modalProjectFeatures.appendChild(featureItem);
                         openModal();
                     }
@@ -172,11 +172,11 @@ const fetchProjects = async () => {
 
         projects.forEach(project => {
             const card = createPropertyCard(project);
-            if (project.type === 'Ongoing') {
+            if (project.status === 'Ongoing') {
                 ongoingGrid.appendChild(card);
-            } else if (project.type === 'Upcoming') {
+            } else if (project.status === 'Upcoming') {
                 upcomingGrid.appendChild(card);
-            } else if (project.type === 'Finished') {
+            } else if (project.status === 'Finished') {
                 finishedGrid.appendChild(card);
             }
         });
