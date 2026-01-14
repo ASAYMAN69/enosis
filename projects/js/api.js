@@ -85,6 +85,13 @@ const setupModalEventListeners = (projectsData) => {
     const updateSlide = () => {
         if (modalSlidesContainer) {
             modalSlidesContainer.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+            if (totalSlides > 1) {
+                modalPrevBtn.style.display = 'block';
+                modalNextBtn.style.display = 'block';
+            } else {
+                modalPrevBtn.style.display = 'none';
+                modalNextBtn.style.display = 'none';
+            }
         }
     };
 
