@@ -66,13 +66,42 @@ const createPropertyCard = (project) => {
 
 const setupModalEventListeners = (projectsData) => {
     const projectModal = document.getElementById('projectModal');
+    if (!projectModal) {
+        return; // Modal not on this page
+    }
     const modalCloseBtn = document.querySelector('.modal-close-btn');
-    const modalProjectImage = document.getElementById('modalProjectImage');
+    const modalSlidesContainer = document.getElementById('modalSlidesContainer');
+    const modalPrevBtn = document.querySelector('.modal-prev-btn');
+    const modalNextBtn = document.querySelector('.modal-next-btn');
     const modalProjectTitle = document.getElementById('modalProjectTitle');
     const modalProjectAddress = document.getElementById('modalProjectAddress');
     const modalProjectDescription = document.getElementById('modalProjectDescription');
     const modalProjectFeatures = document.getElementById('modalProjectFeatures');
 
+    let currentProject = null;
+    let currentSlideIndex = 0;
+    let totalSlides = 0;
+
+    const updateSlide = () => {
+        if (modalSlidesContainer) {
+            modalSlidesContainer.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+        }
+    };
+
+    const nextSlide = () => {
+        if (totalSlides > 1) {
+            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+            updateSlide();
+        }
+    };
+
+    const prevSlide = () => {
+        if (totalSlides > 1) {
+            currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+            updateSlide();
+        }
+    };
+    
     if (projectModal && modalCloseBtn) {
         function openModal() {
             projectModal.style.display = 'flex';
@@ -92,7 +121,7 @@ const setupModalEventListeners = (projectsData) => {
                 projectModal.style.display = 'none';
             }
         });
-
+        
         modalCloseBtn.addEventListener('click', closeModal);
         projectModal.addEventListener('click', (event) => {
             if (event.target === projectModal) {
@@ -105,25 +134,78 @@ const setupModalEventListeners = (projectsData) => {
             }
         });
 
+        modalPrevBtn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            prevSlide();
+        });
+
+        modalNextBtn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            nextSlide();
+        });
+
+        // Swipe support
+        let startX = 0;
+        if (modalSlidesContainer) {
+            modalSlidesContainer.addEventListener('touchstart', e => {
+                startX = e.touches[0].clientX;
+            });
+
+            modalSlidesContainer.addEventListener('touchend', e => {
+                let endX = e.changedTouches[0].clientX;
+                let diff = startX - endX;
+
+                if (diff > 50) nextSlide();
+                if (diff < -50) prevSlide();
+            });
+        }
+
         const viewDetailsButtons = document.querySelectorAll('.contact-btn');
         viewDetailsButtons.forEach(button => {
             button.addEventListener('click', (event) => {
                 event.stopPropagation();
                 const projectId = button.dataset.projectId;
-                const project = projectsData.find(p => p.id == projectId);
+                currentProject = projectsData.find(p => p.id == projectId);
 
-                if (project) {
-                    modalProjectImage.src = project.photo[0];
-                    modalProjectImage.alt = project.projectName;
-                    modalProjectTitle.textContent = project.projectName;
-                    modalProjectAddress.textContent = project.location;
-                    modalProjectDescription.textContent = project.description;
+                if (currentProject && modalSlidesContainer) {
+                    modalSlidesContainer.innerHTML = ''; // Clear previous slides
+                    currentSlideIndex = 0;
 
+                    if (currentProject.photo && currentProject.photo.length > 0) {
+                        currentProject.photo.forEach(photoUrl => {
+                            const slideDiv = document.createElement('div');
+                            slideDiv.className = 'modal-slide';
+                            const img = document.createElement('img');
+                            img.src = photoUrl;
+                            img.alt = currentProject.projectName;
+                            slideDiv.appendChild(img);
+                            modalSlidesContainer.appendChild(slideDiv);
+                        });
+                        totalSlides = currentProject.photo.length;
+                    } else {
+                        // Handle case with no photos
+                        const slideDiv = document.createElement('div');
+                        slideDiv.className = 'modal-slide';
+                        const img = document.createElement('img');
+                        img.src = 'https://picsum.photos/seed/default/800/600';
+                        img.alt = 'No Image Available';
+                        slideDiv.appendChild(img);
+                        modalSlidesContainer.appendChild(slideDiv);
+                        totalSlides = 1;
+                    }
+
+                    updateSlide();
+
+                    modalProjectTitle.textContent = currentProject.projectName;
+                    modalProjectAddress.textContent = currentProject.location;
+                    modalProjectDescription.textContent = currentProject.description;
+                    
                     modalProjectFeatures.innerHTML = '';
                     const featureItem = document.createElement('div');
                     featureItem.classList.add('modal-feature-item');
-                    featureItem.innerHTML = `<i class="fas fa-info-circle"></i> ${project.status}`;
+                    featureItem.innerHTML = `<i class="fas fa-info-circle"></i> ${currentProject.status}`;
                     modalProjectFeatures.appendChild(featureItem);
+
                     openModal();
                 }
             });
@@ -134,26 +216,52 @@ const setupModalEventListeners = (projectsData) => {
             card.addEventListener('click', () => {
                 if (window.innerWidth <= 768) {
                     const projectId = card.dataset.projectId;
-                    const project = projectsData.find(p => p.id == projectId);
+                    currentProject = projectsData.find(p => p.id == projectId);
 
-                    if (project) {
-                        modalProjectImage.src = project.photo[0];
-                        modalProjectImage.alt = project.projectName;
-                        modalProjectTitle.textContent = project.projectName;
-                        modalProjectAddress.textContent = project.location;
-                        modalProjectDescription.textContent = project.description;
+                    if (currentProject && modalSlidesContainer) {
+                        modalSlidesContainer.innerHTML = ''; // Clear previous slides
+                        currentSlideIndex = 0;
+                        
+                        if (currentProject.photo && currentProject.photo.length > 0) {
+                            currentProject.photo.forEach(photoUrl => {
+                                const slideDiv = document.createElement('div');
+                                slideDiv.className = 'modal-slide';
+                                const img = document.createElement('img');
+                                img.src = photoUrl;
+                                img.alt = currentProject.projectName;
+                                slideDiv.appendChild(img);
+                                modalSlidesContainer.appendChild(slideDiv);
+                            });
+                            totalSlides = currentProject.photo.length;
+                        } else {
+                            // Handle case with no photos
+                            const slideDiv = document.createElement('div');
+                            slideDiv.className = 'modal-slide';
+                            const img = document.createElement('img');
+                            img.src = 'https://picsum.photos/seed/default/800/600';
+                            img.alt = 'No Image Available';
+                            slideDiv.appendChild(img);
+                            modalSlidesContainer.appendChild(slideDiv);
+                            totalSlides = 1;
+                        }
+
+                        updateSlide();
+                        
+                        modalProjectTitle.textContent = currentProject.projectName;
+                        modalProjectAddress.textContent = currentProject.location;
+                        modalProjectDescription.textContent = currentProject.description;
 
                         modalProjectFeatures.innerHTML = '';
                         const featureItem = document.createElement('div');
                         featureItem.classList.add('modal-feature-item');
-                        featureItem.innerHTML = `<i class="fas fa-info-circle"></i> ${project.status}`;
+                        featureItem.innerHTML = `<i class="fas fa-info-circle"></i> ${currentProject.status}`;
                         modalProjectFeatures.appendChild(featureItem);
+                        
                         openModal();
                     }
                 }
             });
         });
-
     }
 };
 
