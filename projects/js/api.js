@@ -77,17 +77,19 @@ const setupModalEventListeners = (projectsData) => {
     const modalProjectAddress = document.getElementById('modalProjectAddress');
     const modalProjectDescription = document.getElementById('modalProjectDescription');
     const modalProjectFeatures = document.getElementById('modalProjectFeatures');
+    const modalDetailsBottom = document.querySelector('.modal-details-bottom'); // New element reference
 
     let currentProject = null;
     let currentSlideIndex = 0;
     let totalSlides = 0;
+    let scrollTimeout;
 
     const updateSlide = () => {
         if (modalSlidesContainer) {
-            modalSlidesContainer.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+            modalSlidesContainer.style.transform = `translateY(-${currentSlideIndex * 100}%)`;
             if (totalSlides > 1) {
-                modalPrevBtn.style.display = 'block';
-                modalNextBtn.style.display = 'block';
+                modalPrevBtn.style.display = 'flex'; // Use flex for centering
+                modalNextBtn.style.display = 'flex'; // Use flex for centering
             } else {
                 modalPrevBtn.style.display = 'none';
                 modalNextBtn.style.display = 'none';
@@ -115,12 +117,20 @@ const setupModalEventListeners = (projectsData) => {
             requestAnimationFrame(() => {
                 projectModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
+                if (modalDetailsBottom) {
+                    modalDetailsBottom.classList.remove('hidden'); // Ensure details are visible on open
+                }
             });
         }
 
         function closeModal() {
             projectModal.classList.remove('active');
             document.body.style.overflow = '';
+            // Reset slide index when closing modal
+            currentSlideIndex = 0; 
+            if (modalSlidesContainer) {
+                modalSlidesContainer.style.transform = `translateY(0%)`;
+            }
         }
 
         projectModal.addEventListener('transitionend', () => {
@@ -131,6 +141,7 @@ const setupModalEventListeners = (projectsData) => {
         
         modalCloseBtn.addEventListener('click', closeModal);
         projectModal.addEventListener('click', (event) => {
+            // Only close modal if clicking directly on the overlay, not its content
             if (event.target === projectModal) {
                 closeModal();
             }
@@ -151,33 +162,59 @@ const setupModalEventListeners = (projectsData) => {
             nextSlide();
         });
 
-        // Swipe support
-        let startX = 0;
+        // Swipe support on modalSlidesContainer
+        let startY = 0; // Changed from startX
+        let isSwiping = false;
         if (modalSlidesContainer) {
             modalSlidesContainer.addEventListener('touchstart', e => {
-                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY; // Changed from clientX
+                isSwiping = true;
+                if (modalDetailsBottom) modalDetailsBottom.classList.add('hidden');
             });
 
             modalSlidesContainer.addEventListener('touchend', e => {
-                let endX = e.changedTouches[0].clientX;
-                let diff = startX - endX;
+                if (!isSwiping) return;
+                let endY = e.changedTouches[0].clientY; // Changed from clientX
+                let diff = startY - endY; // Changed to vertical difference
 
-                if (diff > 50) nextSlide();
-                if (diff < -50) prevSlide();
+                if (diff > 50) nextSlide(); // Swiping up
+                if (diff < -50) prevSlide(); // Swiping down
+                isSwiping = false;
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    if (modalDetailsBottom) modalDetailsBottom.classList.remove('hidden');
+                }, 300); // Reappear after 300ms of no swipe
+            });
+
+            // Mouse wheel for scrolling through images (desktop)
+            modalSlidesContainer.addEventListener('wheel', (event) => {
+                event.preventDefault(); // Prevent page scrolling
+                if (modalDetailsBottom) modalDetailsBottom.classList.add('hidden');
+
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    if (modalDetailsBottom) modalDetailsBottom.classList.remove('hidden');
+                }, 300); // Reappear after 300ms of no scroll
+
+                if (event.deltaY > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
             });
         }
-
-        const viewDetailsButtons = document.querySelectorAll('.contact-btn');
-        viewDetailsButtons.forEach(button => {
-            button.addEventListener('click', (event) => {
-                event.stopPropagation();
-                const projectId = button.dataset.projectId;
+        
+        const propertyCards = document.querySelectorAll('.property-card');
+        propertyCards.forEach(card => {
+            card.addEventListener('click', () => {
+                // Open modal on any click on the card, not just specific buttons
+                const projectId = card.dataset.projectId;
                 currentProject = projectsData.find(p => p.id == projectId);
 
                 if (currentProject && modalSlidesContainer) {
                     modalSlidesContainer.innerHTML = ''; // Clear previous slides
                     currentSlideIndex = 0;
-
+                    
                     if (currentProject.photo && currentProject.photo.length > 0) {
                         currentProject.photo.forEach(photoUrl => {
                             const slideDiv = document.createElement('div');
@@ -202,70 +239,18 @@ const setupModalEventListeners = (projectsData) => {
                     }
 
                     updateSlide();
-
+                    
                     modalProjectTitle.textContent = currentProject.projectName;
                     modalProjectAddress.textContent = currentProject.location;
                     modalProjectDescription.textContent = currentProject.description;
-                    
+
                     modalProjectFeatures.innerHTML = '';
                     const featureItem = document.createElement('div');
                     featureItem.classList.add('modal-feature-item');
                     featureItem.innerHTML = `<i class="fas fa-info-circle"></i> ${currentProject.status}`;
                     modalProjectFeatures.appendChild(featureItem);
-
+                    
                     openModal();
-                }
-            });
-        });
-
-        const propertyCards = document.querySelectorAll('.property-card');
-        propertyCards.forEach(card => {
-            card.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    const projectId = card.dataset.projectId;
-                    currentProject = projectsData.find(p => p.id == projectId);
-
-                    if (currentProject && modalSlidesContainer) {
-                        modalSlidesContainer.innerHTML = ''; // Clear previous slides
-                        currentSlideIndex = 0;
-                        
-                        if (currentProject.photo && currentProject.photo.length > 0) {
-                            currentProject.photo.forEach(photoUrl => {
-                                const slideDiv = document.createElement('div');
-                                slideDiv.className = 'modal-slide';
-                                const img = document.createElement('img');
-                                img.src = photoUrl;
-                                img.alt = currentProject.projectName;
-                                slideDiv.appendChild(img);
-                                modalSlidesContainer.appendChild(slideDiv);
-                            });
-                            totalSlides = currentProject.photo.length;
-                        } else {
-                            // Handle case with no photos
-                            const slideDiv = document.createElement('div');
-                            slideDiv.className = 'modal-slide';
-                            const img = document.createElement('img');
-                            img.src = 'https://picsum.photos/seed/default/800/600';
-                            img.alt = 'No Image Available';
-                            slideDiv.appendChild(img);
-                            modalSlidesContainer.appendChild(slideDiv);
-                            totalSlides = 1;
-                        }
-
-                        updateSlide();
-                        
-                        modalProjectTitle.textContent = currentProject.projectName;
-                        modalProjectAddress.textContent = currentProject.location;
-                        modalProjectDescription.textContent = currentProject.description;
-
-                        modalProjectFeatures.innerHTML = '';
-                        const featureItem = document.createElement('div');
-                        featureItem.classList.add('modal-feature-item');
-                        featureItem.innerHTML = `<i class="fas fa-info-circle"></i> ${currentProject.status}`;
-                        modalProjectFeatures.appendChild(featureItem);
-                        
-                        openModal();
-                    }
                 }
             });
         });
