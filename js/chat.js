@@ -215,6 +215,7 @@
             transition: all 0.2s;
             outline: none; /* Remove outline on focus */
             -webkit-tap-highlight-color: transparent; /* Remove blue overlay on touch */
+            font-size: 1.5rem; /* Increased size for the cross icon */
         }
         #chatbot-close:hover { background: var(--chat-color-close-btn-hover); }
 
@@ -267,6 +268,8 @@
             color: var(--chat-color-accent-primary);
             cursor: pointer;
             transition: transform 0.2s ease;
+            outline: none; /* Remove outline on focus */
+            -webkit-tap-highlight-color: transparent; /* Remove blue overlay on touch */
         }
         #chatbot-form button:hover { transform: scale(1.1); }
 
@@ -367,6 +370,28 @@
     }
     btn.addEventListener('click', toggleChat);
     closeBtn.addEventListener('click', toggleChat);
+
+    // Close chat when clicking outside
+    document.body.addEventListener('click', function(event) {
+        const isClickInsideContainer = container.contains(event.target);
+        const isChatActive = win.classList.contains('is-active');
+
+        // Only close if chat is active and click is outside the entire chatbot container
+        if (!isClickInsideContainer && isChatActive) {
+            toggleChat();
+        }
+    });
+
+    // Close chat when Escape key is pressed
+    document.body.addEventListener('keydown', function(event) {
+        const isChatActive = win.classList.contains('is-active');
+        if (event.key === 'Escape' && isChatActive) {
+            toggleChat();
+        } else if (event.key === ' ' && !isChatActive) { // Spacebar
+            event.preventDefault(); // Prevent scrolling
+            toggleChat();
+        }
+    });
 
     // ---- 5. Message Sending + Typing ----
     const form = document.getElementById('chatbot-form');
