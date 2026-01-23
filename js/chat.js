@@ -1,10 +1,52 @@
 (function() {
     // ---- 1. Inject Styles ----
+    const fa = document.createElement('link');
+    fa.rel = 'stylesheet';
+    fa.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css';
+    document.head.appendChild(fa);
+
+    const domPurifyScript = document.createElement('script');
+    domPurifyScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js';
+    document.head.appendChild(domPurifyScript);
+
     const style = document.createElement('style');
     style.innerHTML = `
-        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+        :root {
+            /* Website Palette */
+            --website-color-a: #556B2F; /* Dark Green */
+            --website-color-b: #D4E38A; /* Light Green/Yellow */
+            --website-color-c: #FFFFFF; /* White */
+            --website-color-d: #8FA31E; /* Olive Green */
+            --website-color-dark-grey: #0a0a0a;
+            --website-color-mid-grey: #555;
+            --website-color-darker-olive: #6d7d16;
 
-        /* Animations */
+            /* RGB components for rgba usage */
+            --website-color-a-rgb: 85, 107, 47;
+            --website-color-b-rgb: 212, 227, 138;
+            --website-color-c-rgb: 255, 255, 255;
+            --website-color-d-rgb: 143, 163, 30;
+
+            /* Chat Widget Colors, mapped to Website Palette */
+            --chat-color-primary-dark: var(--website-color-dark-grey);
+            --chat-color-primary-light: var(--website-color-c);
+            --chat-color-accent-primary: var(--website-color-d); /* Used for main accents */
+            --chat-color-accent-secondary: var(--website-color-darker-olive); /* Used for gradients with primary accent */
+            --chat-color-text-faded: var(--website-color-mid-grey);
+            --chat-color-border: rgba(var(--website-color-c-rgb), 0.1);
+            --chat-color-input-bg: rgba(var(--website-color-c-rgb), 0.15);
+            --chat-color-ripple: rgba(var(--website-color-b-rgb), 0.6);
+            --chat-color-avatar-border: rgba(var(--website-color-a-rgb), 0.3);
+            --chat-color-avatar-shadow: rgba(0,0,0,0.3);
+            --chat-color-ai-strategist: var(--website-color-d);
+            --chat-color-close-btn: var(--website-color-c);
+            --chat-color-close-btn-hover: rgba(var(--website-color-c-rgb), 0.1);
+            --chat-color-typing-dots: var(--website-color-a);
+            --chat-color-chat-bg-gradient-start: rgba(var(--website-color-c-rgb), 0.95);
+            --chat-color-toggle-shadow: rgba(0,0,0,0.3);
+        }
+
+        :root {
         @keyframes ripple {
             0% { transform: scale(1); opacity: 1; }
             100% { transform: scale(1.6); opacity: 0; }
@@ -19,7 +61,7 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: rgba(222, 114, 213, 0.4);
+            background: var(--chat-color-ripple);
             border-radius: 9999px;
             z-index: -1;
             animation: ripple 2s infinite;
@@ -51,7 +93,7 @@
         .typing-dots span {
             width: 6px;
             height: 6px;
-            background-color: black;
+            background-color: var(--chat-color-typing-dots);
             border-radius: 50%;
             animation: blink 1.4s infinite both;
         }
@@ -79,19 +121,20 @@
         /* Chat window */
         #chatbot-window {
             margin-bottom: 24px;
-            width: 384px;
+            width: 350px; /* Reduced width */
             max-width: 90vw;
-            height: 600px;
-            background: white;
+            height: 550px; /* Reduced height */
+            background: var(--chat-color-primary-light);
             border-radius: 24px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            box-shadow: 0 25px 50px var(--chat-color-toggle-shadow);
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--chat-color-border);
             transform: translateY(20px);
             opacity: 0;
             transition: transform 0.3s ease, opacity 0.3s ease;
+            position: relative; /* Added for absolute positioning of children */
         }
         #chatbot-window.is-active {
             transform: translateY(0);
@@ -105,8 +148,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(15,23,42,0.9);
-            color: white;
+            background: var(--chat-color-primary-dark);
+            color: var(--chat-color-primary-light);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             flex-shrink: 0;
@@ -117,7 +160,7 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: linear-gradient(to right, #10b981, #06b6d4);
+            background: linear-gradient(to right, var(--chat-color-accent-primary), var(--chat-color-accent-secondary));
         }
         .user-info {
             display: flex;
@@ -131,8 +174,8 @@
             width: 48px;
             height: 48px;
             border-radius: 50%;
-            border: 2px solid rgba(16,185,129,0.3);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 2px solid var(--chat-color-avatar-border);
+            box-shadow: 0 4px 12px var(--chat-color-avatar-shadow);
         }
         .avatar-wrapper span {
             position: absolute;
@@ -140,8 +183,8 @@
             right: 0;
             width: 14px;
             height: 14px;
-            background: #10b981;
-            border: 2px solid #0f172a;
+            background: var(--chat-color-accent-primary);
+            border: 2px solid var(--chat-color-primary-dark);
             border-radius: 50%;
         }
         .user-text h4 {
@@ -151,7 +194,7 @@
         }
         .user-text span {
             font-size: 0.75rem;
-            color: #4ade80;
+            color: var(--chat-color-ai-strategist);
             font-weight: 500;
             letter-spacing: 0.05em;
             text-transform: uppercase;
@@ -166,12 +209,14 @@
             align-items: center;
             justify-content: center;
             background: transparent;
-            color: #cbd5e1;
+            color: var(--chat-color-close-btn);
             border: none;
             cursor: pointer;
             transition: all 0.2s;
+            outline: none; /* Remove outline on focus */
+            -webkit-tap-highlight-color: transparent; /* Remove blue overlay on touch */
         }
-        #chatbot-close:hover { background: rgba(255,255,255,0.1); }
+        #chatbot-close:hover { background: var(--chat-color-close-btn-hover); }
 
         /* Messages */
         #chatbot-messages {
@@ -180,14 +225,15 @@
             flex-direction: column;
             overflow-y: auto;
             padding: 24px;
+            padding-bottom: 96px; /* Added to ensure space for floating form */
             gap: 16px;
-            background: linear-gradient(to bottom, #f8fafc, white);
+            background: linear-gradient(to bottom, var(--chat-color-chat-bg-gradient-start), var(--chat-color-primary-light));
         }
         #chatbot-messages .date-separator {
             text-align: center;
             font-size: 10px;
             font-weight: bold;
-            color: #94a3b8;
+            color: var(--chat-color-text-faded);
             text-transform: uppercase;
             letter-spacing: 0.2em;
         }
@@ -197,9 +243,16 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            background: #f1f5f9;
+            background: var(--chat-color-input-bg);
             border-radius: 24px;
             padding: 12px 20px;
+            box-shadow: 0 8px 24px var(--chat-color-toggle-shadow); /* Shadow below */
+            margin: 0 16px 16px 16px; /* Added margin to detach from edges */
+            position: absolute; /* Changed to absolute to float it */
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 10; /* Ensure it's above other content */
         }
         #chatbot-input {
             flex: 1;
@@ -211,7 +264,7 @@
         #chatbot-form button {
             background: transparent;
             border: none;
-            color: #10b981;
+            color: var(--chat-color-accent-primary);
             cursor: pointer;
             transition: transform 0.2s ease;
         }
@@ -223,17 +276,20 @@
             width: 64px;
             height: 64px;
             border-radius: 50%;
-            background: #0f172a;
-            color: #ffffff;
+            background: var(--chat-color-primary-dark);
+            color: var(--chat-color-primary-light);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            box-shadow: 0 25px 50px var(--chat-color-toggle-shadow);
             z-index: 10000;
             border: none;
             cursor: pointer;
+            outline: none; /* Remove outline on focus */
+            -webkit-tap-highlight-color: transparent; /* Remove blue overlay on touch */
         }
-        #chatbot-toggle i { position: absolute; }
+        #chatbot-toggle i { position: absolute; font-size: 1.8rem; }
+        #icon-msg { opacity: 1; transform: rotate(0) scale(1); }
         #icon-close { opacity: 0; transform: rotate(-90deg) scale(0.5); }
     `;
     document.head.appendChild(style);
@@ -267,12 +323,10 @@
             <div id="chatbot-messages">
                 <div class="date-separator">Today • Online</div>
             </div>
-            <div>
-                <form id="chatbot-form">
-                    <input type="text" id="chatbot-input" placeholder="Type a message..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                </form>
-            </div>
+            <form id="chatbot-form">
+                <input type="text" id="chatbot-input" placeholder="Type a message..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                <button type="submit"><i class="fas fa-paper-plane"></i></button>
+            </form>
         </div>
 
         <button id="chatbot-toggle" class="ripple-active">
@@ -297,8 +351,8 @@
             iconMsg.style.transform = 'rotate(0) scale(1)';
             iconClose.style.opacity = '0';
             iconClose.style.transform = 'rotate(-90deg) scale(0.5)';
-            btn.style.backgroundColor = '#0f172a';
-            btn.style.color = '#ffffff';
+            btn.style.backgroundColor = 'var(--chat-color-primary-dark)';
+            btn.style.color = 'var(--chat-color-primary-light)';
             btn.classList.add('ripple-active');
         } else {
             win.classList.add('is-active');
@@ -306,8 +360,8 @@
             iconMsg.style.transform = 'rotate(90deg) scale(0.5)';
             iconClose.style.opacity = '1';
             iconClose.style.transform = 'rotate(0) scale(1)';
-            btn.style.backgroundColor = '#ffffff';
-            btn.style.color = '#0f172a';
+            btn.style.backgroundColor = 'var(--chat-color-primary-light)';
+            btn.style.color = 'var(--chat-color-primary-dark)';
             btn.classList.remove('ripple-active');
         }
     }
@@ -327,8 +381,8 @@
         // User bubble
         const userMsg = document.createElement('div');
         userMsg.className = 'chat-message';
-        userMsg.style.backgroundColor = '#0f172a';
-        userMsg.style.color = 'white';
+        userMsg.style.backgroundColor = 'var(--chat-color-primary-dark)';
+        userMsg.style.color = 'var(--chat-color-primary-light)';
         userMsg.style.padding = '16px';
         userMsg.style.borderRadius = '24px';
         userMsg.style.borderBottomRightRadius = '0';
@@ -343,8 +397,8 @@
         // AI typing bubble
         const typingBubble = document.createElement('div');
         typingBubble.className = 'chat-message';
-        typingBubble.style.backgroundColor = 'white';
-        typingBubble.style.color = 'black';
+        typingBubble.style.backgroundColor = 'var(--chat-color-primary-light)';
+        typingBubble.style.color = 'var(--chat-color-typing-dots)';
         typingBubble.style.padding = '16px';
         typingBubble.style.borderRadius = '24px';
         typingBubble.style.borderBottomLeftRadius = '0';
@@ -363,7 +417,7 @@
         })
         .then(res => res.json())
         .then(data => {
-            typingBubble.innerHTML = data.output || '';
+            typingBubble.innerHTML = DOMPurify.sanitize(data.output || '');
             messages.scrollTo({ top: messages.scrollHeight, behavior: 'smooth' });
         });
     });
