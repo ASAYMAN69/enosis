@@ -366,13 +366,14 @@
             btn.style.backgroundColor = 'var(--chat-color-primary-light)';
             btn.style.color = 'var(--chat-color-primary-dark)';
             btn.classList.remove('ripple-active');
+            input.focus(); // Auto-focus the input field
         }
     }
     btn.addEventListener('click', toggleChat);
     closeBtn.addEventListener('click', toggleChat);
 
-    // Close chat when clicking outside
-    document.body.addEventListener('click', function(event) {
+    // Close chat when clicking outside (using mousedown for better touch compatibility)
+    document.body.addEventListener('mousedown', function(event) {
         const isClickInsideContainer = container.contains(event.target);
         const isChatActive = win.classList.contains('is-active');
 
