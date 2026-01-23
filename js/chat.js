@@ -121,7 +121,7 @@
             margin-bottom: 24px;
             width: 350px; /* Reduced width */
             max-width: 90vw;
-            height: 550px; /* Reduced height */
+            height: 500px; /* Fixed height for desktop */
             background: var(--chat-color-primary-light);
             border-radius: 24px;
             box-shadow: 0 25px 50px var(--chat-color-toggle-shadow);
@@ -137,6 +137,13 @@
         #chatbot-window.is-active {
             transform: translateY(0);
             opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            #chatbot-window {
+                height: auto; /* Allow height to adjust based on content */
+                max-height: 90vh; /* Max height for mobile, shrinks with keyboard */
+            }
         }
 
         /* Header */
@@ -252,6 +259,8 @@
             left: 0;
             right: 0;
             z-index: 10; /* Ensure it's above other content */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
         #chatbot-input {
             flex: 1;
@@ -439,9 +448,33 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ input: text, session_id })
         })
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) {
+                // Attempt to read error message from server if available, otherwise use status text
+                return res.text().then(text => {
+                    throw new Error(`Server error: ${res.status} ${res.statusText} - ${text}`);
+                });
+            }
+            const contentType = res.headers.get('content-type');
+            if (contentType && contentType.indexOf('application/json') !== -1) {
+                return res.json();
+            } else {
+                return res.text().then(text => {
+                    throw new TypeError(`Expected JSON response, but received ${contentType || 'no content type'}. Response: ${text}`);
+                });
+            }
+        })
         .then(data => {
-            typingBubble.innerHTML = DOMPurify.sanitize(data.output || '');
+            if (data && typeof data.output === 'string') {
+                typingBubble.innerHTML = DOMPurify.sanitize(data.output);
+            } else {
+                typingBubble.innerHTML = DOMPurify.sanitize("Sorry, I received an unexpected response format from the AI.");
+            }
+            messages.scrollTo({ top: messages.scrollHeight, behavior: 'smooth' });
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+            typingBubble.innerHTML = DOMPurify.sanitize(`Error: ${error.message || 'Something went wrong while fetching AI response.'}`);
             messages.scrollTo({ top: messages.scrollHeight, behavior: 'smooth' });
         });
     });
