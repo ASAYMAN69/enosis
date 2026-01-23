@@ -45,8 +45,6 @@
             --chat-color-chat-bg-gradient-start: rgba(var(--website-color-c-rgb), 0.95);
             --chat-color-toggle-shadow: rgba(0,0,0,0.3);
         }
-
-        :root {
         @keyframes ripple {
             0% { transform: scale(1); opacity: 1; }
             100% { transform: scale(1.6); opacity: 0; }
