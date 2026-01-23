@@ -164,12 +164,12 @@
         messages.scrollTo({ top: messages.scrollHeight, behavior: 'smooth' });
 
         // Fetch AI response
-        fetch('https://tahmidn8n.solven.app/webhook-test/retain-chatwidget', {
-            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ user_msg: text, session_id })
+        fetch('https://tahmidn8n.solven.app/webhook/enosisbot', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ input: text })
         })
         .then(res => res.json())
         .then(data => {
-            typingBubble.innerHTML = formatAIResponse(data.reply || '');
+            typingBubble.innerHTML = formatAIResponse(data.output || '');
             messages.scrollTo({ top: messages.scrollHeight, behavior: 'smooth' });
         });
     });
