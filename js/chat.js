@@ -254,7 +254,7 @@
                 <div class="top-bar"></div>
                 <div class="user-info">
                     <div class="avatar-wrapper">
-                        <img src="https://ui-avatars.com/api/?name=AI&background=10b981&color=fff" alt="avatar">
+                        <img src="assets/ai.svg" alt="avatar">
                         <span></span>
                     </div>
                     <div class="user-text">
