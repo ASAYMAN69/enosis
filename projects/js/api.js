@@ -187,20 +187,28 @@ const setupModalEventListeners = (projectsData) => {
             });
 
             // Mouse wheel for scrolling through images (desktop)
+    let isScrolling = false;
+            // Mouse wheel for scrolling through images (desktop)
             modalSlidesContainer.addEventListener('wheel', (event) => {
                 event.preventDefault(); // Prevent page scrolling
-                if (modalDetailsBottom) modalDetailsBottom.classList.add('hidden');
 
                 clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
-                    if (modalDetailsBottom) modalDetailsBottom.classList.remove('hidden');
-                }, 300); // Reappear after 300ms of no scroll
 
-                if (event.deltaY > 0) {
-                    nextSlide();
-                } else {
-                    prevSlide();
-                }
+                scrollTimeout = setTimeout(() => {
+                    if (modalDetailsBottom) modalDetailsBottom.classList.add('hidden');
+                    
+                    const scrollDirection = Math.sign(event.deltaY);
+
+                    if (scrollDirection > 0) {
+                        nextSlide();
+                    } else if (scrollDirection < 0) {
+                        prevSlide();
+                    }
+                    
+                    setTimeout(() => {
+                        if (modalDetailsBottom) modalDetailsBottom.classList.remove('hidden');
+                    }, 300); // Reappear after 300ms of no scroll
+                }, 100); // A short debounce time to feel responsive
             });
         }
         
