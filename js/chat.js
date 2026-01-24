@@ -45,6 +45,8 @@
             --chat-color-chat-bg-gradient-start: rgba(var(--website-color-c-rgb), 0.95);
             --chat-color-toggle-shadow: rgba(0,0,0,0.3);
         }
+
+        :root {
         @keyframes ripple {
             0% { transform: scale(1); opacity: 1; }
             100% { transform: scale(1.6); opacity: 0; }
@@ -121,7 +123,7 @@
             margin-bottom: 24px;
             width: 350px; /* Reduced width */
             max-width: 90vw;
-            height: 500px; /* Fixed height for desktop */
+            height: 550px; /* Reduced height */
             background: var(--chat-color-primary-light);
             border-radius: 24px;
             box-shadow: 0 25px 50px var(--chat-color-toggle-shadow);
@@ -137,13 +139,6 @@
         #chatbot-window.is-active {
             transform: translateY(0);
             opacity: 1;
-        }
-
-        @media (max-width: 768px) {
-            #chatbot-window {
-                height: auto; /* Allow height to adjust based on content */
-                max-height: 90vh; /* Max height for mobile, shrinks with keyboard */
-            }
         }
 
         /* Header */
@@ -220,7 +215,6 @@
             transition: all 0.2s;
             outline: none; /* Remove outline on focus */
             -webkit-tap-highlight-color: transparent; /* Remove blue overlay on touch */
-            font-size: 1.5rem; /* Increased size for the cross icon */
         }
         #chatbot-close:hover { background: var(--chat-color-close-btn-hover); }
 
@@ -259,8 +253,6 @@
             left: 0;
             right: 0;
             z-index: 10; /* Ensure it's above other content */
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
         }
         #chatbot-input {
             flex: 1;
@@ -275,8 +267,6 @@
             color: var(--chat-color-accent-primary);
             cursor: pointer;
             transition: transform 0.2s ease;
-            outline: none; /* Remove outline on focus */
-            -webkit-tap-highlight-color: transparent; /* Remove blue overlay on touch */
         }
         #chatbot-form button:hover { transform: scale(1.1); }
 
@@ -373,33 +363,10 @@
             btn.style.backgroundColor = 'var(--chat-color-primary-light)';
             btn.style.color = 'var(--chat-color-primary-dark)';
             btn.classList.remove('ripple-active');
-            input.focus(); // Auto-focus the input field
         }
     }
     btn.addEventListener('click', toggleChat);
     closeBtn.addEventListener('click', toggleChat);
-
-    // Close chat when clicking outside (using mousedown for better touch compatibility)
-    document.body.addEventListener('mousedown', function(event) {
-        const isClickInsideContainer = container.contains(event.target);
-        const isChatActive = win.classList.contains('is-active');
-
-        // Only close if chat is active and click is outside the entire chatbot container
-        if (!isClickInsideContainer && isChatActive) {
-            toggleChat();
-        }
-    });
-
-    // Close chat when Escape key is pressed
-    document.body.addEventListener('keydown', function(event) {
-        const isChatActive = win.classList.contains('is-active');
-        if (event.key === 'Escape' && isChatActive) {
-            toggleChat();
-        } else if (event.key === ' ' && !isChatActive) { // Spacebar
-            event.preventDefault(); // Prevent scrolling
-            toggleChat();
-        }
-    });
 
     // ---- 5. Message Sending + Typing ----
     const form = document.getElementById('chatbot-form');
@@ -448,33 +415,9 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ input: text, session_id })
         })
-        .then(res => {
-            if (!res.ok) {
-                // Attempt to read error message from server if available, otherwise use status text
-                return res.text().then(text => {
-                    throw new Error(`Server error: ${res.status} ${res.statusText} - ${text}`);
-                });
-            }
-            const contentType = res.headers.get('content-type');
-            if (contentType && contentType.indexOf('application/json') !== -1) {
-                return res.json();
-            } else {
-                return res.text().then(text => {
-                    throw new TypeError(`Expected JSON response, but received ${contentType || 'no content type'}. Response: ${text}`);
-                });
-            }
-        })
+        .then(res => res.json())
         .then(data => {
-            if (data && typeof data.output === 'string') {
-                typingBubble.innerHTML = DOMPurify.sanitize(data.output);
-            } else {
-                typingBubble.innerHTML = DOMPurify.sanitize("Sorry, I received an unexpected response format from the AI.");
-            }
-            messages.scrollTo({ top: messages.scrollHeight, behavior: 'smooth' });
-        })
-        .catch(error => {
-            console.error('Fetch error:', error);
-            typingBubble.innerHTML = DOMPurify.sanitize(`Error: ${error.message || 'Something went wrong while fetching AI response.'}`);
+            typingBubble.innerHTML = DOMPurify.sanitize(data.output || '');
             messages.scrollTo({ top: messages.scrollHeight, behavior: 'smooth' });
         });
     });
