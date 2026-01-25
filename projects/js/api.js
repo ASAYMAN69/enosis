@@ -1,5 +1,21 @@
 const API_URL = 'https://getall.asayman669.workers.dev/';
 
+// Store preloaded images to prevent garbage collection
+const preloadedImages = new Set();
+
+const preLoadImages = (imageUrls) => {
+    imageUrls.forEach(url => {
+        if (!preloadedImages.has(url)) { // Avoid preloading duplicates
+            const img = new Image();
+            img.src = url;
+            // Optionally, handle onload/onerror events if needed for more complex scenarios
+            img.onload = () => console.log('Preloaded:', url);
+            img.onerror = () => console.warn('Failed to preload:', url);
+            preloadedImages.add(url);
+        }
+    });
+};
+
 const createPropertyCard = (project) => {
     const card = document.createElement('div');
     card.className = 'property-card';
@@ -269,6 +285,15 @@ const fetchProjects = async () => {
     try {
         const response = await fetch(API_URL);
         const projects = await response.json();
+
+        // Collect all image URLs for pre-loading
+        const allImageUrls = new Set();
+        projects.forEach(project => {
+            if (project.photo && project.photo.length > 0) {
+                project.photo.forEach(url => allImageUrls.add(url));
+            }
+        });
+        preLoadImages(Array.from(allImageUrls)); // Initiate pre-loading
 
         const ongoingGrid = document.querySelector('.projects-grid[data-category="ongoing"]');
         const upcomingGrid = document.querySelector('.projects-grid[data-category="upcoming"]');

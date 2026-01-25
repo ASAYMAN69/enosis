@@ -111,7 +111,7 @@
             position: fixed;
             bottom: 32px;
             right: 32px;
-            z-index: 9999;
+            z-index: 990;
             display: flex;
             flex-direction: column;
             align-items: flex-end;
@@ -282,7 +282,7 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 25px 50px var(--chat-color-toggle-shadow);
-            z-index: 10000;
+            z-index: 995;
             border: none;
             cursor: pointer;
             outline: none; /* Remove outline on focus */
