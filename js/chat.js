@@ -127,12 +127,14 @@
           const chatHistory = await historyResponse.json();
 
           if (Array.isArray(chatHistory)) {
+            // Sort chat history by UID in ascending order
+            chatHistory.sort((a, b) => a.UID - b.UID);
+
             chatHistory.forEach(item => {
               if (item.input) {
                 addMessage(item.input, 'user');
               }
               if (item.output && item.output.text) {
-                // Assuming processAndDisplayBotResponse can handle the nested output structure
                 processAndDisplayBotResponse(item); // Pass the whole item as it contains output.text, buttons, images
               }
             });
@@ -657,14 +659,14 @@
         // Display images first, if any
         if (images.length > 0) {
           displayImages(images, delay);
-          delay += (images.length * 500); // Accumulate delay for images
+          // delay += (images.length * 500); // Accumulate delay for images - removed
         }
         
         // Display text output and buttons
         if (output || buttons.length > 0) {
-          setTimeout(() => {
+          // setTimeout(() => { // Removed setTimeout
             displayTextWithButtons(output, buttons);
-          }, delay);
+          // }, delay); // Removed setTimeout
         } else {
           // Fallback if no output or buttons are provided but response is valid
           addMessage("Sorry, I couldn't generate a response for that.", 'bot');
