@@ -85,7 +85,7 @@
     
     // Chat API handling
     const chatApi = {
-      webhookUrl: 'http://localhost:5678/webhook-test/chat',
+      webhookUrl: 'https://tahmidn8n.solven.app/webhook/chat-test',
       
       sendMessage: async (message) => {
         try {
