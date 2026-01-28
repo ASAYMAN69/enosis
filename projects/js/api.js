@@ -10,7 +10,7 @@ const preLoadImages = (imageUrls) => {
             img.src = url;
             // Optionally, handle onload/onerror events if needed for more complex scenarios
             img.onload = () => console.log('Preloaded:', url);
-            img.onerror = () => console.warn('Failed to preload:', url);
+            img.onerror = (e) => console.warn('Failed to preload:', url, e);
             preloadedImages.add(url);
         }
     });
