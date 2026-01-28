@@ -130,12 +130,22 @@
             // Sort chat history by UID in ascending order
             chatHistory.sort((a, b) => a.UID - b.UID);
 
+            let totalHistoryDisplayDelay = 0;
+            const messageDisplayInterval = 100; // Small delay between user and bot parts
+            const botResponseDisplayInterval = 500; // Larger delay for bot responses
+
             chatHistory.forEach(item => {
               if (item.input) {
-                addMessage(item.input, 'user');
+                setTimeout(() => {
+                  addMessage(item.input, 'user');
+                }, totalHistoryDisplayDelay);
+                totalHistoryDisplayDelay += messageDisplayInterval;
               }
               if (item.output && item.output.text) {
-                processAndDisplayBotResponse(item); // Pass the whole item as it contains output.text, buttons, images
+                setTimeout(() => {
+                  processAndDisplayBotResponse(item); // Pass the whole item
+                }, totalHistoryDisplayDelay);
+                totalHistoryDisplayDelay += botResponseDisplayInterval;
               }
             });
           }
