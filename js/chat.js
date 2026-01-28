@@ -28,8 +28,8 @@
     // UI Configuration (color scheme)
     const UIConfig = {
       // Default colors
-      chatButtonColor: 'rgb(74, 227, 247)', 
-      sendButtonColor: 'rgb(74, 227, 247)',
+      chatButtonColor: 'rgb(85, 107, 47)', 
+      sendButtonColor: 'rgb(143, 163, 30)',
       
       // Helper function to lighten a color - defined first to avoid the error
       lightenColor: function(color, factor) {
@@ -460,7 +460,7 @@
       
       const title = document.createElement('div');
       title.id = 'chat-widget-title';
-      title.textContent = 'Chat Support';
+      title.textContent = 'enosis Chat';
       
       const closeButton = document.createElement('button');
       closeButton.id = 'chat-widget-close';
