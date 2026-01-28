@@ -3,27 +3,25 @@
 (function() {
     // Generate a unique session ID or retrieve from storage
     const generateSessionId = () => {
-      // Check if a session ID already exists in session storage
-      const existingSessionId = sessionStorage.getItem('chatWidgetSessionId');
+      let existingSessionId = localStorage.getItem('chatWidgetSessionId');
+      let isNewSession = false;
       
-      if (existingSessionId) {
-        return existingSessionId;
+      if (!existingSessionId) {
+        // Generate a new UUID v4 session ID
+        existingSessionId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+          const r = Math.random() * 16 | 0;
+          const v = c === 'x' ? r : (r & 0x3 | 0x8);
+          return v.toString(16);
+        });
+        localStorage.setItem('chatWidgetSessionId', existingSessionId);
+        isNewSession = true;
       }
       
-      // Generate a new UUID v4 session ID
-      const newSessionId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        const r = Math.random() * 16 | 0;
-        const v = c === 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-      });
-      
-      // Store the new session ID in session storage
-      sessionStorage.setItem('chatWidgetSessionId', newSessionId);
-      return newSessionId;
+      return { id: existingSessionId, isNew: isNewSession };
     };
   
-    // Get session ID for this user session
-    const sessionId = generateSessionId();
+    // Get session ID and new session status for this user session
+    const { id: sessionId, isNew: isNewSession } = generateSessionId();
     
     // UI Configuration (color scheme)
     const UIConfig = {
@@ -119,6 +117,32 @@
   
     // Create the chat UI
     function createChatWidget() {
+      // Function to load chat history
+      async function loadChatHistory(currentSessionId) {
+        try {
+          const historyResponse = await fetch(`https://tahmidn8n.solven.app/webhook/chat-history?sessionId=${currentSessionId}`);
+          if (!historyResponse.ok) {
+            throw new Error(`HTTP error! status: ${historyResponse.status}`);
+          }
+          const chatHistory = await historyResponse.json();
+
+          if (Array.isArray(chatHistory)) {
+            chatHistory.forEach(item => {
+              if (item.input) {
+                addMessage(item.input, 'user');
+              }
+              if (item.output && item.output.text) {
+                // Assuming processAndDisplayBotResponse can handle the nested output structure
+                processAndDisplayBotResponse(item); // Pass the whole item as it contains output.text, buttons, images
+              }
+            });
+          }
+        } catch (error) {
+          console.error('Error loading chat history:', error);
+          // Optionally display a message to the user that history could not be loaded
+        }
+      }
+
       // Basic HTML sanitizer for bot responses
       function sanitizeHtml(str) {
         const div = document.createElement('div');
@@ -512,20 +536,34 @@
       };
       
       // Add event listeners
-      button.addEventListener('click', () => {
+      button.addEventListener('click', async () => {
         chatWindow.classList.toggle('open');
         button.classList.toggle('open');
         
         // If opening the chat for the first time, show welcome message
         if (chatWindow.classList.contains('open')) {
-          // If opening the chat for the first time, show welcome message
+          // If opening the chat for the first time, show welcome message or load history
           if (messagesContainer.children.length === 0) {
             showTypingIndicator();
             
-            setTimeout(() => {
-              hideTypingIndicator();
-              addMessage("Hello! How can I help you today?", 'bot');
-            }, 1000);
+            if (isNewSession) {
+              setTimeout(() => {
+                hideTypingIndicator();
+                addMessage("Hello! How can I help you today?", 'bot');
+              }, 1000);
+            } else {
+              await loadChatHistory(sessionId); // Load history if not a new session
+              
+              // If no history was loaded, show welcome message
+              if (messagesContainer.children.length === 0) {
+                setTimeout(() => {
+                  hideTypingIndicator();
+                  addMessage("Hello! How can I help you today?", 'bot');
+                }, 1000);
+              } else {
+                hideTypingIndicator(); // Hide indicator if history loaded
+              }
+            }
           }
         }
       });
