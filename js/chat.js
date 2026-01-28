@@ -600,11 +600,19 @@
           addMessage("Sorry, I received an invalid response.", 'bot');
           return;
         }
+
+        // Check if the new nested 'output' structure is present
+        const botOutput = responseJson.output;
+        if (typeof botOutput !== 'object' || botOutput === null) {
+          console.error('Invalid nested output format:', responseJson);
+          addMessage("Sorry, I received an unexpected response format.", 'bot');
+          return;
+        }
         
-        // Extract output, buttons, and image
-        const output = responseJson.output || "";
-        const buttons = Array.isArray(responseJson.buttons) ? responseJson.buttons : [];
-        const images = Array.isArray(responseJson.image) ? responseJson.image : [];
+        // Extract output, buttons, and images from the nested structure
+        const output = botOutput.text || "";
+        const buttons = Array.isArray(botOutput.buttons) ? botOutput.buttons : [];
+        const images = Array.isArray(botOutput.images) ? botOutput.images : [];
         
         let delay = 0;
         
