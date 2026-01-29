@@ -414,7 +414,16 @@
     color: var(--color-c);
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    height: 100%; /* Ensure flex items can properly distribute space */
+}
+
+.modal-scrollable-content {
+    flex-grow: 1; /* Allows this div to take up available space */
+    overflow-y: auto; /* Makes the content within this div scrollable */
+    padding-right: 15px; /* Account for scrollbar width */
+    margin-bottom: 1rem; /* Space above the button */
+    /* Add padding to the scrollable content to prevent text from touching the scrollbar */
+    padding-bottom: 1rem; /* Ensure some bottom padding inside the scrollable area */
 }
 
 .modal-details h3 {
