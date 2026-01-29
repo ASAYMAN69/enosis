@@ -23,10 +23,12 @@ const createPropertyCard = (project) => {
     card.dataset.projectId = project.id;
 
     const badgeClass = `badge-${project.status.toLowerCase()}`;
-    const bedrooms = project.bedrooms ? project.bedrooms : 'N/A';
-    const bathrooms = project.bathrooms ? project.bathrooms : 'N/A';
-    const parking = project.parking ? project.parking : 'N/A';
+    const story = project.story ? project.story : 'N/A';
+    const total_unit = project.total_unit ? project.total_unit : 'N/A';
+    const parking_count = project.parking_count ? project.parking_count : 'N/A';
     const sqft = project.sqft ? project.sqft : 'N/A';
+    const unit_per_floor = project.unit_per_floor ? project.unit_per_floor : 'N/A';
+    const land_area = project.land_area ? project.land_area : 'N/A';
 
     card.innerHTML = `
         <div class="property-badge ${badgeClass}">${project.status}</div>
@@ -40,13 +42,13 @@ const createPropertyCard = (project) => {
                 <div class="property-address">${project.location}</div>
                 <div class="property-features">
                     <div class="feature">
-                        <i class="fas fa-building"></i> Residential
+                        <i class="fas fa-building"></i> ${story} Stories
                     </div>
                     <div class="feature">
-                        <i class="fas fa-bed"></i> ${bedrooms} Beds
+                        <i class="fas fa-th"></i> ${total_unit} Units
                     </div>
                     <div class="feature">
-                        <i class="fas fa-bath"></i> ${bathrooms} Baths
+                        <i class="fas fa-car"></i> ${parking_count} Parking
                     </div>
                 </div>
             </div>
@@ -62,16 +64,16 @@ const createPropertyCard = (project) => {
             <p class="property-description">${project.description}</p>
             <div class="property-stats">
                 <div class="stat">
-                    <div class="stat-value">${bedrooms}</div>
-                    <div class="stat-label">Bedrooms</div>
+                    <div class="stat-value">${sqft}</div>
+                    <div class="stat-label">Sqft</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-value">${bathrooms}</div>
-                    <div class="stat-label">Bathrooms</div>
+                    <div class="stat-value">${unit_per_floor}</div>
+                    <div class="stat-label">Units/Floor</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-value">${parking}</div>
-                    <div class="stat-label">Parking</div>
+                    <div class="stat-value">${land_area}</div>
+                    <div class="stat-label">Land Area</div>
                 </div>
             </div>
             <button class="contact-btn" data-project-id="${project.id}">View Details</button>
@@ -85,200 +87,211 @@ const setupModalEventListeners = (projectsData) => {
     if (!projectModal) {
         return; // Modal not on this page
     }
-    const modalCloseBtn = document.querySelector('.modal-close-btn');
-    const modalSlidesContainer = document.getElementById('modalSlidesContainer');
-    const modalPrevBtn = document.querySelector('.modal-prev-btn');
-    const modalNextBtn = document.querySelector('.modal-next-btn');
-    const modalProjectTitle = document.getElementById('modalProjectTitle');
-    const modalProjectAddress = document.getElementById('modalProjectAddress');
-    const modalProjectDescription = document.getElementById('modalProjectDescription');
-    const modalProjectFeatures = document.getElementById('modalProjectFeatures');
-    const modalDetailsBottom = document.querySelector('.modal-details-bottom'); // New element reference
+
+    const modalCloseBtn = projectModal.querySelector('.modal-close-btn');
+    const modalMainImageContainer = projectModal.querySelector('.modal-main-image'); // This is the viewport
+    const modalImageSlider = projectModal.querySelector('.modal-image-slider'); // This is the container that slides
+    const modalThumbnails = projectModal.querySelector('#modalThumbnails');
+    const modalProjectTitle = projectModal.querySelector('#modalProjectTitle');
+    const modalProjectAddress = projectModal.querySelector('#modalProjectAddress');
+    const modalProjectStatus = projectModal.querySelector('#modalProjectStatus');
+    const modalProjectDescription = projectModal.querySelector('#modalProjectDescription');
+    const modalProjectFeatures = projectModal.querySelector('#modalProjectFeatures');
+    const prevBtn = projectModal.querySelector('.modal-gallery-nav.prev-btn');
+    const nextBtn = projectModal.querySelector('.modal-gallery-nav.next-btn');
 
     let currentProject = null;
-    let currentSlideIndex = 0;
-    let totalSlides = 0;
-    let scrollTimeout;
+    let currentImageIndex = 0;
 
-    const updateSlide = () => {
-        if (modalSlidesContainer) {
-            modalSlidesContainer.style.transform = `translateY(-${currentSlideIndex * 100}%)`;
-            if (totalSlides > 1) {
-                modalPrevBtn.style.display = 'flex'; // Use flex for centering
-                modalNextBtn.style.display = 'flex'; // Use flex for centering
-            } else {
-                modalPrevBtn.style.display = 'none';
-                modalNextBtn.style.display = 'none';
-            }
-        }
+    // Swipe variables
+    let touchStartX = 0;
+    let touchMoveX = 0;
+    let isSwiping = false;
+    const swipeThreshold = 50; // Minimum pixels for a swipe to be recognized
+
+    const openModal = () => {
+        projectModal.style.display = 'flex';
+        requestAnimationFrame(() => {
+            projectModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
     };
 
-    const nextSlide = () => {
-        if (totalSlides > 1) {
-            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
-            updateSlide();
-        }
-    };
-
-    const prevSlide = () => {
-        if (totalSlides > 1) {
-            currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
-            updateSlide();
-        }
-    };
-    
-    if (projectModal && modalCloseBtn) {
-        function openModal() {
-            projectModal.style.display = 'flex';
-            requestAnimationFrame(() => {
-                projectModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                if (modalDetailsBottom) {
-                    modalDetailsBottom.classList.remove('hidden'); // Ensure details are visible on open
-                }
-            });
-        }
-
-        function closeModal() {
-            projectModal.classList.remove('active');
-            document.body.style.overflow = '';
-            // Reset slide index when closing modal
-            currentSlideIndex = 0; 
-            if (modalSlidesContainer) {
-                modalSlidesContainer.style.transform = `translateY(0%)`;
-            }
-        }
-
+    const closeModal = () => {
+        projectModal.classList.remove('active');
+        document.body.style.overflow = '';
         projectModal.addEventListener('transitionend', () => {
             if (!projectModal.classList.contains('active')) {
                 projectModal.style.display = 'none';
             }
-        });
-        
-        modalCloseBtn.addEventListener('click', closeModal);
-        projectModal.addEventListener('click', (event) => {
-            // Only close modal if clicking directly on the overlay, not its content
-            if (event.target === projectModal) {
-                closeModal();
-            }
-        });
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && projectModal.classList.contains('active')) {
-                closeModal();
-            }
-        });
+        }, { once: true });
+    };
 
-        modalPrevBtn.addEventListener('click', (event) => {
-            event.stopPropagation();
-            prevSlide();
-        });
+    const updateSliderPosition = (animate = true) => {
+        if (!modalImageSlider) return;
+        const offset = -currentImageIndex * 100;
+        modalImageSlider.style.transition = animate ? 'transform 0.5s ease-in-out' : 'none';
+        modalImageSlider.style.transform = `translateX(${offset}%)`;
 
-        modalNextBtn.addEventListener('click', (event) => {
-            event.stopPropagation();
-            nextSlide();
-        });
-
-        // Swipe support on modalSlidesContainer
-        let startY = 0; // Changed from startX
-        let isSwiping = false;
-        if (modalSlidesContainer) {
-            modalSlidesContainer.addEventListener('touchstart', e => {
-                startY = e.touches[0].clientY; // Changed from clientX
-                isSwiping = true;
-                if (modalDetailsBottom) modalDetailsBottom.classList.add('hidden');
-            });
-
-            modalSlidesContainer.addEventListener('touchend', e => {
-                if (!isSwiping) return;
-                let endY = e.changedTouches[0].clientY; // Changed from clientX
-                let diff = startY - endY; // Changed to vertical difference
-
-                if (diff > 50) nextSlide(); // Swiping up
-                if (diff < -50) prevSlide(); // Swiping down
-                isSwiping = false;
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
-                    if (modalDetailsBottom) modalDetailsBottom.classList.remove('hidden');
-                }, 300); // Reappear after 300ms of no swipe
-            });
-
-            // Mouse wheel for scrolling through images (desktop)
-    let isScrolling = false;
-            // Mouse wheel for scrolling through images (desktop)
-            modalSlidesContainer.addEventListener('wheel', (event) => {
-                event.preventDefault(); // Prevent page scrolling
-
-                clearTimeout(scrollTimeout);
-
-                scrollTimeout = setTimeout(() => {
-                    if (modalDetailsBottom) modalDetailsBottom.classList.add('hidden');
-                    
-                    const scrollDirection = Math.sign(event.deltaY);
-
-                    if (scrollDirection > 0) {
-                        nextSlide();
-                    } else if (scrollDirection < 0) {
-                        prevSlide();
-                    }
-                    
-                    setTimeout(() => {
-                        if (modalDetailsBottom) modalDetailsBottom.classList.remove('hidden');
-                    }, 300); // Reappear after 300ms of no scroll
-                }, 100); // A short debounce time to feel responsive
-            });
+        // Update active thumbnail
+        if (modalThumbnails.querySelector('.active')) {
+            modalThumbnails.querySelector('.active').classList.remove('active');
         }
-        
-        const propertyCards = document.querySelectorAll('.property-card');
-        propertyCards.forEach(card => {
-            card.addEventListener('click', () => {
-                // Open modal on any click on the card, not just specific buttons
-                const projectId = card.dataset.projectId;
-                currentProject = projectsData.find(p => p.id == projectId);
+        const activeThumbnail = modalThumbnails.children[currentImageIndex];
+        if (activeThumbnail) {
+            activeThumbnail.classList.add('active');
+        }
+    };
 
-                if (currentProject && modalSlidesContainer) {
-                    modalSlidesContainer.innerHTML = ''; // Clear previous slides
-                    currentSlideIndex = 0;
-                    
-                    if (currentProject.photo && currentProject.photo.length > 0) {
-                        currentProject.photo.forEach(photoUrl => {
-                            const slideDiv = document.createElement('div');
-                            slideDiv.className = 'modal-slide';
-                            const img = document.createElement('img');
-                            img.src = photoUrl;
-                            img.alt = currentProject.projectName;
-                            slideDiv.appendChild(img);
-                            modalSlidesContainer.appendChild(slideDiv);
-                        });
-                        totalSlides = currentProject.photo.length;
-                    } else {
-                        // Handle case with no photos
-                        const slideDiv = document.createElement('div');
-                        slideDiv.className = 'modal-slide';
+    const showImage = (index) => {
+        if (!currentProject || !currentProject.photo || currentProject.photo.length === 0) return;
+
+        currentImageIndex = (index + currentProject.photo.length) % currentProject.photo.length;
+        updateSliderPosition();
+    };
+
+
+    modalCloseBtn.addEventListener('click', closeModal);
+    projectModal.addEventListener('click', (event) => {
+        if (event.target === projectModal) {
+            closeModal();
+        }
+    });
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && projectModal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    prevBtn.addEventListener('click', () => {
+        showImage(currentImageIndex - 1);
+    });
+
+    nextBtn.addEventListener('click', () => {
+        showImage(currentImageIndex + 1);
+    });
+
+    // Add swipe events to the main image container (viewport)
+    modalMainImageContainer.addEventListener('touchstart', (e) => {
+        if (currentProject.photo.length <= 1) return;
+        isSwiping = true;
+        touchStartX = e.touches[0].clientX;
+        modalImageSlider.style.transition = 'none'; // Disable transition during drag
+    });
+
+    modalMainImageContainer.addEventListener('touchmove', (e) => {
+        if (!isSwiping || currentProject.photo.length <= 1) return;
+        touchMoveX = e.touches[0].clientX;
+        const diff = touchMoveX - touchStartX;
+        const offset = (-currentImageIndex * modalMainImageContainer.offsetWidth) + diff;
+        modalImageSlider.style.transform = `translateX(${offset}px)`;
+    });
+
+    modalMainImageContainer.addEventListener('touchend', () => {
+        if (!isSwiping || currentProject.photo.length <= 1) {
+            isSwiping = false;
+            return;
+        }
+        isSwiping = false;
+
+        const diff = touchMoveX - touchStartX;
+        const imageWidth = modalMainImageContainer.offsetWidth; // Get current width of the container
+
+        if (diff > swipeThreshold) { // Swiped right (previous)
+            showImage(currentImageIndex - 1);
+        } else if (diff < -swipeThreshold) { // Swiped left (next)
+            showImage(currentImageIndex + 1);
+        } else { // Not a strong enough swipe, snap back
+            updateSliderPosition(); // Snap back to current image with animation
+        }
+        touchStartX = 0;
+        touchMoveX = 0;
+    });
+
+    const propertyCards = document.querySelectorAll('.property-card');
+    propertyCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const projectId = card.dataset.projectId;
+            currentProject = projectsData.find(p => p.id == projectId);
+
+            if (currentProject) {
+                // Populate Modal with project data
+                modalProjectTitle.textContent = currentProject.projectName;
+                modalProjectAddress.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${currentProject.location}`;
+                modalProjectDescription.textContent = currentProject.description;
+                
+                // Status Badge
+                modalProjectStatus.textContent = currentProject.status;
+                modalProjectStatus.className = `property-badge badge-${currentProject.status.toLowerCase()}`;
+
+                // Image Gallery
+                modalImageSlider.innerHTML = ''; // Clear previous images
+                modalThumbnails.innerHTML = '';
+                if (currentProject.photo && currentProject.photo.length > 0) {
+                    currentImageIndex = 0; // Reset index on modal open
+                    currentProject.photo.forEach((photoUrl, index) => {
                         const img = document.createElement('img');
-                        img.src = 'https://picsum.photos/seed/default/800/600';
-                        img.alt = 'No Image Available';
-                        slideDiv.appendChild(img);
-                        modalSlidesContainer.appendChild(slideDiv);
-                        totalSlides = 1;
-                    }
+                        img.src = photoUrl;
+                        img.alt = `${currentProject.projectName} - Image ${index + 1}`;
+                        modalImageSlider.appendChild(img); // Add image to the slider
 
-                    updateSlide();
-                    
-                    modalProjectTitle.textContent = currentProject.projectName;
-                    modalProjectAddress.textContent = currentProject.location;
-                    modalProjectDescription.textContent = currentProject.description;
-
-                    modalProjectFeatures.innerHTML = '';
-                    const featureItem = document.createElement('div');
-                    featureItem.classList.add('modal-feature-item');
-                    featureItem.innerHTML = `<i class="fas fa-info-circle"></i> ${currentProject.status}`;
-                    modalProjectFeatures.appendChild(featureItem);
-                    
-                    openModal();
+                        const thumb = document.createElement('img');
+                        thumb.src = photoUrl;
+                        thumb.alt = `Thumbnail ${index + 1}`;
+                        thumb.classList.add('modal-thumbnail');
+                        thumb.addEventListener('click', () => {
+                            showImage(index); // Use showImage for thumbnail click
+                        });
+                        modalThumbnails.appendChild(thumb);
+                    });
+                    // Set initial slider position without animation
+                    updateSliderPosition(false);
+                } else {
+                    const img = document.createElement('img');
+                    img.src = 'https://picsum.photos/seed/default/800/600';
+                    img.alt = 'No Image Available';
+                    modalImageSlider.appendChild(img);
                 }
-            });
+                
+                // Show/hide navigation buttons based on image count
+                if (currentProject.photo && currentProject.photo.length > 1) {
+                    prevBtn.style.display = 'flex';
+                    nextBtn.style.display = 'flex';
+                } else {
+                    prevBtn.style.display = 'none';
+                    nextBtn.style.display = 'none';
+                }
+
+                // Key Features
+                modalProjectFeatures.innerHTML = '';
+                const features = {
+                    "Stories": { value: currentProject.story, icon: 'fa-building' },
+                    "Total Units": { value: currentProject.total_unit, icon: 'fa-th' },
+                    "Units/Floor": { value: currentProject.unit_per_floor, icon: 'fa-layer-group' },
+                    "Land Area": { value: currentProject.land_area, icon: 'fa-ruler-combined' },
+                    "Area (sqft)": { value: currentProject.sqft, icon: 'fa-vector-square' },
+                    "Parking": { value: currentProject.parking_count, icon: 'fa-car' }
+                };
+
+                for (const [key, { value, icon }] of Object.entries(features)) {
+                    if (value) {
+                        const featureItem = document.createElement('div');
+                        featureItem.classList.add('feature-item');
+                        featureItem.innerHTML = `
+                            <i class="fas ${icon}"></i>
+                            <div class="feature-text">
+                                <strong>${key}</strong>
+                                <p>${value}</p>
+                            </div>
+                        `;
+                        modalProjectFeatures.appendChild(featureItem);
+                    }
+                }
+                
+                openModal();
+            }
         });
-    }
+    });
 };
 
 const fetchProjects = async () => {
