@@ -299,10 +299,33 @@ const fetchProjects = async () => {
         const response = await fetch(API_URL);
         const projects = await response.json();
 
+        // Normalize `photo` property to be an array of URLs
+        projects.forEach(project => {
+            if (typeof project.photo === 'string') {
+                if (project.photo.startsWith('[')) {
+                    // It's a JSON string array, so parse it
+                    try {
+                        project.photo = JSON.parse(project.photo);
+                    } catch (e) {
+                        console.error('Failed to parse photo array:', project.photo, e);
+                        project.photo = []; // Set to empty array on parse error
+                    }
+                } else if (project.photo.trim() !== '') {
+                    // It's a single URL string, wrap it in an array
+                    project.photo = [project.photo];
+                } else {
+                    project.photo = [];
+                }
+            } else if (!project.photo) {
+                // It's null, undefined, or some other non-array type
+                project.photo = [];
+            }
+        });
+
         // Collect all image URLs for pre-loading
         const allImageUrls = new Set();
         projects.forEach(project => {
-            if (project.photo && project.photo.length > 0) {
+            if (project.photo.length > 0) {
                 project.photo.forEach(url => allImageUrls.add(url));
             }
         });
