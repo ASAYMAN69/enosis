@@ -386,10 +386,13 @@
 .modal-thumbnails {
     display: flex;
     gap: 10px;
-    padding: 10px;
+    padding: 10px 10px 20px;
     background-color: rgba(0, 0, 0, 0.2);
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    text-align: left;
 }
 
 .modal-thumbnail {
@@ -644,4 +647,22 @@
     .modal-gallery-nav {
         display: none !important;
     }
+}
+/* Custom Scrollbar for Modal Thumbnails */
+.modal-thumbnails::-webkit-scrollbar {
+    height: 8px;
+}
+
+.modal-thumbnails::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.modal-thumbnails::-webkit-scrollbar-thumb {
+    background: var(--color-d);
+    border-radius: 4px;
+}
+
+.modal-thumbnails::-webkit-scrollbar-thumb:hover {
+    background: #a5a5a5;
 }
