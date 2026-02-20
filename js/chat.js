@@ -120,7 +120,7 @@
       // Function to load chat history
       async function loadChatHistory(currentSessionId) {
         try {
-          const historyResponse = await fetch(`https://tahmidn8n.solven.app/webhook/chat-history?sessionId=${currentSessionId}`);
+          const historyResponse = await fetch(`https://n8n.enosisltd.com/webhook/chat-history?sessionId=${currentSessionId}`);
           if (!historyResponse.ok) {
             throw new Error(`HTTP error! status: ${historyResponse.status}`);
           }
