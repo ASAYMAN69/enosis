@@ -83,7 +83,7 @@
     
     // Chat API handling
     const chatApi = {
-      webhookUrl: 'https://tahmidn8n.solven.app/webhook/chat-test',
+      webhookUrl: 'https://n8n.enosisltd.com/webhook/chat-test',
       
       sendMessage: async (message) => {
         try {
