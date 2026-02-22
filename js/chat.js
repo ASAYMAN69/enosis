@@ -1,6 +1,12 @@
 
 // Chat Widget Script
 (function() {
+    // Configuration - Edit these values to customize
+    const AI_CONVO = 'https://n8n.enosisltd.com/webhook/chat-test';
+    const CHAT_HISTORY = 'https://n8n.enosisltd.com/webhook/chat-history';
+    const CHAT_BUTTON_COLOR = 'rgb(85, 107, 47)';
+    const SEND_BUTTON_COLOR = 'rgb(143, 163, 30)';
+    
     // Generate a unique session ID or retrieve from storage
     const generateSessionId = () => {
       let existingSessionId = localStorage.getItem('chatWidgetSessionId');
@@ -26,8 +32,8 @@
     // UI Configuration (color scheme)
     const UIConfig = {
       // Default colors
-      chatButtonColor: 'rgb(85, 107, 47)', 
-      sendButtonColor: 'rgb(143, 163, 30)',
+      chatButtonColor: CHAT_BUTTON_COLOR, 
+      sendButtonColor: SEND_BUTTON_COLOR,
       
       // Helper function to lighten a color - defined first to avoid the error
       lightenColor: function(color, factor) {
@@ -83,7 +89,7 @@
     
     // Chat API handling
     const chatApi = {
-      webhookUrl: 'https://n8n.enosisltd.com/webhook/chat-test',
+      webhookUrl: AI_CONVO,
       
       sendMessage: async (message) => {
         try {
@@ -106,11 +112,44 @@
             throw new Error(`HTTP error! status: ${response.status}`);
           }
           
-          const data = await response.json();
-          return data;
+          // Get response text first for debugging
+          const responseText = await response.text();
+          
+          // Check if response is empty
+          if (!responseText || responseText.trim() === '') {
+            console.error('Empty response from server');
+            return {
+              output: {
+                text: "Error: Server returned empty response",
+                buttons: [],
+                images: []
+              }
+            };
+          }
+          
+          // Try to parse JSON
+          try {
+            const data = JSON.parse(responseText);
+            return data;
+          } catch (parseError) {
+            console.error('Invalid JSON response:', responseText.substring(0, 500));
+            return {
+              output: {
+                text: `Error: Server returned invalid JSON. Raw response: ${responseText.substring(0, 200)}...`,
+                buttons: [],
+                images: []
+              }
+            };
+          }
         } catch (error) {
           console.error('Error sending message:', error);
-          return "Sorry, there was an error processing your request.";
+          return {
+            output: {
+              text: `Sorry, there was an error: ${error.message}`,
+              buttons: [],
+              images: []
+            }
+          };
         }
       }
     };
@@ -120,7 +159,7 @@
       // Function to load chat history
       async function loadChatHistory(currentSessionId) {
         try {
-          const historyResponse = await fetch(`https://n8n.enosisltd.com/webhook/chat-history?sessionId=${currentSessionId}`);
+          const historyResponse = await fetch(`${CHAT_HISTORY}?sessionId=${currentSessionId}`);
           if (!historyResponse.ok) {
             throw new Error(`HTTP error! status: ${historyResponse.status}`);
           }
@@ -155,11 +194,157 @@
         }
       }
 
-      // Basic HTML sanitizer for bot responses
-      function sanitizeHtml(str) {
+      // HTML sanitizer and formatter for bot responses
+      function formatText(str) {
+        // First, parse LaTeX before HTML escaping
+        let formatted = parseLatex(str);
+        
+        // Sanitize HTML to prevent XSS
         const div = document.createElement('div');
-        div.appendChild(document.createTextNode(str));
-        return div.innerHTML;
+        div.appendChild(document.createTextNode(formatted));
+        let sanitized = div.innerHTML;
+        
+        // Convert newlines to <br> tags
+        sanitized = sanitized.replace(/\n/g, '<br>');
+        
+        // Auto-link URLs (http/https only)
+        sanitized = sanitized.replace(
+          /(https?:\/\/[^\s<]+)/g,
+          '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">$1</a>'
+        );
+        
+        return sanitized;
+      }
+      
+      // Parse LaTeX math expressions and convert to unicode/HTML
+      function parseLatex(text) {
+        // Handle $$...$$ display math
+        text = text.replace(/\$\$([^$]+)\$\$/g, function(match, latex) {
+          return convertLatexToUnicode(latex);
+        });
+        
+        // Handle $...$ inline math
+        text = text.replace(/\$([^$\s][^$]*)\$/g, function(match, latex) {
+          return convertLatexToUnicode(latex);
+        });
+        
+        // Handle \(...\) inline math
+        text = text.replace(/\\\(([^)]+)\\\)/g, function(match, latex) {
+          return convertLatexToUnicode(latex);
+        });
+        
+        // Handle \[...\] display math
+        text = text.replace(/\\\[([^\]]+)\\\]/g, function(match, latex) {
+          return convertLatexToUnicode(latex);
+        });
+        
+        return text;
+      }
+      
+      // Convert common LaTeX expressions to unicode
+      function convertLatexToUnicode(latex) {
+        let result = latex;
+        
+        // Greek letters
+        const greek = {
+          '\\alpha': 'α', '\\beta': 'β', '\\gamma': 'γ', '\\delta': 'δ',
+          '\\epsilon': 'ε', '\\zeta': 'ζ', '\\eta': 'η', '\\theta': 'θ',
+          '\\iota': 'ι', '\\kappa': 'κ', '\\lambda': 'λ', '\\mu': 'μ',
+          '\\nu': 'ν', '\\xi': 'ξ', '\\omicron': 'ο', '\\pi': 'π',
+          '\\rho': 'ρ', '\\sigma': 'σ', '\\tau': 'τ', '\\upsilon': 'υ',
+          '\\phi': 'φ', '\\chi': 'χ', '\\psi': 'ψ', '\\omega': 'ω',
+          '\\Gamma': 'Γ', '\\Delta': 'Δ', '\\Theta': 'Θ', '\\Lambda': 'Λ',
+          '\\Xi': 'Ξ', '\\Pi': 'Π', '\\Sigma': 'Σ', '\\Phi': 'Φ',
+          '\\Psi': 'Ψ', '\\Omega': 'Ω'
+        };
+        
+        // Apply Greek letter conversions
+        for (let [key, val] of Object.entries(greek)) {
+          result = result.replace(new RegExp(key, 'g'), val);
+        }
+        
+        // Superscripts
+        result = result.replace(/\^\{([^}]+)\}/g, function(match, sup) {
+          return convertToSuperscript(sup);
+        });
+        result = result.replace(/\^([a-zA-Z0-9])/g, function(match, sup) {
+          return convertToSuperscript(sup);
+        });
+        
+        // Subscripts
+        result = result.replace(/_\{([^}]+)\}/g, function(match, sub) {
+          return convertToSubscript(sub);
+        });
+        result = result.replace(/_([a-zA-Z0-9])/g, function(match, sub) {
+          return convertToSubscript(sub);
+        });
+        
+        // Fractions
+        result = result.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '($1/$2)');
+        
+        // Common math symbols
+        result = result.replace(/\\pm/g, '±');
+        result = result.replace(/\\times/g, '×');
+        result = result.replace(/\\div/g, '÷');
+        result = result.replace(/\\cdot/g, '·');
+        result = result.replace(/\\infty/g, '∞');
+        result = result.replace(/\\sum/g, '∑');
+        result = result.replace(/\\prod/g, '∏');
+        result = result.replace(/\\int/g, '∫');
+        result = result.replace(/\\sqrt\{([^}]+)\}/g, '√$1');
+        result = result.replace(/\\sqrt/g, '√');
+        result = result.replace(/\\neq/g, '≠');
+        result = result.replace(/\\leq/g, '≤');
+        result = result.replace(/\\geq/g, '≥');
+        result = result.replace(/\\approx/g, '≈');
+        result = result.replace(/\\equiv/g, '≡');
+        result = result.replace(/\\rightarrow/g, '→');
+        result = result.replace(/\\leftarrow/g, '←');
+        result = result.replace(/\\Rightarrow/g, '⇒');
+        result = result.replace(/\\Leftarrow/g, '⇐');
+        result = result.replace(/\\partial/g, '∂');
+        result = result.replace(/\\nabla/g, '∇');
+        result = result.replace(/\\forall/g, '∀');
+        result = result.replace(/\\exists/g, '∃');
+        result = result.replace(/\\in/g, '∈');
+        result = result.replace(/\\notin/g, '∉');
+        result = result.replace(/\\subset/g, '⊂');
+        result = result.replace(/\\subseteq/g, '⊆');
+        result = result.replace(/\\cup/g, '∪');
+        result = result.replace(/\\cap/g, '∩');
+        result = result.replace(/\\emptyset/g, '∅');
+        result = result.replace(/\\angle/g, '∠');
+        result = result.replace(/\\perp/g, '⊥');
+        result = result.replace(/\\parallel/g, '∥');
+        
+        return result;
+      }
+      
+      // Convert to superscript unicode
+      function convertToSuperscript(str) {
+        const superscripts = {
+          '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵',
+          '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹', '+': '⁺', '-': '⁻',
+          '=': '⁼', '(': '⁽', ')': '⁾', 'a': 'ᵃ', 'b': 'ᵇ', 'c': 'ᶜ',
+          'd': 'ᵈ', 'e': 'ᵉ', 'f': 'ᶠ', 'g': 'ᵍ', 'h': 'ʰ', 'i': 'ⁱ',
+          'j': 'ʲ', 'k': 'ᵏ', 'l': 'ˡ', 'm': 'ᵐ', 'n': 'ⁿ', 'o': 'ᵒ',
+          'p': 'ᵖ', 'r': 'ʳ', 's': 'ˢ', 't': 'ᵗ', 'u': 'ᵘ', 'v': 'ᵛ',
+          'w': 'ʷ', 'x': 'ˣ', 'y': 'ʸ', 'z': 'ᶻ'
+        };
+        return str.split('').map(c => superscripts[c] || c).join('');
+      }
+      
+      // Convert to subscript unicode
+      function convertToSubscript(str) {
+        const subscripts = {
+          '0': '₀', '1': '₁', '2': '₂', '3': '₃', '4': '₄', '5': '₅',
+          '6': '₆', '7': '₇', '8': '₈', '9': '₉', '+': '₊', '-': '₋',
+          '=': '₌', '(': '₍', ')': '₎', 'a': 'ₐ', 'e': 'ₑ', 'h': 'ₕ',
+          'i': 'ᵢ', 'j': 'ⱼ', 'k': 'ₖ', 'l': 'ₗ', 'm': 'ₘ', 'n': 'ₙ',
+          'o': 'ₒ', 'p': 'ₚ', 'r': 'ᵣ', 's': 'ₛ', 't': 'ₜ', 'u': 'ᵤ',
+          'v': 'ᵥ', 'x': 'ₓ'
+        };
+        return str.split('').map(c => subscripts[c] || c).join('');
       }
 
       // Create styles for the widget with CSS variables for theming
@@ -296,6 +481,8 @@
           line-height: 1.4;
           font-size: 14px;
           word-wrap: break-word;
+          overflow-wrap: break-word;
+          word-break: break-word;
           animation: message-appear 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
           transform-origin: bottom center;
         }
@@ -690,7 +877,7 @@
         imageContainer.className = 'chat-image-container';
         
         const imageElement = document.createElement('img');
-        imageElement.src = sanitizeHtml(imageUrl);
+        imageElement.src = imageUrl;
         imageElement.alt = 'Chat image';
         imageElement.className = 'chat-image';
         imageElement.onerror = () => {
@@ -722,7 +909,7 @@
         
         if (text) {
           const textNode = document.createElement('div');
-          textNode.innerHTML = sanitizeHtml(text); // Use innerHTML to allow for basic formatting if desired, after sanitization
+          textNode.innerHTML = formatText(text);
           messageElement.appendChild(textNode);
         }
         
@@ -734,7 +921,10 @@
           buttons.forEach(buttonText => {
             const button = document.createElement('button');
             button.className = 'chat-inline-button';
-            button.innerHTML = sanitizeHtml(buttonText); // Sanitize button text
+            
+            // Parse LaTeX in button text
+            const parsedText = parseLatex(buttonText);
+            button.textContent = parsedText;
             
             button.onclick = () => {
               input.value = buttonText;
@@ -755,7 +945,7 @@
       function addMessage(text, sender) {
         const messageElement = document.createElement('div');
         messageElement.classList.add('chat-message', sender);
-        messageElement.innerHTML = sanitizeHtml(text);
+        messageElement.innerHTML = formatText(text);
         messagesContainer.appendChild(messageElement);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
       }
