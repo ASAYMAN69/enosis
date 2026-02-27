@@ -168,6 +168,9 @@
     <div id="projectModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-btn">&times;</button>
+            <button class="modal-view-full-btn" id="viewFullBtn" title="View Full Screen">
+                <i class="fas fa-eye"></i>
+            </button>
             <div class="modal-body">
                 <div class="modal-gallery">
                     <div class="modal-main-image">
@@ -198,6 +201,24 @@
                     <a href="/contact-us" class="btn btn-solid btn-hero">Schedule a Visit</a>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Full Screen Image Viewer Modal -->
+    <div id="fullScreenViewer" class="full-screen-viewer-overlay">
+        <button class="viewer-close-btn" id="viewerCloseBtn">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="viewer-controls">
+            <button class="viewer-zoom-btn zoom-in" id="zoomInBtn">
+                <i class="fas fa-search-plus"></i>
+            </button>
+            <button class="viewer-zoom-btn zoom-out" id="zoomOutBtn">
+                <i class="fas fa-search-minus"></i>
+            </button>
+        </div>
+        <div class="viewer-content">
+            <img id="fullScreenImage" src="" alt="Full Screen View" class="viewer-image">
         </div>
     </div>
 

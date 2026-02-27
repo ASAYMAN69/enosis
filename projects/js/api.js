@@ -116,6 +116,7 @@ const setupModalEventListeners = (projectsData) => {
     }
 
     const modalCloseBtn = projectModal.querySelector('.modal-close-btn');
+    const modalViewFullBtn = projectModal.querySelector('.modal-view-full-btn');
     const modalMainImageContainer = projectModal.querySelector('.modal-main-image'); // This is the viewport
     const modalImageSlider = projectModal.querySelector('.modal-image-slider'); // This is the container that slides
     const modalThumbnails = projectModal.querySelector('#modalThumbnails');
@@ -126,6 +127,13 @@ const setupModalEventListeners = (projectsData) => {
     const modalProjectFeatures = projectModal.querySelector('#modalProjectFeatures');
     const prevBtn = projectModal.querySelector('.modal-gallery-nav.prev-btn');
     const nextBtn = projectModal.querySelector('.modal-gallery-nav.next-btn');
+
+    // Full Screen Viewer Elements
+    const fullScreenViewer = document.getElementById('fullScreenViewer');
+    const fullScreenImage = document.getElementById('fullScreenImage');
+    const viewerCloseBtn = document.getElementById('viewerCloseBtn');
+    const zoomInBtn = document.getElementById('zoomInBtn');
+    const zoomOutBtn = document.getElementById('zoomOutBtn');
 
     let currentProject = null;
     let currentImageIndex = 0;
@@ -148,6 +156,10 @@ const setupModalEventListeners = (projectsData) => {
     const closeModal = () => {
         // Pause any playing video when closing modal
         pauseCurrentVideo();
+        // Close full-screen viewer if open
+        if (fullScreenViewer.classList.contains('active')) {
+            closeFullScreenViewer();
+        }
         projectModal.classList.remove('active');
         document.body.style.overflow = '';
         projectModal.addEventListener('transitionend', () => {
@@ -175,6 +187,9 @@ const setupModalEventListeners = (projectsData) => {
         if (activeThumbnail) {
             activeThumbnail.classList.add('active');
         }
+
+        // Update view full button visibility (only for images)
+        updateViewFullButton();
     };
 
     const pauseCurrentVideo = () => {
@@ -186,6 +201,103 @@ const setupModalEventListeners = (projectsData) => {
         }
     };
 
+    // Full Screen Viewer Variables
+    let viewerScale = 1;
+    let viewerTranslateX = 0;
+    let viewerTranslateY = 0;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let initialViewerTranslateX = 0;
+    let initialViewerTranslateY = 0;
+    let pinchStartDistance = 0;
+    let initialPinchScale = 1;
+
+    const updateViewFullButton = () => {
+        if (!currentProject || !currentProject.photo || currentProject.photo.length === 0) {
+            modalViewFullBtn?.classList.add('hidden');
+            return;
+        }
+        const isCurrentItemVideo = isYouTubeEmbed(currentProject.photo[currentImageIndex]);
+        if (isCurrentItemVideo) {
+            modalViewFullBtn?.classList.add('hidden');
+        } else {
+            // Only show on mobile
+            if (window.innerWidth <= 768) {
+                modalViewFullBtn?.classList.remove('hidden');
+            } else {
+                modalViewFullBtn?.classList.add('hidden');
+            }
+        }
+    };
+
+    const openFullScreenViewer = () => {
+        if (!currentProject || !currentProject.photo || currentProject.photo.length === 0) return;
+        const currentUrl = currentProject.photo[currentImageIndex];
+        if (isYouTubeEmbed(currentUrl)) return; // Don't open viewer for videos
+
+        fullScreenImage.src = currentUrl;
+        fullScreenViewer.classList.add('active');
+
+        // Request full screen
+        if (fullScreenViewer.requestFullscreen) {
+            fullScreenViewer.requestFullscreen();
+        } else if (fullScreenViewer.webkitRequestFullscreen) {
+            fullScreenViewer.webkitRequestFullscreen();
+        } else if (fullScreenViewer.msRequestFullscreen) {
+            fullScreenViewer.msRequestFullscreen();
+        }
+
+        // Reset zoom and position
+        viewerScale = 1;
+        viewerTranslateX = 0;
+        viewerTranslateY = 0;
+        updateViewerTransform();
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeFullScreenViewer = () => {
+        fullScreenViewer.classList.remove('active');
+        fullScreenImage.src = '';
+        document.body.style.overflow = '';
+
+        // Exit full screen if active
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+
+        // Reset zoom and position
+        viewerScale = 1;
+        viewerTranslateX = 0;
+        viewerTranslateY = 0;
+    };
+
+    const updateViewerTransform = () => {
+        fullScreenImage.style.transform = `translate(${viewerTranslateX}px, ${viewerTranslateY}px) scale(${viewerScale})`;
+        fullScreenImage.style.webkitTransform = `translate(${viewerTranslateX}px, ${viewerTranslateY}px) scale(${viewerScale})`;
+    };
+
+    const zoomIn = () => {
+        viewerScale = Math.min(viewerScale + 0.5, 5);
+        updateViewerTransform();
+    };
+
+    const zoomOut = () => {
+        if (viewerScale > 1) {
+            viewerScale = Math.max(viewerScale - 0.5, 1);
+            // Reset position when zooming back to 1
+            if (viewerScale === 1) {
+                viewerTranslateX = 0;
+                viewerTranslateY = 0;
+            }
+            updateViewerTransform();
+        }
+    };
+
     const showImage = (index) => {
         if (!currentProject || !currentProject.photo || currentProject.photo.length === 0) return;
 
@@ -194,6 +306,7 @@ const setupModalEventListeners = (projectsData) => {
 
         currentImageIndex = (index + currentProject.photo.length) % currentProject.photo.length;
         updateSliderPosition();
+        updateViewFullButton();
     };
 
 
@@ -207,6 +320,149 @@ const setupModalEventListeners = (projectsData) => {
         if (event.key === 'Escape' && projectModal.classList.contains('active')) {
             closeModal();
         }
+        if (event.key === 'Escape' && fullScreenViewer.classList.contains('active')) {
+            closeFullScreenViewer();
+        }
+    });
+
+    // View Full Button Event (only mobile)
+    modalViewFullBtn.addEventListener('click', openFullScreenViewer);
+
+    // Full Screen Viewer Events
+    viewerCloseBtn.addEventListener('click', closeFullScreenViewer);
+    zoomInBtn.addEventListener('click', zoomIn);
+    zoomOutBtn.addEventListener('click', zoomOut);
+
+    // Full screen change detection
+    document.addEventListener('fullscreenchange', () => {
+        if (!document.fullscreenElement && fullScreenViewer.classList.contains('active')) {
+            closeFullScreenViewer();
+        }
+    });
+
+    document.addEventListener('webkitfullscreenchange', () => {
+        if (!document.webkitFullscreenElement && fullScreenViewer.classList.contains('active')) {
+            closeFullScreenViewer();
+        }
+    });
+
+    // Double-click to toggle zoom
+    fullScreenViewer.addEventListener('dblclick', () => {
+        if (viewerScale === 1) {
+            zoomIn();
+        } else {
+            viewerScale = 1;
+            viewerTranslateX = 0;
+            viewerTranslateY = 0;
+            updateViewerTransform();
+        }
+    });
+
+    // Mouse drag for panning (desktop)
+    fullScreenViewer.addEventListener('mousedown', (e) => {
+        if (viewerScale > 1 && e.target === fullScreenImage) {
+            isDragging = true;
+            dragStartX = e.clientX;
+            dragStartY = e.clientY;
+            initialViewerTranslateX = viewerTranslateX;
+            initialViewerTranslateY = viewerTranslateY;
+            e.preventDefault();
+        }
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            const deltaX = e.clientX - dragStartX;
+            const deltaY = e.clientY - dragStartY;
+            viewerTranslateX = initialViewerTranslateX + deltaX;
+            viewerTranslateY = initialViewerTranslateY + deltaY;
+            updateViewerTransform();
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+    });
+
+    // Touch events for mobile (pan and pinch-to-zoom)
+    let touches = [];
+
+    fullScreenViewer.addEventListener('touchstart', (e) => {
+        if (e.target !== fullScreenImage) return;
+
+        touches = Array.from(e.touches);
+        if (touches.length === 2) {
+            // Pinch start
+            pinchStartDistance = Math.hypot(
+                touches[1].clientX - touches[0].clientX,
+                touches[1].clientY - touches[0].clientY
+            );
+            initialPinchScale = viewerScale;
+        } else if (touches.length === 1 && viewerScale > 1) {
+            // Pan start
+            isDragging = true;
+            dragStartX = touches[0].clientX;
+            dragStartY = touches[0].clientY;
+            initialViewerTranslateX = viewerTranslateX;
+            initialViewerTranslateY = viewerTranslateY;
+        }
+        e.preventDefault();
+    }, { passive: false });
+
+    fullScreenViewer.addEventListener('touchmove', (e) => {
+        if (e.target !== fullScreenImage) return;
+
+        const newTouches = Array.from(e.touches);
+
+        if (newTouches.length === 2 && touches.length === 2) {
+            // Pinch zoom
+            const currentDistance = Math.hypot(
+                newTouches[1].clientX - newTouches[0].clientX,
+                newTouches[1].clientY - newTouches[0].clientY
+            );
+            const scaleChange = currentDistance / pinchStartDistance;
+            viewerScale = Math.min(Math.max(initialPinchScale * scaleChange, 1), 5);
+            updateViewerTransform();
+        } else if (newTouches.length === 1 && isDragging && viewerScale > 1) {
+            // Pan
+            const deltaX = newTouches[0].clientX - dragStartX;
+            const deltaY = newTouches[0].clientY - dragStartY;
+            viewerTranslateX = initialViewerTranslateX + deltaX;
+            viewerTranslateY = initialViewerTranslateY + deltaY;
+            updateViewerTransform();
+        }
+
+        touches = newTouches;
+        e.preventDefault();
+    }, { passive: false });
+
+    fullScreenViewer.addEventListener('touchend', (e) => {
+        if (e.target !== fullScreenImage) return;
+
+        touches = Array.from(e.touches);
+
+        if (touches.length === 0) {
+            isDragging = false;
+        }
+
+        e.preventDefault();
+    }, { passive: false });
+
+    // Wheel zoom for desktop
+    fullScreenViewer.addEventListener('wheel', (e) => {
+        if (e.target === fullScreenImage) {
+            e.preventDefault();
+            if (e.deltaY < 0) {
+                zoomIn();
+            } else {
+                zoomOut();
+            }
+        }
+    }, { passive: false });
+
+    // Handle window resize for view full button visibility
+    window.addEventListener('resize', () => {
+        updateViewFullButton();
     });
 
     prevBtn.addEventListener('click', () => {
@@ -372,7 +628,8 @@ const setupModalEventListeners = (projectsData) => {
                         modalProjectFeatures.appendChild(featureItem);
                     }
                 }
-                
+
+                updateViewFullButton();
                 openModal();
             }
         });
