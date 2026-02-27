@@ -9,7 +9,18 @@
     }
 }
 
-@media (max-width: 768px) {                                                              
+@media (max-width: 768px) {
+    /* Navbar brand adjustment for mobile */
+    .nav-brand {
+        align-items: flex-end;
+    }
+
+    .nav-name {
+        margin-bottom: 0;
+        margin-left: -5px;
+        margin-top: 4px;
+    }
+
     .hero {
         height: 70vh; /* Set specific height for mobile */
         min-height: unset; /* Override min-height */
@@ -63,6 +74,22 @@
 }
 
 @media (max-width: 480px) {
+    /* General adjustments for very small screens */
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    /* Navbar brand adjustment for small screens */
+    .nav-brand {
+        align-items: flex-end;
+    }
+
+    .nav-name {
+        margin-bottom: 0;
+        margin-left: -5px;
+        margin-top: 4px;
+    }
+
     /* Hero section adjustments */
     .hero {
         height: 80vh; /* Set specific height for very small mobile */

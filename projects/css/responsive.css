@@ -9,22 +9,34 @@
     }
 }
 
-@media (max-width: 768px) {                                                              
-    .hero-title {                                                                        
-        font-size: clamp(2rem, 8vw, 3.5rem) !important;                                  
+@media (max-width: 768px) {
+    /* Navbar brand adjustment for mobile */
+    .nav-brand {
+        align-items: flex-end !important;
+    }
+
+    .nav-name {
+        margin-bottom: 0 !important;
+        margin-left: -5px;
+        margin-top: 4px;
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 8vw, 3.5rem) !important;
         margin-bottom: 2rem !important;
-        margin-top: 1rem !important; /* Adjust margin-top for mobile */
+        margin-top: 1rem !important;
     }
-    
-    .hero-description {
-        font-size: clamp(0.8rem, 3vw, 1rem) !important;
+
+    .hero p {
+        font-size: 1.2rem !important;
+        color: #cccccc !important;
     }
-    
+
     .hero-content {
-        max-width: 90% !important;
+        max-width: 95% !important;
         padding: 0 1rem !important;
     }
-    
+
     .hero-btns {
         flex-direction: column;
         align-items: center;
@@ -68,19 +80,34 @@
         font-size: 1.8rem;
     }
 
+    /* Navbar brand adjustment for small screens */
+    .nav-brand {
+        align-items: flex-end !important;
+    }
+
+    .nav-name {
+        margin-bottom: 0 !important;
+        margin-left: -5px;
+        margin-top: 4px;
+    }
+
     /* Hero section adjustments */
     .hero {
-        min-height: 100vh; /* Set to 100vh as requested */
-        padding-top: 5rem; /* Revert previous padding */
-        padding-bottom: 5rem; /* Revert previous padding */
+        min-height: 100vh;
+        padding-top: 5rem;
+        padding-bottom: 5rem;
     }
     .hero h1 {
-        font-size: 2.5rem !important; /* Adjusted font size for very small screens */
+        font-size: 2.4rem !important;
         margin-bottom: 1rem !important;
     }
     .hero p {
-        font-size: 1rem !important; /* Adjusted font size for very small screens */
+        font-size: 0.9rem !important;
+        color: #cccccc !important;
         margin-bottom: 1.5rem !important;
+    }
+    .hero-content {
+        max-width: 95% !important;
     }
     .hero-btns {
         flex-direction: column;

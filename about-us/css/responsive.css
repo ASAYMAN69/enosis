@@ -10,6 +10,17 @@
 }
 
 @media (max-width: 768px) {
+    /* Navbar brand adjustment for mobile */
+    .nav-brand {
+        align-items: flex-end !important;
+    }
+
+    .nav-name {
+        margin-bottom: 0 !important;
+        margin-left: -5px;
+        margin-top: 4px;
+    }
+
     .hero {
         height: 100vh; /* Removed !important */
         min-height: unset !important;
@@ -100,6 +111,17 @@
     /* General adjustments for very small screens */
     .section-title {
         font-size: 1.8rem;
+    }
+
+    /* Navbar brand adjustment for small screens */
+    .nav-brand {
+        align-items: flex-end !important;
+    }
+
+    .nav-name {
+        margin-bottom: 0 !important;
+        margin-left: -5px;
+        margin-top: 4px;
     }
 
     /* Hero section adjustments */

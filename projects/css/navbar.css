@@ -46,8 +46,8 @@ nav.scrolled {
 }
 
 .nav-brand {
-    display: flex;
-    align-items: center;
+    display: flex !important;
+    align-items: flex-end !important;
     gap: 1rem;
 }
 
@@ -70,6 +70,9 @@ nav.scrolled {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     letter-spacing: -0.5px;
+    margin-bottom: 0 !important;
+    margin-left: -5px;
+    margin-top: 4px;
 }
 
 .nav-links {
