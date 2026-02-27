@@ -164,9 +164,15 @@
 
 .footer-bottom p {
     font-size: 0.9rem; /* General paragraph font size in footer bottom */
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 2rem;
 }
 
 .footer-bottom p a {
     color: var(--color-b);
+    text-decoration: none;
+}
+
+.footer-bottom .btn {
     text-decoration: none;
 }
