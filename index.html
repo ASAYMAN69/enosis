@@ -249,9 +249,9 @@
                 <h2 class="animate-on-scroll">Keep Updated</h2>
                 <p class="animate-on-scroll">Let us send you the latest information about properties every month.</p>
                 <div class="subscribe-form animate-on-scroll">
-                    <input type="text" placeholder="Your Name">
-                    <input type="email" placeholder="Your Email">
-                    <button class="btn btn-primary">Connect</button>
+                    <input type="text" id="subscribeName" placeholder="Your Name">
+                    <input type="email" id="subscribeEmail" placeholder="Your Email">
+                    <button class="btn btn-primary" onclick="subscribeUser()">Connect</button>
                 </div>
             </div>
         </section>
@@ -325,7 +325,7 @@
                     <div class="calculator-form">
                         <div class="form-group">
                             <label>Monthly Investment (BDT)</label>
-                            <input type="number" id="sipInvestment" placeholder="e.g., 5000">
+                            <input type="number" id="sipInvestment" placeholder="e.g., 5000" step="5000">
                         </div>
                         <div class="form-group">
                             <label>Time Period (Years)</label>
@@ -333,7 +333,7 @@
                         </div>
                         <div class="form-group">
                             <label>Expected Return (%)</label>
-                            <input type="number" id="sipReturn" placeholder="e.g., 12">
+                            <input type="number" id="sipReturn" placeholder="e.g., 12" step="5">
                         </div>
                         <button class="calculator-button" onclick="calculateSIP()">Calculate</button>
                     </div>
@@ -400,9 +400,22 @@
         </div>
     </div>
 
+    <!-- Subscribe Confirmation Modal -->
+    <div id="subscribeModal" class="subscribe-modal-overlay">
+        <div class="subscribe-modal">
+            <div class="subscribe-modal-content">
+                <div class="subscribe-modal-icon">✓</div>
+                <h3>You're Subscribed!</h3>
+                <p>Thank you for subscribing. You'll receive the latest property updates every month.</p>
+                <a href="/about-us" class="btn btn-primary">About Us</a>
+            </div>
+        </div>
+    </div>
+
     <script src="js/script.js"></script>
     <script src="js/carousel.js"></script>
     <script src="js/chat.js"></script>
     <script src="js/calculator.js"></script>
+    <script src="js/subscribe.js"></script>
 </body>
 </html>
