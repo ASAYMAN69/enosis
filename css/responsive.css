@@ -62,6 +62,18 @@
     }
     
     /* Navbar Responsive Styles */
+    .nav-brand {
+        display: flex;
+        align-items: flex-end;
+        gap: 1rem;
+    }
+
+    .nav-name {
+        margin-bottom: 0;
+        margin-left: -5px;
+        margin-top: 4px;
+    }
+
     .nav-links {
         position: fixed;
         top: var(--navbar-height); /* Positioned below the main navbar */
@@ -141,6 +153,17 @@
     /* General adjustments for very small screens */
     .section-title, .subsection-title {
         font-size: 1.8rem;
+    }
+
+    /* Navbar brand adjustment for small screens */
+    .nav-brand {
+        align-items: flex-end;
+    }
+
+    .nav-name {
+        margin-bottom: 0;
+        margin-left: -5px;
+        margin-top: 4px;
     }
 
     /* Hero section adjustments */

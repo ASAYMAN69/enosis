@@ -27,7 +27,7 @@ nav.scrolled {
 
 .nav-brand {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     gap: 1rem;
 }
 
@@ -50,6 +50,9 @@ nav.scrolled {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     letter-spacing: -0.5px;
+    margin-bottom: 0;
+    margin-left: -5px;
+    margin-top: 4px;
 }
 
 .nav-links {
