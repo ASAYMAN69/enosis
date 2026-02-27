@@ -9,6 +9,7 @@
     position: relative;
     overflow: hidden;
     letter-spacing: 0.5px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .btn::before {
@@ -80,6 +81,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .consultation-btn:hover {
