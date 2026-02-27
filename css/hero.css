@@ -150,6 +150,7 @@
     position: relative;
     overflow: hidden;
     letter-spacing: 0.5px;
+    text-decoration: none;
 }
 
 .btn::before {

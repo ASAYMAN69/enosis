@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/carousel.css">
     <link rel="stylesheet" href="css/reviews.css">
+    <link rel="stylesheet" href="css/calculator.css">
     </head>
     <body>
         <!-- Navbar -->
@@ -71,8 +72,8 @@
                     </div>
                 </div>
                 <div class="hero-buttons">
-                    <button class="btn btn-primary">Get Free Consultation</button>
-                    <button class="btn btn-secondary">Investment Calculator</button>
+                    <a href="/contact-us" class="btn btn-primary">Get Free Consultation</a>
+                    <button class="btn btn-secondary" onclick="openCalculatorModal()">Investment Calculator</button>
                 </div>
             </div>
         </section>
@@ -305,8 +306,103 @@
             <p>Designed & Developed by <a href="http://solven.app" target="_blank">Solven.app</a></p>
         </div>
     </footer>
+
+    <!-- Calculator Modal -->
+    <div id="calculatorModal" class="calculator-modal-overlay">
+        <div class="calculator-modal">
+            <div class="calculator-modal-header">
+                <h2>Investment Calculator</h2>
+                <button class="calculator-modal-close" onclick="closeCalculatorModal()">×</button>
+            </div>
+            <div class="calculator-tabs">
+                <button class="calculator-tab active" id="sipTab" onclick="switchCalculatorTab('sip')">SIP Calculator</button>
+                <button class="calculator-tab" id="lumpSumTab" onclick="switchCalculatorTab('lumpSum')">Lump Sum Calculator</button>
+                <button class="calculator-tab" id="taxTab" onclick="switchCalculatorTab('tax')">Tax Calculator</button>
+            </div>
+            <div class="calculator-content">
+                <!-- SIP Calculator Panel -->
+                <div class="calculator-panel active" id="sipPanel">
+                    <div class="calculator-form">
+                        <div class="form-group">
+                            <label>Monthly Investment (BDT)</label>
+                            <input type="number" id="sipInvestment" placeholder="e.g., 5000">
+                        </div>
+                        <div class="form-group">
+                            <label>Time Period (Years)</label>
+                            <input type="number" id="sipYears" placeholder="e.g., 10">
+                        </div>
+                        <div class="form-group">
+                            <label>Expected Return (%)</label>
+                            <input type="number" id="sipReturn" placeholder="e.g., 12">
+                        </div>
+                        <button class="calculator-button" onclick="calculateSIP()">Calculate</button>
+                    </div>
+                    <div class="calculator-result" id="sipResult">
+                        <h3>Future Value</h3>
+                        <div class="calculator-result-value" id="sipResultValue">0 BDT</div>
+                        <div class="calculator-result-breakdown" id="sipBreakdown"></div>
+                    </div>
+                </div>
+
+                <!-- Lump Sum Calculator Panel -->
+                <div class="calculator-panel" id="lumpSumPanel">
+                    <div class="calculator-form">
+                        <div class="form-group">
+                            <label>Investment (BDT)</label>
+                            <input type="number" id="lumpSumInvestment" placeholder="e.g., 5000">
+                        </div>
+                        <div class="form-group">
+                            <label>Time Period (Years)</label>
+                            <input type="number" id="lumpSumYears" placeholder="e.g., 10">
+                        </div>
+                        <div class="form-group">
+                            <label>Expected Return (%)</label>
+                            <input type="number" id="lumpSumReturn" placeholder="e.g., 12">
+                        </div>
+                        <button class="calculator-button" onclick="calculateLumpSum()">Calculate</button>
+                    </div>
+                    <div class="calculator-result" id="lumpSumResult">
+                        <h3>Future Value</h3>
+                        <div class="calculator-result-value" id="lumpSumResultValue">0 BDT</div>
+                        <div class="calculator-result-breakdown" id="lumpSumBreakdown"></div>
+                    </div>
+                </div>
+
+                <!-- Tax Calculator Panel -->
+                <div class="calculator-panel" id="taxPanel">
+                    <div class="calculator-form">
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="gender" value="male" checked> Male
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="gender" value="female"> Female
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Yearly Taxable Income (BDT)</label>
+                            <input type="number" id="taxYearlyIncome" placeholder="e.g., 700000">
+                        </div>
+                        <div class="form-group">
+                            <label>Already Invested for Tax Purpose (BDT)</label>
+                            <input type="number" id="taxInvested" placeholder="e.g., 0">
+                        </div>
+                        <button class="calculator-button" onclick="calculateTax()">Calculate</button>
+                    </div>
+                    <div class="calculator-result" id="taxResult">
+                        <div class="tax-result-info" id="taxResultInfo"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="js/script.js"></script>
     <script src="js/carousel.js"></script>
     <script src="js/chat.js"></script>
+    <script src="js/calculator.js"></script>
 </body>
 </html>
