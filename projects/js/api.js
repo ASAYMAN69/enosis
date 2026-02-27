@@ -3,8 +3,35 @@ const API_URL = 'https://getall.asayman669.workers.dev/';
 // Store preloaded images to prevent garbage collection
 const preloadedImages = new Set();
 
+// Helper function to detect YouTube embed URLs
+const isYouTubeEmbed = (url) => {
+    return url && (
+        url.includes('youtube.com/embed/') ||
+        url.includes('youtu.be/') ||
+        (url.includes('youtube.com') && url.includes('v='))
+    );
+};
+
+// Helper function to convert YouTube URL to embed format if needed
+const getEmbedUrl = (url) => {
+    if (!url) return null;
+    if (url.includes('youtube.com/embed/')) {
+        return url;
+    }
+    // Extract video ID and convert to embed format
+    const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+    if (match) {
+        return `https://www.youtube.com/embed/${match[1]}`;
+    }
+    return url;
+};
+
 const preLoadImages = (imageUrls) => {
     imageUrls.forEach(url => {
+        // Skip YouTube URLs for preloading
+        if (isYouTubeEmbed(url)) {
+            return;
+        }
         if (!preloadedImages.has(url)) { // Avoid preloading duplicates
             const img = new Image();
             img.src = url;
@@ -102,6 +129,7 @@ const setupModalEventListeners = (projectsData) => {
 
     let currentProject = null;
     let currentImageIndex = 0;
+    let currentVideoIframe = null; // Track the currently playing video iframe
 
     // Swipe variables
     let touchStartX = 0;
@@ -118,6 +146,8 @@ const setupModalEventListeners = (projectsData) => {
     };
 
     const closeModal = () => {
+        // Pause any playing video when closing modal
+        pauseCurrentVideo();
         projectModal.classList.remove('active');
         document.body.style.overflow = '';
         projectModal.addEventListener('transitionend', () => {
@@ -129,6 +159,10 @@ const setupModalEventListeners = (projectsData) => {
 
     const updateSliderPosition = (animate = true) => {
         if (!modalImageSlider) return;
+
+        // Pause current video if exists
+        pauseCurrentVideo();
+
         const offset = -currentImageIndex * 100;
         modalImageSlider.style.transition = animate ? 'transform 0.5s ease-in-out' : 'none';
         modalImageSlider.style.transform = `translateX(${offset}%)`;
@@ -143,8 +177,20 @@ const setupModalEventListeners = (projectsData) => {
         }
     };
 
+    const pauseCurrentVideo = () => {
+        if (currentVideoIframe) {
+            const videoSrc = currentVideoIframe.src;
+            currentVideoIframe.src = ''; // Pause the video by removing source
+            currentVideoIframe.src = videoSrc; // Restore source
+            currentVideoIframe = null;
+        }
+    };
+
     const showImage = (index) => {
         if (!currentProject || !currentProject.photo || currentProject.photo.length === 0) return;
+
+        // Pause current video before moving
+        pauseCurrentVideo();
 
         currentImageIndex = (index + currentProject.photo.length) % currentProject.photo.length;
         updateSliderPosition();
@@ -194,6 +240,9 @@ const setupModalEventListeners = (projectsData) => {
         }
         isSwiping = false;
 
+        // Pause current video when swiping
+        pauseCurrentVideo();
+
         const diff = touchMoveX - touchStartX;
         const imageWidth = modalMainImageContainer.offsetWidth; // Get current width of the container
 
@@ -227,22 +276,57 @@ const setupModalEventListeners = (projectsData) => {
                 // Image Gallery
                 modalImageSlider.innerHTML = ''; // Clear previous images
                 modalThumbnails.innerHTML = '';
+                currentVideoIframe = null; // Reset video reference
+
                 if (currentProject.photo && currentProject.photo.length > 0) {
                     currentImageIndex = 0; // Reset index on modal open
                     currentProject.photo.forEach((photoUrl, index) => {
-                        const img = document.createElement('img');
-                        img.src = photoUrl;
-                        img.alt = `${currentProject.projectName} - Image ${index + 1}`;
-                        modalImageSlider.appendChild(img); // Add image to the slider
+                        const isVideo = isYouTubeEmbed(photoUrl);
 
-                        const thumb = document.createElement('img');
-                        thumb.src = photoUrl;
-                        thumb.alt = `Thumbnail ${index + 1}`;
-                        thumb.classList.add('modal-thumbnail');
-                        thumb.addEventListener('click', () => {
-                            showImage(index); // Use showImage for thumbnail click
-                        });
-                        modalThumbnails.appendChild(thumb);
+                        if (isVideo) {
+                            // Create iframe for YouTube video
+                            const embedUrl = getEmbedUrl(photoUrl);
+                            const iframe = document.createElement('iframe');
+                            iframe.src = embedUrl;
+                            iframe.className = 'modal-video-slide';
+                            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                            iframe.setAttribute('allowfullscreen', 'true');
+                            iframe.setAttribute('frameborder', '0');
+                            // Set a data attribute to track if this is the current video
+                            iframe.dataset.index = index;
+
+                            // Store reference when this video becomes active
+                            iframe.addEventListener('play', () => {
+                                currentVideoIframe = iframe;
+                            });
+
+                            modalImageSlider.appendChild(iframe);
+
+                            // Thumbnail for video
+                            const thumbContainer = document.createElement('div');
+                            thumbContainer.className = 'modal-thumbnail video-thumbnail';
+                            thumbContainer.innerHTML = `<div class="video-indicator"><i class="fas fa-play-circle"></i></div>`;
+                            thumbContainer.addEventListener('click', () => {
+                                showImage(index);
+                            });
+                            modalThumbnails.appendChild(thumbContainer);
+                        } else {
+                            // Create image element
+                            const img = document.createElement('img');
+                            img.src = photoUrl;
+                            img.alt = `${currentProject.projectName} - Image ${index + 1}`;
+                            img.className = 'modal-image-slide';
+                            modalImageSlider.appendChild(img); // Add image to the slider
+
+                            const thumb = document.createElement('img');
+                            thumb.src = photoUrl;
+                            thumb.alt = `Thumbnail ${index + 1}`;
+                            thumb.classList.add('modal-thumbnail');
+                            thumb.addEventListener('click', () => {
+                                showImage(index); // Use showImage for thumbnail click
+                            });
+                            modalThumbnails.appendChild(thumb);
+                        }
                     });
                     // Set initial slider position without animation
                     updateSliderPosition(false);
@@ -250,6 +334,7 @@ const setupModalEventListeners = (projectsData) => {
                     const img = document.createElement('img');
                     img.src = 'https://picsum.photos/seed/default/800/600';
                     img.alt = 'No Image Available';
+                    img.className = 'modal-image-slide';
                     modalImageSlider.appendChild(img);
                 }
                 
@@ -322,11 +407,15 @@ const fetchProjects = async () => {
             }
         });
 
-        // Collect all image URLs for pre-loading
+        // Collect all image URLs for pre-loading (skip YouTube videos)
         const allImageUrls = new Set();
         projects.forEach(project => {
             if (project.photo.length > 0) {
-                project.photo.forEach(url => allImageUrls.add(url));
+                project.photo.forEach(url => {
+                    if (!isYouTubeEmbed(url)) {
+                        allImageUrls.add(url);
+                    }
+                });
             }
         });
         preLoadImages(Array.from(allImageUrls)); // Initiate pre-loading
