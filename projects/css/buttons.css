@@ -10,6 +10,7 @@
     overflow: hidden;
     z-index: 1;
     -webkit-tap-highlight-color: transparent;
+    text-decoration: none;
 }
 .btn::before {
     content: '';
@@ -65,7 +66,13 @@
     background: linear-gradient(135deg, var(--color-a) 0%, var(--color-d) 100%);
     color: var(--color-c);
     border: none;
+    text-decoration: none;
 }
+
+.btn-hero {
+    text-decoration: none;
+}
+
 
 .consultation-btn {
     position: fixed;
