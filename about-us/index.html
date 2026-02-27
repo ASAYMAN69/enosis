@@ -358,18 +358,28 @@
             </div>
             <div class="contact-form contact-animated">
                 <h3>Reach us</h3>
-                <form>
+                <form onsubmit="submitContactForm(event)">
                     <div class="form-group">
                         <label for="name">Full Name</label>
-                        <input type="text" id="name" class="form-control" placeholder="Enter your name">
+                        <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" id="email" class="form-control" placeholder="Enter your email">
+                        <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number">
+                        <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="interest">Interested In</label>
+                        <select id="interest" class="form-control" required>
+                            <option value="" disabled selected>Select your interest</option>
+                            <option value="buy-apartments">Willing to buy apartments</option>
+                            <option value="buy-apartments-shared">Willing to buy apartments (shared basis)</option>
+                            <option value="investment-based">Investment based</option>
+                            <option value="interior-design">Interior Design</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="message">Message</label>
@@ -463,8 +473,22 @@
                     });
                 })
                 .catch(error => console.log('Could not load team data:', error));
-        });
+         });
     </script>
+
+    <!-- Contact Confirmation Modal -->
+    <div id="contactModal" class="contact-modal-overlay">
+        <div class="contact-modal">
+            <div class="contact-modal-content">
+                <div class="contact-modal-icon">✓</div>
+                <h3>Message Sent!</h3>
+                <p>Thank you for reaching out. We'll get back to you as soon as possible.</p>
+                <a href="/projects" class="btn btn-solid">View Projects</a>
+            </div>
+        </div>
+    </div>
+
     <script src="../js/chat.js"></script>
+    <script src="js/contact-form.js"></script>
 </body>
 </html>
