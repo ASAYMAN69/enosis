@@ -55,7 +55,8 @@ const createPropertyCard = (project) => {
     const parking_count = project.parking_count ? project.parking_count : 'N/A';
     const sqft = project.sqft ? project.sqft : 'N/A';
     const unit_per_floor = project.unit_per_floor ? project.unit_per_floor : 'N/A';
-    const land_area = project.land_area ? project.land_area : 'N/A';
+    const katha = project.katha ? project.katha : 'N/A';
+    const orientation = project.orientation ? project.orientation.charAt(0).toUpperCase() + project.orientation.slice(1) : 'N/A';
 
     card.innerHTML = `
         <div class="property-badge ${badgeClass}">${project.status}</div>
@@ -76,6 +77,9 @@ const createPropertyCard = (project) => {
                     </div>
                     <div class="feature">
                         <i class="fas fa-car"></i> ${parking_count} Parking
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-compass"></i> ${orientation}
                     </div>
                 </div>
             </div>
@@ -99,8 +103,12 @@ const createPropertyCard = (project) => {
                     <div class="stat-label">Units/Floor</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-value">${land_area}</div>
-                    <div class="stat-label">Land Area</div>
+                    <div class="stat-value">${katha}</div>
+                    <div class="stat-label">Katha</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">${orientation}</div>
+                    <div class="stat-label">Orientation</div>
                 </div>
             </div>
             <button class="contact-btn" data-project-id="${project.id}">View Details</button>
@@ -609,9 +617,10 @@ const setupModalEventListeners = (projectsData) => {
                     "Stories": { value: currentProject.story, icon: 'fa-building' },
                     "Total Units": { value: currentProject.total_unit, icon: 'fa-th' },
                     "Units/Floor": { value: currentProject.unit_per_floor, icon: 'fa-layer-group' },
-                    "Land Area": { value: currentProject.land_area, icon: 'fa-ruler-combined' },
+                    "Katha": { value: currentProject.katha, icon: 'fa-ruler-combined' },
                     "Area (sqft)": { value: currentProject.sqft, icon: 'fa-vector-square' },
-                    "Parking": { value: currentProject.parking_count, icon: 'fa-car' }
+                    "Parking": { value: currentProject.parking_count, icon: 'fa-car' },
+                    "Orientation": { value: currentProject.orientation, icon: 'fa-compass' }
                 };
 
                 for (const [key, { value, icon }] of Object.entries(features)) {

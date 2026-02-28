@@ -223,10 +223,13 @@
     opacity: 0;
     transition: opacity 0.5s ease;
     text-align: center;
+    z-index: 100;
+    pointer-events: none;
 }
 
 .property-card:hover .card-overlay {
     opacity: 1;
+    pointer-events: auto;
 }
 
 .overlay-title {
