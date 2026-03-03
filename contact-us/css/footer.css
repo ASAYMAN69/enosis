@@ -147,6 +147,10 @@
     color: var(--color-b);
 }
 
+.footer-socials i {
+    font-size: 1.5rem;
+}
+
 .footer-socials svg {
     width: 24px;
     height: 24px;
