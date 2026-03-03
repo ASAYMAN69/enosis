@@ -1,5 +1,8 @@
 const API_URL = 'https://getall.asayman669.workers.dev/';
 
+// Projects data storage for modal opening from URL
+let projectsData = [];
+
 // Store preloaded images to prevent garbage collection
 const preloadedImages = new Set();
 
@@ -123,9 +126,162 @@ const setupModalEventListeners = (projectsData) => {
         return; // Modal not on this page
     }
 
+    // Store projects data globally for URL parameter handling
+    window.projectsData = projectsData;
+
+    // Function to open modal by project ID
+    const openModalById = (projectId) => {
+        const project = projectsData.find(p => p.id == projectId);
+        if (project) {
+            // Simulate card click
+            const card = document.querySelector(`.property-card[data-project-id="${projectId}"]`);
+            if (card) {
+                card.click();
+            } else {
+                // If card doesn't exist, manually populate modal
+                currentProject = project;
+                populateModal(project);
+                openModal();
+            }
+        }
+    };
+
+    // Function to populate modal with project data
+    const populateModal = (project) => {
+        modalProjectTitle.textContent = project.projectName;
+        modalProjectAddress.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${project.location}`;
+        modalProjectDescription.textContent = project.description;
+
+        // Status Badge
+        modalProjectStatus.textContent = project.status;
+        modalProjectStatus.className = `property-badge badge-${project.status.toLowerCase()}`;
+
+        // Image Gallery
+        modalImageSlider.innerHTML = '';
+        modalThumbnails.innerHTML = '';
+        currentVideoIframe = null;
+
+        if (project.photo && project.photo.length > 0) {
+            currentImageIndex = 0;
+            project.photo.forEach((photoUrl, index) => {
+                const isVideo = isYouTubeEmbed(photoUrl);
+
+                if (isVideo) {
+                    const embedUrl = getEmbedUrl(photoUrl);
+                    const iframe = document.createElement('iframe');
+                    iframe.src = embedUrl;
+                    iframe.className = 'modal-video-slide';
+                    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                    iframe.setAttribute('allowfullscreen', 'true');
+                    iframe.setAttribute('frameborder', '0');
+                    iframe.dataset.index = index;
+
+                    iframe.addEventListener('play', () => {
+                        currentVideoIframe = iframe;
+                    });
+
+                    modalImageSlider.appendChild(iframe);
+
+                    const thumbContainer = document.createElement('div');
+                    thumbContainer.className = 'modal-thumbnail video-thumbnail';
+                    thumbContainer.innerHTML = `<div class="video-indicator"><i class="fas fa-play-circle"></i></div>`;
+                    thumbContainer.addEventListener('click', () => {
+                        showImage(index);
+                    });
+                    modalThumbnails.appendChild(thumbContainer);
+                } else {
+                    const img = document.createElement('img');
+                    img.src = photoUrl;
+                    img.alt = `${project.projectName} - Image ${index + 1}`;
+                    img.className = 'modal-image-slide';
+                    modalImageSlider.appendChild(img);
+
+                    const thumb = document.createElement('img');
+                    thumb.src = photoUrl;
+                    thumb.alt = `Thumbnail ${index + 1}`;
+                    thumb.classList.add('modal-thumbnail');
+                    thumb.addEventListener('click', () => {
+                        showImage(index);
+                    });
+                    modalThumbnails.appendChild(thumb);
+                }
+            });
+            updateSliderPosition(false);
+        } else {
+            const img = document.createElement('img');
+            img.src = 'https://picsum.photos/seed/default/800/600';
+            img.alt = 'No Image Available';
+            img.className = 'modal-image-slide';
+            modalImageSlider.appendChild(img);
+        }
+
+        // Show/hide navigation buttons
+        if (project.photo && project.photo.length > 1) {
+            prevBtn.style.display = 'flex';
+            nextBtn.style.display = 'flex';
+        } else {
+            prevBtn.style.display = 'none';
+            nextBtn.style.display = 'none';
+        }
+
+        // Key Features
+        modalProjectFeatures.innerHTML = '';
+        const features = {
+            "Stories": { value: project.story, icon: 'fa-building' },
+            "Total Units": { value: project.total_unit, icon: 'fa-th' },
+            "Units/Floor": { value: project.unit_per_floor, icon: 'fa-layer-group' },
+            "Katha": { value: project.katha, icon: 'fa-ruler-combined' },
+            "Area (sqft)": { value: project.sqft, icon: 'fa-vector-square' },
+            "Parking": { value: project.parking_count, icon: 'fa-car' },
+            "Orientation": { value: project.orientation, icon: 'fa-compass' }
+        };
+
+        for (const [key, { value, icon }] of Object.entries(features)) {
+            if (value) {
+                const featureItem = document.createElement('div');
+                featureItem.classList.add('feature-item');
+                featureItem.innerHTML = `
+                    <i class="fas ${icon}"></i>
+                    <div class="feature-text">
+                        <strong>${key}</strong>
+                        <p>${value}</p>
+                    </div>
+                `;
+                modalProjectFeatures.appendChild(featureItem);
+            }
+        }
+
+        updateViewFullButton();
+    };
+
+    // Check for URL parameter on page load
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectId = urlParams.get('id');
+    if (projectId) {
+        setTimeout(() => {
+            openModalById(projectId);
+        }, 500);
+    }
+
+    // Handle browser back/forward buttons
+    window.addEventListener('popstate', (event) => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const hasId = urlParams.has('id');
+        
+        if (hasId) {
+            const newProjectId = urlParams.get('id');
+            if (newProjectId && (!currentProject || currentProject.id != newProjectId)) {
+                openModalById(newProjectId);
+            }
+        } else if (projectModal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
     const modalCloseBtn = projectModal.querySelector('.modal-close-btn');
     const modalViewFullBtn = projectModal.querySelector('.modal-view-full-btn');
-    const modalMainImageContainer = projectModal.querySelector('.modal-main-image'); // This is the viewport
+    const modalShareBtn = projectModal.querySelector('#modalShareBtn');
+    const modalMainImageContainer = projectModal.querySelector('.modal-main-image');
     const modalImageSlider = projectModal.querySelector('.modal-image-slider'); // This is the container that slides
     const modalThumbnails = projectModal.querySelector('#modalThumbnails');
     const modalProjectTitle = projectModal.querySelector('#modalProjectTitle');
@@ -153,12 +309,17 @@ const setupModalEventListeners = (projectsData) => {
     let isSwiping = false;
     const swipeThreshold = 50; // Minimum pixels for a swipe to be recognized
 
-    const openModal = () => {
+    const openModal = (projectId = null) => {
         projectModal.style.display = 'flex';
         requestAnimationFrame(() => {
             projectModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
+        // Update URL with project ID
+        if (currentProject && currentProject.id) {
+            const newUrl = `${window.location.pathname}?id=${currentProject.id}`;
+            window.history.pushState({ modalOpen: true, projectId: currentProject.id }, '', newUrl);
+        }
     };
 
     const closeModal = () => {
@@ -175,6 +336,9 @@ const setupModalEventListeners = (projectsData) => {
                 projectModal.style.display = 'none';
             }
         }, { once: true });
+        // Remove ID from URL
+        const newUrl = window.location.pathname;
+        window.history.pushState({ modalOpen: false }, '', newUrl);
     };
 
     const updateSliderPosition = (animate = true) => {
@@ -319,6 +483,25 @@ const setupModalEventListeners = (projectsData) => {
 
 
     modalCloseBtn.addEventListener('click', closeModal);
+
+    // Share button functionality
+    modalShareBtn.addEventListener('click', () => {
+        if (currentProject && currentProject.id) {
+            const shareUrl = `https://enosisltd.com/projects?id=${currentProject.id}`;
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                // Show "Copied!" temporarily
+                const originalText = modalShareBtn.innerHTML;
+                modalShareBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                modalShareBtn.classList.add('copied');
+                setTimeout(() => {
+                    modalShareBtn.innerHTML = originalText;
+                    modalShareBtn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy URL:', err);
+            });
+        }
+    });
     projectModal.addEventListener('click', (event) => {
         if (event.target === projectModal) {
             closeModal();
