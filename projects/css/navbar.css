@@ -49,6 +49,9 @@ nav.scrolled {
     display: flex !important;
     align-items: flex-end !important;
     gap: 1rem;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 .nav-logo {
@@ -63,16 +66,16 @@ nav.scrolled {
 }
 
 .nav-name {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     font-weight: 700;
+    line-height: 1;
     background: linear-gradient(135deg, var(--color-a) 0%, var(--color-d) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     letter-spacing: -0.5px;
-    margin-bottom: 0 !important;
+    margin-bottom: -4px !important;
     margin-left: -5px;
-    margin-top: 4px;
 }
 
 .nav-links {

@@ -14,8 +14,11 @@
 
 .footer-logo-section {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     gap: 1rem;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 .footer-logo-section .nav-logo {
@@ -26,16 +29,16 @@
 }
 
 .footer-logo-section .nav-name {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 700;
+    line-height: 1;
     background: linear-gradient(135deg, var(--color-a) 0%, var(--color-d) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     letter-spacing: -0.5px;
-    margin-bottom: 0;
+    margin-bottom: -6px;
     margin-left: -5px;
-    margin-top: 4px;
 }
 
 .footer-section {
