@@ -950,3 +950,120 @@
         font-size: 1.1rem;
     }
 }
+
+.watch-video-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: none;
+    color: var(--color-b);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+}
+
+.watch-video-btn:hover {
+    background: rgba(85, 107, 47, 0.2);
+}
+
+.watch-video-btn.disabled {
+    color: #888;
+    cursor: not-allowed;
+    background: transparent;
+}
+
+.watch-video-btn.disabled:hover {
+    background: transparent;
+}
+
+.watch-video-btn.disabled svg {
+    stroke: #888;
+}
+
+.watch-video-btn .play-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Video Selection Modal */
+.video-selection-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 10001;
+    justify-content: center;
+    align-items: center;
+}
+
+#videoSelectionModal.active {
+    display: flex;
+}
+
+.video-selection-content {
+    background: #1a1a1a;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.video-selection-content h3 {
+    color: var(--color-c);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.video-selection-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: var(--color-c);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.video-grid {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding-bottom: 15px;
+}
+
+.video-item {
+    min-width: 200px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.video-item:hover {
+    transform: scale(1.05);
+}
+
+.video-item img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.video-item-title {
+    color: var(--color-c);
+    font-size: 0.9rem;
+    margin-top: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

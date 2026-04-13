@@ -48,8 +48,8 @@
             <h1>Our Exclusive Projects</h1>
             <p>Discover our portfolio of premium residential and commercial properties, each designed with excellence and attention to detail.</p>
             <div class="hero-btns">
-                <button class="btn btn-solid btn-hero" onclick="scrollToProjects()">Explore Projects</button>
-                <button class="btn btn-outline btn-hero">Schedule Visit</button>
+                <a href="#our-projects-section" class="btn btn-solid btn-hero">Explore Projects</a>
+                <a href="/contact-us" class="btn btn-outline btn-hero">Contact Us</a>
             </div>
         </div>
     </section>
@@ -136,10 +136,10 @@
                         <p><strong>Main Office:</strong> <a href="https://maps.app.goo.gl/WTtt6buMQRHpJFSF9" target="_blank" rel="noopener noreferrer">Flat C2, House 5, Road 21, Gulshan 1 Dhaka 1212, Bangladesh</a></p>
                     </div>
                     <div class="contact-item-wrapper">
-                        <p><strong>Call Us:</strong> <a href="tel:+880222223305"> +880 222 223 305</a></p>
+                        <p><strong>Call Us:</strong> <a href="tel:+8801819161556"> +880 1819 161 556</a></p>
                     </div>
                     <div class="contact-item-wrapper">
-                        <p><strong>Email Us:</strong> <a href="mailto:info@enosisltd.com">info@enosisltd.com</a></p>
+                        <p><strong>Email Us:</strong> <a href="mailto:info@enosisltd.com">info@enosisltd.com</a> / <a href="mailto:enosisproperties@gmail.com">enosisproperties@gmail.com</a></p>
                     </div>
                 </div>
                 <div class="footer-section">
@@ -182,6 +182,13 @@
                             <div>
                                 <h3 id="modalProjectTitle"></h3>
                                 <p class="modal-address" id="modalProjectAddress"></p>
+                                <button id="watchVideoBtn" class="watch-video-btn" title="Watch Video">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" class="play-icon">
+                                        <circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                        <polygon points="10,8 16,12 10,16" fill="currentColor"/>
+                                    </svg>
+                                    <span>Watch Video</span>
+                                </button>
                                 <div id="modalProjectStatus" class="property-badge"></div>
                             </div>
                             <button id="modalShareBtn" class="modal-share-btn" title="Share Project">
@@ -199,6 +206,19 @@
                     </div>
                     <a href="/contact-us" class="btn btn-solid btn-hero">Schedule a Visit</a>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Selection Modal -->
+    <div id="videoSelectionModal" class="video-selection-modal-overlay">
+        <div class="video-selection-content">
+            <button class="video-selection-close" id="videoSelectionCloseBtn">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3>Select a Video</h3>
+            <div class="video-grid" id="videoGrid">
+                <!-- Videos loaded dynamically -->
             </div>
         </div>
     </div>

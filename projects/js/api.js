@@ -160,51 +160,29 @@ const setupModalEventListeners = (projectsData) => {
         modalImageSlider.innerHTML = '';
         modalThumbnails.innerHTML = '';
         currentVideoIframe = null;
+        
+        // Store only image URLs (excluding videos) for modal slider
+        const imageUrls = project.photo ? project.photo.filter(url => !isYouTubeEmbed(url)) : [];
+        currentProject.imageUrls = imageUrls; // Store filtered images
 
-        if (project.photo && project.photo.length > 0) {
+        if (imageUrls.length > 0) {
             currentImageIndex = 0;
-            project.photo.forEach((photoUrl, index) => {
-                const isVideo = isYouTubeEmbed(photoUrl);
+            
+            imageUrls.forEach((photoUrl, index) => {
+                const img = document.createElement('img');
+                img.src = photoUrl;
+                img.alt = `${project.projectName} - Image ${index + 1}`;
+                img.className = 'modal-image-slide';
+                modalImageSlider.appendChild(img);
 
-                if (isVideo) {
-                    const embedUrl = getEmbedUrl(photoUrl);
-                    const iframe = document.createElement('iframe');
-                    iframe.src = embedUrl;
-                    iframe.className = 'modal-video-slide';
-                    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-                    iframe.setAttribute('allowfullscreen', 'true');
-                    iframe.setAttribute('frameborder', '0');
-                    iframe.dataset.index = index;
-
-                    iframe.addEventListener('play', () => {
-                        currentVideoIframe = iframe;
-                    });
-
-                    modalImageSlider.appendChild(iframe);
-
-                    const thumbContainer = document.createElement('div');
-                    thumbContainer.className = 'modal-thumbnail video-thumbnail';
-                    thumbContainer.innerHTML = `<div class="video-indicator"><i class="fas fa-play-circle"></i></div>`;
-                    thumbContainer.addEventListener('click', () => {
-                        showImage(index);
-                    });
-                    modalThumbnails.appendChild(thumbContainer);
-                } else {
-                    const img = document.createElement('img');
-                    img.src = photoUrl;
-                    img.alt = `${project.projectName} - Image ${index + 1}`;
-                    img.className = 'modal-image-slide';
-                    modalImageSlider.appendChild(img);
-
-                    const thumb = document.createElement('img');
-                    thumb.src = photoUrl;
-                    thumb.alt = `Thumbnail ${index + 1}`;
-                    thumb.classList.add('modal-thumbnail');
-                    thumb.addEventListener('click', () => {
-                        showImage(index);
-                    });
-                    modalThumbnails.appendChild(thumb);
-                }
+                const thumb = document.createElement('img');
+                thumb.src = photoUrl;
+                thumb.alt = `Thumbnail ${index + 1}`;
+                thumb.classList.add('modal-thumbnail');
+                thumb.addEventListener('click', () => {
+                    showImage(index);
+                });
+                modalThumbnails.appendChild(thumb);
             });
             updateSliderPosition(false);
         } else {
@@ -215,8 +193,9 @@ const setupModalEventListeners = (projectsData) => {
             modalImageSlider.appendChild(img);
         }
 
-        // Show/hide navigation buttons
-        if (project.photo && project.photo.length > 1) {
+        // Show/hide navigation buttons - only count images, not videos
+        const imageCount = project.photo ? project.photo.filter(url => !isYouTubeEmbed(url)).length : 0;
+        if (imageCount > 1) {
             prevBtn.style.display = 'flex';
             nextBtn.style.display = 'flex';
         } else {
@@ -291,6 +270,12 @@ const setupModalEventListeners = (projectsData) => {
     const modalProjectFeatures = projectModal.querySelector('#modalProjectFeatures');
     const prevBtn = projectModal.querySelector('.modal-gallery-nav.prev-btn');
     const nextBtn = projectModal.querySelector('.modal-gallery-nav.next-btn');
+    const watchVideoBtn = projectModal.querySelector('#watchVideoBtn');
+    
+    // Video Selection Modal Elements
+    const videoSelectionModal = document.getElementById('videoSelectionModal');
+    const videoSelectionCloseBtn = document.getElementById('videoSelectionCloseBtn');
+    const videoGrid = document.getElementById('videoGrid');
 
     // Full Screen Viewer Elements
     const fullScreenViewer = document.getElementById('fullScreenViewer');
@@ -320,6 +305,75 @@ const setupModalEventListeners = (projectsData) => {
             const newUrl = `${window.location.pathname}?id=${currentProject.id}`;
             window.history.pushState({ modalOpen: true, projectId: currentProject.id }, '', newUrl);
         }
+        // Update watch video button
+        updateWatchVideoButton();
+    };
+    
+    // Get YouTube video URLs from project photos
+    const getYouTubeUrls = (project) => {
+        if (!project.photo || project.photo.length === 0) return [];
+        return project.photo.filter(url => isYouTubeEmbed(url));
+    };
+    
+    // Extract video ID from YouTube URL
+    const getVideoId = (url) => {
+        const match = url.match(/(?:youtube\.com\/embed\/|youtu\.be\/|youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/);
+        return match ? match[1] : null;
+    };
+    
+    // Update watch video button state
+    const updateWatchVideoButton = () => {
+        if (!watchVideoBtn || !currentProject) return;
+        const videoUrls = getYouTubeUrls(currentProject);
+        
+        if (videoUrls.length === 0) {
+            watchVideoBtn.classList.add('disabled');
+            watchVideoBtn.querySelector('span').textContent = 'Watch Video';
+            return;
+        }
+        
+        watchVideoBtn.classList.remove('disabled');
+        watchVideoBtn.querySelector('span').textContent = `Watch Video (${videoUrls.length})`;
+    };
+    
+    // Handle watch video button click
+    const handleWatchVideoClick = () => {
+        if (!currentProject) return;
+        const videoUrls = getYouTubeUrls(currentProject);
+        
+        if (videoUrls.length === 0) return;
+        
+        if (videoUrls.length === 1) {
+            // Open directly in new tab
+            let watchUrl = videoUrls[0];
+            // Convert embed URL to watch URL
+            if (watchUrl.includes('/embed/')) {
+                const videoId = getVideoId(watchUrl);
+                watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
+            }
+            window.open(watchUrl, '_blank');
+            return;
+        }
+        
+        // Multiple videos - show selection modal
+        videoGrid.innerHTML = '';
+        videoUrls.forEach((url, index) => {
+            const videoId = getVideoId(url);
+            const videoItem = document.createElement('div');
+            videoItem.className = 'video-item';
+            videoItem.innerHTML = `
+                <img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" alt="Video ${index + 1}">
+                <div class="video-item-title">Video ${index + 1}</div>
+            `;
+            videoItem.addEventListener('click', () => {
+                const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
+                window.open(watchUrl, '_blank');
+                videoSelectionModal.classList.remove('active');
+            });
+            videoGrid.appendChild(videoItem);
+        });
+        
+        videoSelectionModal.classList.add('active');
     };
 
     const closeModal = () => {
@@ -471,18 +525,39 @@ const setupModalEventListeners = (projectsData) => {
     };
 
     const showImage = (index) => {
-        if (!currentProject || !currentProject.photo || currentProject.photo.length === 0) return;
+        if (!currentProject || !currentProject.imageUrls || currentProject.imageUrls.length === 0) return;
 
         // Pause current video before moving
         pauseCurrentVideo();
 
-        currentImageIndex = (index + currentProject.photo.length) % currentProject.photo.length;
+        currentImageIndex = (index + currentProject.imageUrls.length) % currentProject.imageUrls.length;
         updateSliderPosition();
         updateViewFullButton();
     };
 
 
     modalCloseBtn.addEventListener('click', closeModal);
+
+    // Watch video button
+    if (watchVideoBtn) {
+        watchVideoBtn.addEventListener('click', handleWatchVideoClick);
+    }
+
+    // Video selection modal close
+    if (videoSelectionCloseBtn) {
+        videoSelectionCloseBtn.addEventListener('click', () => {
+            videoSelectionModal.classList.remove('active');
+        });
+    }
+    
+    // Close video modal on backdrop click
+    if (videoSelectionModal) {
+        videoSelectionModal.addEventListener('click', (e) => {
+            if (e.target === videoSelectionModal) {
+                videoSelectionModal.classList.remove('active');
+            }
+        });
+    }
 
     // Share button functionality
     modalShareBtn.addEventListener('click', () => {
@@ -724,56 +799,29 @@ const setupModalEventListeners = (projectsData) => {
                 modalImageSlider.innerHTML = ''; // Clear previous images
                 modalThumbnails.innerHTML = '';
                 currentVideoIframe = null; // Reset video reference
+                
+                // Store only image URLs (excluding videos) for modal slider
+                const imageUrls = currentProject.photo ? currentProject.photo.filter(url => !isYouTubeEmbed(url)) : [];
+                currentProject.imageUrls = imageUrls; // Store filtered images
 
-                if (currentProject.photo && currentProject.photo.length > 0) {
+                if (imageUrls.length > 0) {
                     currentImageIndex = 0; // Reset index on modal open
-                    currentProject.photo.forEach((photoUrl, index) => {
-                        const isVideo = isYouTubeEmbed(photoUrl);
+                    imageUrls.forEach((photoUrl, index) => {
+                        // Create image element
+                        const img = document.createElement('img');
+                        img.src = photoUrl;
+                        img.alt = `${currentProject.projectName} - Image ${index + 1}`;
+                        img.className = 'modal-image-slide';
+                        modalImageSlider.appendChild(img); // Add image to the slider
 
-                        if (isVideo) {
-                            // Create iframe for YouTube video
-                            const embedUrl = getEmbedUrl(photoUrl);
-                            const iframe = document.createElement('iframe');
-                            iframe.src = embedUrl;
-                            iframe.className = 'modal-video-slide';
-                            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-                            iframe.setAttribute('allowfullscreen', 'true');
-                            iframe.setAttribute('frameborder', '0');
-                            // Set a data attribute to track if this is the current video
-                            iframe.dataset.index = index;
-
-                            // Store reference when this video becomes active
-                            iframe.addEventListener('play', () => {
-                                currentVideoIframe = iframe;
-                            });
-
-                            modalImageSlider.appendChild(iframe);
-
-                            // Thumbnail for video
-                            const thumbContainer = document.createElement('div');
-                            thumbContainer.className = 'modal-thumbnail video-thumbnail';
-                            thumbContainer.innerHTML = `<div class="video-indicator"><i class="fas fa-play-circle"></i></div>`;
-                            thumbContainer.addEventListener('click', () => {
-                                showImage(index);
-                            });
-                            modalThumbnails.appendChild(thumbContainer);
-                        } else {
-                            // Create image element
-                            const img = document.createElement('img');
-                            img.src = photoUrl;
-                            img.alt = `${currentProject.projectName} - Image ${index + 1}`;
-                            img.className = 'modal-image-slide';
-                            modalImageSlider.appendChild(img); // Add image to the slider
-
-                            const thumb = document.createElement('img');
-                            thumb.src = photoUrl;
-                            thumb.alt = `Thumbnail ${index + 1}`;
-                            thumb.classList.add('modal-thumbnail');
-                            thumb.addEventListener('click', () => {
-                                showImage(index); // Use showImage for thumbnail click
-                            });
-                            modalThumbnails.appendChild(thumb);
-                        }
+                        const thumb = document.createElement('img');
+                        thumb.src = photoUrl;
+                        thumb.alt = `Thumbnail ${index + 1}`;
+                        thumb.classList.add('modal-thumbnail');
+                        thumb.addEventListener('click', () => {
+                            showImage(index); // Use showImage for thumbnail click
+                        });
+                        modalThumbnails.appendChild(thumb);
                     });
                     // Set initial slider position without animation
                     updateSliderPosition(false);
@@ -786,7 +834,8 @@ const setupModalEventListeners = (projectsData) => {
                 }
                 
                 // Show/hide navigation buttons based on image count
-                if (currentProject.photo && currentProject.photo.length > 1) {
+                const imageCount = currentProject.photo ? currentProject.photo.filter(url => !isYouTubeEmbed(url)).length : 0;
+                if (imageCount > 1) {
                     prevBtn.style.display = 'flex';
                     nextBtn.style.display = 'flex';
                 } else {
