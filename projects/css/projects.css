@@ -103,8 +103,76 @@
     transition: transform 0.7s ease;
 }
 
+.card-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
 .property-card:hover .card-image img {
     transform: scale(1.1);
+}
+
+.property-card:hover .card-image::after {
+    opacity: 1;
+}
+
+/* Hover Info */
+.card-hover-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    z-index: 2;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.property-card:hover .card-hover-info {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.hover-title {
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.hover-stats {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    width: 80%;
+}
+
+.hover-stat {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.hover-stat i {
+    color: var(--color-b);
+    font-size: 0.8rem;
 }
 
 .property-badge {

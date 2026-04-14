@@ -65,6 +65,14 @@ const createPropertyCard = (project) => {
         <div class="property-badge ${badgeClass}">${project.status}</div>
         <div class="card-image">
             <img src="${project.photo.length > 0 ? project.photo[0] : 'https://picsum.photos/seed/default/800/600'}" alt="${project.projectName}">
+            <div class="card-hover-info">
+                <h3 class="hover-title">${project.projectName}</h3>
+                <div class="hover-stats">
+                    <span class="hover-stat"><i class="fas fa-ruler-combined"></i> ${sqft} sqft</span>
+                    <span class="hover-stat"><i class="fas fa-building"></i> ${story} Stories</span>
+                    <span class="hover-stat"><i class="fas fa-th"></i> ${total_unit} Units</span>
+                </div>
+            </div>
         </div>
         <div class="card-content">
             <div>
@@ -92,29 +100,6 @@ const createPropertyCard = (project) => {
                     <div class="agent-name">${project.projectName}</div>
                 </div>
             </div>
-        </div>
-        <div class="card-overlay">
-            <h3 class="overlay-title">${project.projectName}</h3>
-            <p class="property-description">${project.description}</p>
-            <div class="property-stats">
-                <div class="stat">
-                    <div class="stat-value">${sqft}</div>
-                    <div class="stat-label">Sqft</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">${unit_per_floor}</div>
-                    <div class="stat-label">Units/Floor</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">${katha}</div>
-                    <div class="stat-label">Katha</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">${orientation}</div>
-                    <div class="stat-label">Orientation</div>
-                </div>
-            </div>
-            <button class="contact-btn" data-project-id="${project.id}">View Details</button>
         </div>
     `;
     return card;
