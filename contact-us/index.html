@@ -106,6 +106,22 @@
                         <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
                     </div>
                     <div class="form-group">
+                        <label>I am a</label>
+                        <div class="toggle-container">
+                            <input type="radio" name="owner_or_buyer" id="owner" value="owner" checked>
+                            <label for="owner" class="toggle-label">
+                                <span class="toggle-icon"><i class="fas fa-home"></i></span>
+                                <span>Land Owner</span>
+                            </label>
+                            <input type="radio" name="owner_or_buyer" id="buyer" value="buyer">
+                            <label for="buyer" class="toggle-label">
+                                <span class="toggle-icon"><i class="fas fa-hand-holding-usd"></i></span>
+                                <span>Land Buyer</span>
+                            </label>
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="interest">Interested In</label>
                         <select id="interest" class="form-control" required>
                             <option value="" disabled selected>Select your interest</option>
@@ -113,7 +129,12 @@
                             <option value="buy-apartments-shared">Willing to buy apartments (shared basis)</option>
                             <option value="investment-based">Investment based</option>
                             <option value="interior-design">Interior Design</option>
+                            <option value="develop-land">Willing to Develop my land</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Where do you want to buy properties in?</label>
+                        <input type="text" id="location" class="form-control" placeholder="e.g., Gulshan, Banani, Dhanmondi">
                     </div>
                     <div class="form-group">
                         <label for="message">Message</label>

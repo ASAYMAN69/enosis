@@ -43,6 +43,8 @@ function submitContactForm(event) {
     const phone = document.getElementById('phone').value.trim();
     const interest = document.getElementById('interest').value;
     const message = document.getElementById('message').value.trim() || '';
+    const ownerOrBuyer = document.querySelector('input[name="owner_or_buyer"]:checked')?.value || 'owner';
+    const location = document.getElementById('location').value.trim() || '';
 
     if (!name || !email || !phone || !interest) {
         alert('Please fill in all required fields');
@@ -54,6 +56,8 @@ function submitContactForm(event) {
         email: email,
         phone: phone,
         interest: interest,
+        owner_or_buyer: ownerOrBuyer,
+        location: location,
         message: message
     };
 
