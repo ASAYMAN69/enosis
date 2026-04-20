@@ -116,19 +116,23 @@ document.addEventListener('DOMContentLoaded', () => {
         track.style.transition = 'none';
         track.style.animation = '';
 
+        // Reset to original state
+        track.innerHTML = initialTrackHTML;
+        
+        const cardCount = track.children.length;
+
         if (isMobile()) {
-            if (track.children.length > 4) {
-                track.innerHTML = initialTrackHTML;
-            }
             moveToCard(currentIndex);
             startAutoplay();
         } else {
-            track.innerHTML = initialTrackHTML;
-            const cards = track.querySelectorAll('.testimonial-card');
-            cards.forEach(card => {
-                const clone = card.cloneNode(true);
-                track.appendChild(clone);
-            });
+            // Desktop: duplicate cards 3 times for smooth infinite scroll (4 cards -> 16 total)
+            const cards = Array.from(track.children);
+            for (let i = 0; i < 3; i++) {
+                cards.forEach(card => {
+                    const clone = card.cloneNode(true);
+                    track.appendChild(clone);
+                });
+            }
             track.style.transform = 'translateX(0)';
         }
     }
